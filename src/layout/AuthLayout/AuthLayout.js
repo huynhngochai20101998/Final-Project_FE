@@ -6,7 +6,7 @@ import "./AuthLayout.scss";
 
 const AuthLayout = (props) => {
   return (
-    <div className="auth-layout">
+    <div className="">
       <Row>
         <Col>
           <AuthNavbar />

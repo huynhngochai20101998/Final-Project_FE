@@ -7,6 +7,7 @@ import SignUp from "pages/Authentication/SignUp/SignUp";
 import VerifyCode from "pages/Authentication/VerifyCode/VerifyCode";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
+import Error from "pages/Error/Error";
 
 export const routeConfig = [
   {
