@@ -1,7 +1,12 @@
 import React from "react";
+import AuthLayout from "layout/AuthLayout/AuthLayout";
 
 const SignIn = () => {
-  return <div>Sigin</div>;
+  return (
+    <AuthLayout>
+      <div>SignIn</div>
+    </AuthLayout>
+  );
 };
 
 export default SignIn;

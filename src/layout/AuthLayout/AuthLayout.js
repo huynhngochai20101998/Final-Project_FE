@@ -1,19 +1,21 @@
 import React from "react";
-import AuthBanner from "components/AuthBanner/AuthBanner";
+import AuthNavbar from "components/Navbar/AuthNavbar/AuthNavbar";
+import "./AuthLayout.scss";
+import { Col, Row } from "react-bootstrap";
 import "./AuthLayout.scss";
 
 const AuthLayout = (props) => {
   return (
-    <>
-      <div className="auth-layout">
-        <div className="row">
-          <div className="col-md-6 ">
-            <AuthBanner />
-          </div>
-          <div className="col-md-6 auth-main">{props.children}</div>
-        </div>
-      </div>
-    </>
+    <div className="auth-layout">
+      <Row>
+        <Col>
+          <AuthNavbar />
+        </Col>
+      </Row>
+      <Row>
+        <Col>{props.children}</Col>
+      </Row>
+    </div>
   );
 };
 

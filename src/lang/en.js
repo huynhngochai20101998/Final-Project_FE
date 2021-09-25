@@ -11,7 +11,7 @@ export default {
         SIGNUP: "SignUp",
         LOGOUT: "Logout",
         WELCOME: "Welcome",
-        NEWS: "News",
+        POSTS: "Posts",
         LANGUAGE: "Language",
         PROFILE: "Profile",
         LIST_USER: "List User"

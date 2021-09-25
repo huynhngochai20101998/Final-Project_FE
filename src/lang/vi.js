@@ -10,7 +10,7 @@ export default {
         SIGNUP: "Tạo Tài Khoản",
         LOGOUT: "Đăng Xuất",
         WELCOME: "Chào",
-        NEWS: "Tin Mới",
+        POST: "Bài Đăng",
         LANGUAGE: "Ngôn Ngữ",
         PROFILE: "Thông tin cá nhân",
         LIST_USER: "Danh sách"
