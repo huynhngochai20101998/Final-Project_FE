@@ -10,7 +10,7 @@ import {
 export const HomeVisitor = () => {
   return (
     <HomeVisitorLayout>
-      <div>Home</div>
+      <div>Home visitor</div>
     </HomeVisitorLayout>
   );
 };
@@ -18,7 +18,7 @@ export const HomeVisitor = () => {
 export const HomeUser = () => {
   return (
     <HomeUserLayout>
-      <div>Home</div>
+      <div>Home user</div>
     </HomeUserLayout>
   );
 };

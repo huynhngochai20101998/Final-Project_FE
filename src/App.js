@@ -13,8 +13,7 @@ import "./assets/scss/index.scss";
 import "plugins/react-i18n.js";
 import Toast from "components/Toast";
 import { routeConfig, RouteWithSubRoutes } from "router/config";
-
-import Home from "pages/Home/Home";
+import { HomeVisitor } from "pages/Home/Home";
 
 function App() {
   // const { i18n } = useTranslation();
@@ -57,7 +56,7 @@ function App() {
     <div className="content-wrapper">
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={HomeVisitor} />
           {routeConfig.map((route, i) => (
             <RouteWithSubRoutes key={i} {...route} />
           ))}
