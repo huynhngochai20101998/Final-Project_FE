@@ -11,6 +11,8 @@ export const HomeVisitor = () => {
   return (
     <HomeVisitorLayout>
       <div>Home visitor</div>
+      <div>Home visitor</div>
+      <div>Home visitor</div>
     </HomeVisitorLayout>
   );
 };
