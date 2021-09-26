@@ -1,0 +1,15 @@
+@import "../../../assets/scss/app.scss";
+
+.btn-login {
+    width: 100%;
+    height: 60px;
+
+    border: 0px;
+    border-radius: 10px;
+    background-color: $color_green_button_login;
+
+    color: $color_white;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 28px;
+}
