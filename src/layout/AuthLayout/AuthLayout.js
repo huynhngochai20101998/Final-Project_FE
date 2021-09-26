@@ -1,7 +1,7 @@
 import React from "react";
 import AuthNavbar from "components/Navbar/AuthNavbar/AuthNavbar";
 import "./AuthLayout.scss";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row } from "reactstrap";
 import "./AuthLayout.scss";
 
 const AuthLayout = (props) => {
