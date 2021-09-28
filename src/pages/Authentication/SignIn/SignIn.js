@@ -30,7 +30,7 @@ const SignIn = () => {
             // do something here
             return (
               <Form className="Sign-in__form">
-                <h2>Đăng nhập</h2>
+                <h2>Đăng Nhập</h2>
                 <FastField
                   name="email"
                   component={InputField}
