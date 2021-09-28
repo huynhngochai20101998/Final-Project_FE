@@ -68,11 +68,12 @@ const SignUp = () => {
                 />
                 <FormGroup check className="Sign-up__form__checkbox">
                   <Label check>
-                    <Input type="radio" name="radio1" />
+                    <Input type="checkbox" />
                     {""}
                     Tôi đồng ý với điều khoản và điều kiện
                   </Label>
                 </FormGroup>
+
                 <div className="form-btn-confirm">
                   <ButtonLogin>Đăng ký</ButtonLogin>
                 </div>
