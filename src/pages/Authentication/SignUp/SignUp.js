@@ -37,7 +37,7 @@ const SignUp = () => {
             // do something here
             return (
               <Form className="Sign-up__form">
-                <h2>Đăng kí</h2>
+                <h2>Đăng Kí</h2>
                 <FastField
                   name="email"
                   component={InputField}
