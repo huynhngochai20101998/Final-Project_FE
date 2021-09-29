@@ -1,16 +1,22 @@
 import React from "react";
-import "./ResetPassword.scss";
+import { ErrorMessage, useField } from "formik";
 
-const TextField = () => {
+const TextField = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
   return (
-    <div>
+    <div className="form-group">
+      <label htmlFor={field.name}>{label}</label>
       <input
-        type="password"
-        name="newpassword"
-        className="form-control"
-        id="newpassword"
-        required
+        className={`form-control ${meta.touched && meta.error && "is-invalid"}`}
+        {...field}
+        {...props}
+        autoComplete="off"
       />
+      <ErrorMessage
+        name={field.name}
+        component="div"
+        className="active-failure"
+      ></ErrorMessage>
     </div>
   );
 };
