@@ -73,7 +73,7 @@
         }
     }
     &__solid {
-        border-top: 1.3px solid #9f9f9f;
+        border-top: 1.3px solid $color_grey_border;
         width: 100%;
         position: relative;
         text-align: center;
@@ -81,7 +81,7 @@
             position: absolute;
             top: -15px;
             left: 113px;
-            background-color: white;
+            background-color: $color_white;
         }
     }
     &__google-fb {
@@ -103,7 +103,7 @@
         }
         button:nth-child(2) {
             @extend button:first-child;
-            background-color: #1877f2;
+            background-color: $color_blue_button_fb;
             color: $color_white;
             border: 0px;
             margin-top: 25px;

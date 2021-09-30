@@ -11,10 +11,8 @@ import "./SignIn.scss";
 import PasswordField from "./PasswordField";
 const SignIn = () => {
   const validationSchema = Yup.object().shape({
-    // email: Yup.string()
-    //   .email("Định dạng email không hợp lệ")
-    //   .required("Trường này là bắt buộc."),
-    // password: Yup.string().required("Trường này là bắt buộc. ")
+    email: Yup.string().email("Định dạng email không hợp lệ").required(" "),
+    password: Yup.string().required(" ")
   });
   return (
     <AuthLayout>
@@ -30,7 +28,7 @@ const SignIn = () => {
             // do something here
             return (
               <Form className="Sign-in__form">
-                <h2>Đăng nhập</h2>
+                <h2>Đăng Nhập</h2>
                 <FastField
                   name="email"
                   component={InputField}
