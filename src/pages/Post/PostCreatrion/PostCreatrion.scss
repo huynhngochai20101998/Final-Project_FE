@@ -1,0 +1,98 @@
+@import "../../../assets/scss/foundation/variable/variable";
+
+.form-create-post{
+    h2{
+        margin-left: 24%;
+    }
+
+    .form-group{
+        justify-content: center;
+        margin-top: 20px;
+        label{
+            font-weight: 600;
+        }
+        input, textarea, .multi-select{
+            border-radius: 10px;
+            border: 1px solid $color_black;
+        }
+        .multi-select>*{
+            border-radius: 10px;
+        }
+        button{
+            background-color: $color_black;
+            border-color: $color_black;
+            float: right;
+            border-radius: 10px;
+            font-size: 0.9rem;
+
+            &:hover{
+                background-color: $color_black_hover;
+            }
+            
+            &:focus{
+                box-shadow: none;
+            }
+        }
+
+        .active-failure{
+            color: $color_failure;
+            font-size: 0.8rem;
+        }
+    }
+    .row>*{
+        width: 52%;
+        }
+}
+
+
+@media only screen and (max-width: $desktop-width) {
+    .form-create-post{
+        h2{
+            margin-left: 15%;
+        }
+
+        .row>*{
+            width: 70%;
+        }
+
+        .form-group{
+            button{
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $tablet-width) {
+    .form-create-post{
+        h2{
+            margin-left: 10%;
+            font-size: 1.4rem;
+        }
+        .row>*{
+            width: 80%;
+        }
+        .form-group{
+            button{
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $mobile-width) {
+    .form-create-post{
+        h2{
+           margin-left: 0;
+           display: block;
+        }
+        .row>*{
+            width: 100%;
+        }
+        .form-group{
+            button{
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
