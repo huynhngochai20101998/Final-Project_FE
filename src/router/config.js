@@ -7,6 +7,7 @@ import SignUp from "pages/Authentication/SignUp/SignUp";
 import VerifyCode from "pages/Authentication/VerifyCode/VerifyCode";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
+import Commenting from "components/Post/Commenting/Commenting";
 import Error from "pages/Error/Error";
 
 export const routeConfig = [
@@ -39,6 +40,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: ResetPassword
+  },
+  {
+    path: "/test",
+    isPrivate: false,
+    exact: true,
+    component: Commenting
   },
   { path: "*", component: Error }
 ];

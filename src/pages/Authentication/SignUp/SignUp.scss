@@ -1,0 +1,107 @@
+@import "../../../assets/scss/foundation/variable/variable";
+
+.register-form{
+    border-radius: 5px;
+    margin-top: 30px;
+    width: 480px !important;
+    background-color: $color_main;
+    padding: 0 !important;
+
+    .register-header{
+        background-color: $weak_color;
+        border-radius: 5px 5px 0 0;
+        height: 66px;
+
+        h3{
+            color: $color_white;
+            text-align: center;
+            line-height: 66px;
+            font-weight: bold;
+        }
+    }
+
+    .register-content{
+        padding-left: 24px;
+        padding-right: 24px;
+        color: $color_white;
+        font-size: 1rem;
+        
+        label{
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        input{
+            border-radius: 0.625rem;
+            background-color: $color_main;
+            border: $weak_color solid 1px;
+            color: $color_white;
+        }
+
+        input:focus{
+            border: 1px solid $sencond_color;
+            box-shadow: none;
+        }
+
+        input[type=password]::-ms-reveal,
+        input[type=password]::-ms-clear
+        {
+            display: none;
+        }
+
+        button{
+            background-color: $sencond_color;
+            color: $color_black;
+            font-size: 1.25rem; 
+            width: 240px;         
+            border-radius: 10px;  
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button{
+
+            &:hover{
+                background-color: $sencond_color_hover;
+            }
+    
+            &:active{
+                background-color: $sencond_color_active;
+            }
+    
+            &:focus{
+                outline: none;
+                box-shadow: none;
+            }
+        }
+
+        .form-check{
+
+            label{
+            color: $sencond_color;
+            margin: 0;
+            }
+        }
+
+        .active-failure{
+            color: $failure_color;
+            font-size: 0.6rem;
+        }
+    }
+
+    .register-bottom{
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        
+        span{
+            padding-right: 5px;
+            font-size: 0.8rem;
+        }
+
+        a{
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+    }
+}
