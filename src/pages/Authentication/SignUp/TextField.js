@@ -22,6 +22,7 @@ function TextField({ label, className, ...props }) {
         {...props}
         onClick={onClick}
         onBlur={onBlur}
+        autoComplete="off"
       />
       <span htmlFor={field.name} className="active-failure" id="label-error">
         {props.errormess && !checkClick && field.value !== ""

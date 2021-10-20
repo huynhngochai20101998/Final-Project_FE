@@ -31,7 +31,7 @@ const SignUp = () => {
     handleExistUser(values);
     if (!handleExistUser(values)) {
       const { termsAndConditions, ...dataUser } = values;
-      console.log(termsAndConditions, dataUser);
+      console.log(termsAndConditions);
       axios
         .post("http://localhost:3000/user", dataUser)
         .then((response) => {
