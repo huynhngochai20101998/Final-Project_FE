@@ -26,7 +26,7 @@ const ForgotPassword = () => {
             <div className="forgot-header">
               <h3>Quên mật khẩu</h3>
             </div>
-            <div className="fprgot-content">
+            <div className="forgot-content">
               <div className="row">
                 <TextField
                   label="Email"
