@@ -1,17 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { ErrorMessage, useField } from "formik";
 
 function TextField({ label, className, ...props }) {
   const [field, meta] = useField(props);
-  const [checkClick, setCheckClick] = useState(false);
-
-  function onClick() {
-    setCheckClick(true);
-  }
-
-  function onBlur() {
-    setCheckClick(false);
-  }
 
   return (
     <div className={className}>
@@ -20,12 +11,11 @@ function TextField({ label, className, ...props }) {
         className={`form-control ${meta.touched && meta.error && "is-invalid"}`}
         {...field}
         {...props}
-        onClick={onClick}
-        onBlur={onBlur}
         autoComplete="off"
       />
       <span htmlFor={field.name} className="active-failure" id="label-error">
-        {props.errormess && !checkClick && field.value !== ""
+        {(props.errormess && props.checkClick) ||
+        (props.errormess && field.value !== "")
           ? props.errormess
           : ""}
       </span>

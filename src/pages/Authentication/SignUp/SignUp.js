@@ -12,6 +12,7 @@ const SignUp = () => {
   const history = useHistory();
   const [existUser, setExistUser] = useState([]); // lấy ra mảng user
   const [logError, setLogError] = useState(""); //nếu tồn tại email thông báo email tồn tại, còn không trả về ""
+  const [checkClick, setCheckClick] = useState("");
   const errors = "Email đã tồn tại";
 
   const validate = Yup.object({
@@ -50,10 +51,16 @@ const SignUp = () => {
     });
     if (checkUser) {
       setLogError(errors);
+      setCheckClick("");
     } else {
       setLogError("");
     }
     return checkUser;
+  }
+
+  function onclickinput() {
+    setCheckClick("true");
+    setLogError("");
   }
 
   useEffect(() => {
@@ -108,6 +115,8 @@ const SignUp = () => {
                 type="email"
                 className="form-group"
                 errormess={logError}
+                onClick={onclickinput}
+                checkclick={checkClick}
               />
               <TextField
                 label="Mật Khẩu"
