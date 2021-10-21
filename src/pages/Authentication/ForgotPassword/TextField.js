@@ -16,7 +16,7 @@ function TextField({ label, className, ...props }) {
       <ErrorMessage
         component="div"
         name={field.name}
-        className="active-failure"
+        className="active_failure"
       ></ErrorMessage>
     </div>
   );
