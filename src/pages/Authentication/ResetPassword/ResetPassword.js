@@ -1,8 +1,7 @@
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 import React from "react";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import "./ResetPassword.scss";
-import TextField from "./TextField";
 import * as Yup from "yup";
 
 const ResetPassword = () => {
@@ -31,21 +30,6 @@ const ResetPassword = () => {
           <div className="wrap-reset-pass">
             <div className="col-md-3 col-sm-3 m-auto content-reset-pass">
               <h2>Thay đổi mật khẩu</h2>
-              <Form>
-                <TextField
-                  label="Mật khẩu mới"
-                  name="newPassword"
-                  type="password"
-                ></TextField>
-                <TextField
-                  label="Xác nhận mật khẩu"
-                  name="confirmPassword"
-                  type="password"
-                ></TextField>
-                <button type="submit" className="btn btn-primary float-right">
-                  Xác nhận
-                </button>
-              </Form>
             </div>
           </div>
         )}

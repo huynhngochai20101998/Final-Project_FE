@@ -2,12 +2,11 @@ import React from "react";
 import { Route } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
-import SignIn from "pages/Authentication/SignIn/SignIn";
 import SignUp from "pages/Authentication/SignUp/SignUp";
-import VerifyCode from "pages/Authentication/VerifyCode/VerifyCode";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
+import Login from "pages/Authentication/Login/Login";
 
 export const routeConfig = [
   {
@@ -17,16 +16,10 @@ export const routeConfig = [
     component: SignUp
   },
   {
-    path: "/verify-code",
+    path: "/login",
     isPrivate: false,
     exact: true,
-    component: VerifyCode
-  },
-  {
-    path: "/signin",
-    isPrivate: false,
-    exact: true,
-    component: SignIn
+    component: Login
   },
   {
     path: "/forgot-password",
