@@ -14,6 +14,7 @@ import "plugins/react-i18n.js";
 import Toast from "components/Toast";
 import { routeConfig, RouteWithSubRoutes } from "router/config";
 import { HomeVisitor } from "pages/Home/Home";
+// import SignIn from "pages/Authentication/SignIn/SignIn";
 
 function App() {
   // const { i18n } = useTranslation();
