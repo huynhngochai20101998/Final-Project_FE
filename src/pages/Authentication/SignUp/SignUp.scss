@@ -8,7 +8,7 @@
     padding: 0 !important;
 
     .register-header{
-        background-color: $weak_color;
+        background-color: $bg_login_title;
         border-radius: 5px 5px 0 0;
         height: 66px;
 
@@ -34,12 +34,12 @@
         input{
             border-radius: 0.625rem;
             background-color: $bg_login_form;
-            border: $weak_color solid 1px;
+            border:$bg_login_title solid 1px;
             color: $color_white;
         }
 
         input:focus{
-            border: 1px solid $sencond_color;
+            border: 1px solid $color_text_blue;
             box-shadow: none;
         }
 
@@ -50,7 +50,7 @@
         }
 
         button{
-            background-color: $sencond_color;
+            background-color: $color_text_blue;
             color: $color_black;
             font-size: 1.25rem; 
             width: 240px;         
@@ -78,13 +78,13 @@
         .form-check{
 
             label{
-            color: $sencond_color;
+            color: $color_text_blue;
             margin: 0;
             }
         }
 
         .active-failure{
-            color: $failure_color;
+            color: $color_error;
             font-size: 0.6rem;
         }
     }
