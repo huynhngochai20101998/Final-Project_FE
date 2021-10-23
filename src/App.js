@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 // import { useSelector } from "react-redux";
 // import Loading from "./components/Loading/Loading";
 import "./assets/scss/index.scss";
-// import {
-//   getToken,
-//   removeUserLocal,
-//   setUserLocal,
-//   getLanguage
-// } from "core/localStore";
-// import { useTranslation } from "react-i18next";
+import {
+  getToken,
+  //   removeUserLocal,
+  //   setUserLocal,
+  getLanguage
+} from "core/localStore";
+import { useTranslation } from "react-i18next";
 import "plugins/react-i18n.js";
 import Toast from "components/Toast";
 import { routeConfig, RouteWithSubRoutes } from "router/config";
+
 import { HomeVisitor } from "pages/Home/Home";
-// import SignIn from "pages/Authentication/SignIn/SignIn";
 
 function App() {
-  // const { i18n } = useTranslation();
+  const { i18n } = useTranslation();
   // const { user } = useSelector((state) => state.user);
   // const [authLoading, setAuthLoading] = useState(true);
 
@@ -39,15 +39,15 @@ function App() {
   //   }
   // };
 
-  // useEffect(() => {
-  //   i18n.changeLanguage(getLanguage());
-  //   const token = getToken();
-  //   if (!token) {
-  //     return;
-  //   }
+  useEffect(() => {
+    i18n.changeLanguage(getLanguage());
+    const token = getToken();
+    if (!token) {
+      return;
+    }
 
-  //   getUserMe();
-  // }, []);
+    //   getUserMe();
+  }, []);
 
   // if (authLoading && getToken()) {
   //   return <Loading visible={authLoading} />;
