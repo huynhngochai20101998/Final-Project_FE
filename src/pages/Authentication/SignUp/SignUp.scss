@@ -4,7 +4,7 @@
     border-radius: 5px;
     margin-top: 30px;
     width: 480px !important;
-    background-color: $color_main;
+    background-color: $bg_login_form;
     padding: 0 !important;
 
     .register-header{
@@ -33,7 +33,7 @@
 
         input{
             border-radius: 0.625rem;
-            background-color: $color_main;
+            background-color: $bg_login_form;
             border: $weak_color solid 1px;
             color: $color_white;
         }
