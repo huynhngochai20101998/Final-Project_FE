@@ -1,0 +1,91 @@
+@import "../../../assets/scss/app.scss";
+.PostCreate {
+    background-color: #2d2d39;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__form {
+        width: 868px;
+        height: 738px;
+        background: #3f4156;
+        border-radius: 5px;
+        &__title {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            height: 66px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #696d97;
+        }
+        &__content {
+            margin: 50px;
+            label {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                color: #ffffff;
+                margin: 18px 0;
+            }
+            input {
+                background: #3f4156;
+                border: 1px solid #696d97;
+                box-sizing: border-box;
+                border-radius: 10px;
+                padding: 0px 20px;
+                height: 42px;
+                color: #ffffff;
+                &:focus {
+                    background: #3f4156;
+                    outline: none;
+                    box-shadow: none !important;
+                    color: #ffffff;
+                }
+            }
+            input[type="number"] {
+                width: 63px;
+                padding: 0 8px;
+                text-align: center;
+            }
+            textarea {
+                background: #3f4156;
+                border: 1px solid #696d97;
+                box-sizing: border-box;
+                border-radius: 10px;
+                color: #ffffff;
+                line-height: 25px;
+                padding: 17px 20px;
+                height: 200px;
+                &:focus {
+                    background: #3f4156;
+                    outline: none;
+                    box-shadow: none !important;
+                    color: #ffffff;
+                }
+            }
+        }
+        &__button {
+            margin: 90px 0px;
+            display: flex;
+            justify-content: flex-end;
+            button {
+                width: 126px;
+                height: 44px;
+                border-radius: 10px;
+                &:focus {
+                    box-shadow: none !important;
+                }
+            }
+            button:first-child {
+                background: #696d97;
+            }
+            button:nth-child(2) {
+                background: #71c6dd;
+                border-radius: 10px;
+                margin-left: 25px;
+            }
+        }
+    }
+}

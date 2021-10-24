@@ -8,6 +8,7 @@ import VerifyCode from "pages/Authentication/VerifyCode/VerifyCode";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
+import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
 
 export const routeConfig = [
   {
@@ -39,6 +40,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: ResetPassword
+  },
+  {
+    path: "/post-create",
+    isPrivate: false,
+    exact: true,
+    component: PostCreatrion
   },
   { path: "*", component: Error }
 ];
