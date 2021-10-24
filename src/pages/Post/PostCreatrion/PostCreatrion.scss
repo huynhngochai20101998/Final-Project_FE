@@ -1,16 +1,16 @@
 @import "../../../assets/scss/app.scss";
 .PostCreate {
-    background-color: #2d2d39;
+    background-color: $bg_posts_create;
     display: flex;
     justify-content: center;
     align-items: center;
     &__form {
         width: 868px;
         height: 738px;
-        background: #3f4156;
+        background: $bg_login_form;
         border-radius: 5px;
         &__title {
-            color: #ffffff;
+            color: $color_white;
             font-weight: bold;
             font-size: 24px;
             line-height: 28px;
@@ -18,7 +18,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #696d97;
+            background-color: $bg_login_title;
         }
         &__content {
             margin: 50px;
@@ -26,22 +26,22 @@
                 font-weight: 500;
                 font-size: 16px;
                 line-height: 19px;
-                color: #ffffff;
+                color: $color_white;
                 margin: 18px 0;
             }
             input {
-                background: #3f4156;
-                border: 1px solid #696d97;
+                background: $bg_login_form;
+                border: 1px solid $bg_login_title;
                 box-sizing: border-box;
                 border-radius: 10px;
                 padding: 0px 20px;
                 height: 42px;
-                color: #ffffff;
+                color: $color_white;
                 &:focus {
-                    background: #3f4156;
+                    background: $bg_login_form;
                     outline: none;
                     box-shadow: none !important;
-                    color: #ffffff;
+                    color: $color_white;
                 }
             }
             input[type="number"] {
@@ -50,19 +50,19 @@
                 text-align: center;
             }
             textarea {
-                background: #3f4156;
-                border: 1px solid #696d97;
+                background: $bg_login_form;
+                border: 1px solid $bg_login_title;
                 box-sizing: border-box;
                 border-radius: 10px;
-                color: #ffffff;
+                color: $color_white;
                 line-height: 25px;
                 padding: 17px 20px;
                 height: 200px;
                 &:focus {
-                    background: #3f4156;
+                    background: $bg_login_form;
                     outline: none;
                     box-shadow: none !important;
-                    color: #ffffff;
+                    color: $color_white;
                 }
             }
         }
@@ -79,10 +79,10 @@
                 }
             }
             button:first-child {
-                background: #696d97;
+                background: $bg_login_title;
             }
             button:nth-child(2) {
-                background: #71c6dd;
+                background: $color_text_blue;
                 border-radius: 10px;
                 margin-left: 25px;
             }

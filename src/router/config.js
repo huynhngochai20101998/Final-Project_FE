@@ -1,14 +1,13 @@
 import React from "react";
-import { Route } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import SignIn from "pages/Authentication/SignIn/SignIn";
 import SignUp from "pages/Authentication/SignUp/SignUp";
-import VerifyCode from "pages/Authentication/VerifyCode/VerifyCode";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
 import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
+import Login from "pages/Authentication/Login/Login";
 
 export const routeConfig = [
   {
@@ -18,16 +17,10 @@ export const routeConfig = [
     component: SignUp
   },
   {
-    path: "/verify-code",
+    path: "/login",
     isPrivate: false,
     exact: true,
-    component: VerifyCode
-  },
-  {
-    path: "/signin",
-    isPrivate: false,
-    exact: true,
-    component: SignIn
+    component: Login
   },
   {
     path: "/forgot-password",
@@ -50,27 +43,25 @@ export const routeConfig = [
   { path: "*", component: Error }
 ];
 
-// const PrivateRoute = (privateProps) => {
-//   const { user } = useSelector((state) => state.user);
+const PrivateRoute = (privateProps) => {
+  const { user } = useSelector((state) => state.user);
 
-//   if (user) return <privateProps.component {...privateProps} />;
+  if (user) return <privateProps.component {...privateProps} />;
 
-//   return <Redirect to="/login" />;
-// };
+  return <Redirect to="/login" />;
+};
 
 export const RouteWithSubRoutes = (route) => {
   return (
     <Route
       path={route.path}
       exact={route.exact}
-      render={
-        (props) => (
-          // route.isPrivate ? (
-          //   <PrivateRoute {...route} />
-          // ) : (
+      render={(props) =>
+        route.isPrivate ? (
+          <PrivateRoute {...route} />
+        ) : (
           <route.component {...props} />
         )
-        // )
       }
     />
   );
