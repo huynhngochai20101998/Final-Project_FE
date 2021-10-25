@@ -1,10 +1,17 @@
+import { pushToast } from "components/Toast";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import FormLogin from "./FormLogin/FormLogin";
 import "./Login.scss";
 
 const Login = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    pushToast("success", location.state?.successful);
+  }, [location]);
+
   return (
     <AuthLayout>
       <div className="login-wrapper">

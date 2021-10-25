@@ -7,6 +7,7 @@ import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
 import Login from "pages/Authentication/Login/Login";
+import { HomeUser } from "pages/Home/Home";
 
 export const routeConfig = [
   {
@@ -32,6 +33,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: ResetPassword
+  },
+  {
+    path: "/home",
+    isPrivate: false,
+    exact: true,
+    component: HomeUser
   },
   { path: "*", component: Error }
 ];

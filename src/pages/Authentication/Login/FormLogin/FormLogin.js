@@ -1,18 +1,43 @@
+import Loading from "components/Loading/Loading";
+import { USER_ROLE } from "core/constants";
 import { useFormik } from "formik";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { login } from "store/user";
 import * as Yup from "yup";
 
 function FormLogin() {
-  const [isShowPassword, setIsShowPassword] = React.useState(false);
+  const userStore = useSelector((state) => state.user.user);
+  const isLoading = useSelector((state) => state.user.loading);
+
+  const rememberMe = localStorage.getItem("rememberMe")
+    ? JSON.parse(localStorage.getItem("rememberMe"))
+    : null;
+
+  const [user] = useState(userStore);
+
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const dispatch = useDispatch();
+
+  let history = useHistory();
+
+  useEffect(() => {
+    if (user?.isEnable && user?.email) {
+      if (user.roles[0] === USER_ROLE.USER) {
+        history.push("/home");
+      } else {
+        history.push("/signup");
+      }
+      return;
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: ""
+      email: rememberMe?.isRemember ? rememberMe.email : "",
+      password: rememberMe?.isRemember ? rememberMe.password : "",
+      isRemember: rememberMe?.isRemember ? rememberMe.isRemember : false
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -20,12 +45,14 @@ function FormLogin() {
         .required("Trường này là bắt buộc!"),
       password: Yup.string()
         .min(5, "Mật khẩu phải có ít nhất 5 ký tự")
-        .required("Trường này là bắt buộc!")
+        .required("Trường này là bắt buộc!"),
+      isRemember: Yup.bool()
     }),
     onSubmit: (values) => {
       dispatch(login(values));
     }
   });
+
   const touched = formik.touched;
   const error = formik.errors;
   const values = formik.values;
@@ -33,6 +60,8 @@ function FormLogin() {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
+        <Loading visible={isLoading} />
+
         <div className="form-group login-form-group ">
           <label>Email</label>
           <input

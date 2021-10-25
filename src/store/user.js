@@ -1,7 +1,10 @@
+/* eslint-disable */
 import { createSlice } from "@reduxjs/toolkit";
 import { setUserLocal, removeUserLocal } from "core/localStore";
-import { pushToast } from "../components/Toast";
-import { USER_ROLE } from "core/constants";
+import { pushToast } from "components/Toast";
+import http from "core/services/httpService";
+import { USER_ROLE, ERRORS } from "core/constants";
+import { useHistory } from "react-router";
 // Slice
 
 const initialUser = localStorage.getItem("user")
@@ -11,24 +14,44 @@ const initialUser = localStorage.getItem("user")
 const slice = createSlice({
   name: "user",
   initialState: {
-    user: initialUser
+    user: initialUser,
+    loading: false
   },
   reducers: {
-    loginSuccess: (state, action) => {
-      state.user = action.payload;
-      // localStorage.setItem("user", JSON.stringify(action.payload));
-      setUserLocal(action.payload?.token, action?.payload?.user);
-      console.log("action?.payload?.user?.role: ", action?.payload?.user?.role);
-      if (action?.payload?.user?.role == USER_ROLE.ADMIN) {
-        window.location.href = "/general-information";
+    loginSuccess: (state, action) => {  
+      const { payload } = action;
+      state.user = payload?.user;
+      setUserLocal(payload?.token, payload?.user);
+
+      if (payload?.rememberMe?.isRemember) {  
+        localStorage.setItem("rememberMe", JSON.stringify(payload?.rememberMe));
       } else {
-        window.location.href = "/profile-creation";
+        localStorage.removeItem("rememberMe");
+      }
+
+      // if (!payload?.user?.isEnable) {
+      //   window.location.href = "/verify-email";
+      //   return;
+      // }
+
+      if (payload?.user?.roles[0] === USER_ROLE.ADMIN) {
+        // window.location.href = "/admin";
+        window.location.href = "/admin";
+      } else {
+        // window.location.href = "/user-home";
+        window.location.href = "/home";
       }
     },
+
     logoutSuccess: (state) => {
       state.user = null;
-      // localStorage.removeItem("user");
       removeUserLocal();
+      window.location.href = "/login";
+    },
+
+    setLoading: (state, action) => {
+      const { payload } = action;
+      state.loading = payload.loading;
     }
   }
 });
@@ -37,26 +60,52 @@ export default slice.reducer;
 
 // Actions
 
-const { loginSuccess, logoutSuccess } = slice.actions;
+const { loginSuccess, logoutSuccess, setLoading } = slice.actions;
 
 export const login = (values) => async (dispatch) => {
+  // window.location.href = "/home";
   try {
-    // await api.post("/api/auth/login/", { username, password });
-
-    let role = USER_ROLE.USER;
-    if (values?.email === "admin@gmail.com") {
-      role = USER_ROLE.ADMIN;
-    }
-
+    dispatch(setLoading({ loading: true }));
+    const  {data}  = await http.post("/api/login", {
+      email: values.email,
+      password: values.password
+    });
     let user = {
-      username: values?.email,
-      role: role
+      ...data.user
     };
-    let token = "faketoken";
+  
+    const token = data.access_token || false;
 
-    dispatch(loginSuccess({ user: user, token: token }));
+    const rememberMe = {
+      isRemember: values.isRemember,
+      email: values.email,
+      password: values.password
+    };
+
+     dispatch(setLoading({ loading: false }));
+    if(token){
+      window.location.href = "/home";
+    }
+    // if(data.result){
+    //   window.location.href = "/home";
+    // }else{
+    //   pushToast("error", "Login fail.")
+    // }
+      // if(!token){
+      //   pushToast("error", data?.message);
+
+      // }
+  
+    // if (!token) {
+    //   pushToast("error", data?.message);
+    // } else if (data?.user?.roles[0] === USER_ROLE.ADMIN) {
+    //   pushToast("error", ERRORS.ACCOUNT_PERMISSION);
+    // } else {
+    //   dispatch(loginSuccess({ user, token, rememberMe }));
+    // }
   } catch (e) {
-    pushToast("error", e?.message);
+    dispatch(setLoading({ loading: false }));
+    pushToast("error",e.message);
     return console.error(e.message);
   }
 };

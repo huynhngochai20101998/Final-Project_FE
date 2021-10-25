@@ -14,7 +14,7 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     if (getToken()) {
-      config.headers["Authorization"] = `Token ${getToken()}`;
+      config.headers["Authorization"] = `${getToken()}`;
     }
     return config;
   },
@@ -32,8 +32,8 @@ http.interceptors.response.use(
   (error) => {
     // Handle errors
     console.log("error: ", error);
-    return false;
-    // throw error;
+    error.message = "Something wrong, please try again";
+    throw error;
   }
 );
 
