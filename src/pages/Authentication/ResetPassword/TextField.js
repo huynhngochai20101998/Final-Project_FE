@@ -1,10 +1,10 @@
 import React from "react";
 import { ErrorMessage, useField } from "formik";
 
-const TextField = ({ label, ...props }) => {
+const TextField = ({ label, className, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className="form-group">
+    <div className={className}>
       <label htmlFor={field.name}>{label}</label>
       <input
         className={`form-control ${meta.touched && meta.error && "is-invalid"}`}
@@ -12,9 +12,15 @@ const TextField = ({ label, ...props }) => {
         {...props}
         autoComplete="off"
       />
+      <span htmlFor={field.name} className="active-failure" id="label-error">
+        {(props.errormess && props.checkClick) ||
+        (props.errormess && field.value !== "")
+          ? props.errormess
+          : ""}
+      </span>
       <ErrorMessage
-        name={field.name}
         component="div"
+        name={field.name}
         className="active-failure"
       ></ErrorMessage>
     </div>
