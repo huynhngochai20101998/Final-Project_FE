@@ -7,6 +7,7 @@ import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
 import Login from "pages/Authentication/Login/Login";
+import PostList from "pages/Post/PostList/PostList";
 
 export const routeConfig = [
   {
@@ -32,6 +33,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: ResetPassword
+  },
+  {
+    path: "/post-list",
+    isPrivate: false,
+    exact: true,
+    component: PostList
   },
   { path: "*", component: Error }
 ];
