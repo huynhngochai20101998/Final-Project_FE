@@ -1,8 +1,8 @@
 import React from "react";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 
-const ForgotPassword = () => {
+const VerifyCode = () => {
   return <AuthLayout></AuthLayout>;
 };
 
-export default ForgotPassword;
+export default VerifyCode;
