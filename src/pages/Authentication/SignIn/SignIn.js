@@ -2,7 +2,11 @@ import React from "react";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 
 const SignIn = () => {
-  return <AuthLayout></AuthLayout>;
+  return (
+    <AuthLayout>
+      <div>SignIp</div>
+    </AuthLayout>
+  );
 };
 
 export default SignIn;
