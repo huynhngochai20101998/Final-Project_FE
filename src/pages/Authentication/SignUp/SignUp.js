@@ -1,12 +1,9 @@
 import React from "react";
-import AuthLayout from "layout/AuthLayout/AuthLayout";
+
+import "./SignUp.scss";
 
 const SignUp = () => {
-  return (
-    <AuthLayout>
-      <div>SignUp</div>
-    </AuthLayout>
-  );
+  return <></>;
 };
 
 export default SignUp;

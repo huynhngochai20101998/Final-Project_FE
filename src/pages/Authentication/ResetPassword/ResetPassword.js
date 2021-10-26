@@ -1,8 +1,7 @@
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 import React from "react";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import "./ResetPassword.scss";
-import TextField from "./TextField";
 import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
