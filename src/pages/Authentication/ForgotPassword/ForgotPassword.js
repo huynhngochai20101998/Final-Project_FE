@@ -1,72 +1,96 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 import "./ForgotPassword.scss";
-import validator from "validator";
+import * as Yup from "yup";
+import TextField from "./TextField";
+import { Form, Formik } from "formik";
+import axios from "axios";
 
 const ForgotPassword = () => {
-  const [emailError, setEmailError] = useState({
-    text: "Nhập vào email đã đăng ký",
-    errorCheck: 0
+  const [existUser, setExistUser] = useState([]); // lấy ra mảng user
+  const [logError, setLogError] = useState(""); //nếu tồn tại email thông báo email tồn tại, còn không trả về ""
+  const [checkClick, setCheckClick] = useState("");
+  const validate = Yup.object({
+    email: Yup.string().email("email không hợp lệ").required("Nhập vào email")
   });
 
-  useEffect(() => {
-    var ElementEmailHelp = document.querySelector("#emailHelp");
-    if (emailError.checkError === 1) {
-      ElementEmailHelp.classList.add("active-success");
-      ElementEmailHelp.classList.remove("active-failure");
-    } else if (emailError.checkError === -1) {
-      ElementEmailHelp.classList.add("active-failure");
-      ElementEmailHelp.classList.remove("active-success");
-    }
-  }, [emailError.checkError]);
-
-  function validateEmail(e) {
-    var email = e.target.value;
-    if (validator.isEmail(email)) {
-      setEmailError((previous) => {
-        return {
-          ...previous,
-          text: "Email hợp lệ!",
-          checkError: 1
-        };
-      });
-    } else {
-      setEmailError((previous) => {
-        return {
-          ...previous,
-          text: "Email không hợp lệ!",
-          checkError: -1
-        };
-      });
+  function handleSubmit(values) {
+    console.log(values.email);
+    handleExistUser(values);
+    if (!handleExistUser(values)) {
+      console.log(values);
     }
   }
 
+  function handleExistUser(values) {
+    const checkUser = existUser.some((item) => {
+      return item.email === values.email;
+    });
+    if (checkUser) {
+      setLogError("Đã gửi email. Vui lòng kiểm tra hòm thư của bạn");
+      setCheckClick("");
+    } else {
+      setLogError("Email không tồn tại");
+    }
+    return checkUser;
+  }
+
+  function onclickinput() {
+    setCheckClick("true");
+    setLogError("");
+  }
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/posts")
+      .then((response) => {
+        const listUser = response.data;
+        setExistUser(listUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <AuthLayout>
-      <div className="wrap-forgot-pass">
-        <div className="col-md-3 col-sm-3 m-auto content-forgot-pass">
-          <h2>Quên mật khẩu</h2>
-          <form>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                id="email"
-                onChange={(e) => validateEmail(e)}
-                required
-              />
-              <small id="emailHelp" className="form-text">
-                {emailError.text}
-              </small>
+      <Formik
+        initialValues={{
+          email: ""
+        }}
+        validationSchema={validate}
+        onSubmit={(values) => handleSubmit(values)}
+      >
+        {() => (
+          <Form className="container forgot-form">
+            <div className="forgot-header">
+              <h3>Quên mật khẩu</h3>
             </div>
-            <button type="submit" className="btn btn-primary float-right">
-              Xác nhận
-            </button>
-          </form>
-        </div>
-      </div>
+            <div className="forgot-content">
+              <div className="row">
+                <TextField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  className="form-group"
+                  errormess={logError}
+                  onClick={onclickinput}
+                  checkclick={checkClick}
+                />
+                <div className="col-md-12 text-center">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    id="forgot-button"
+                  >
+                    Xác nhận
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </AuthLayout>
   );
 };

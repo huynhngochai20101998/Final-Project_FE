@@ -1,11 +1,10 @@
 @import "../../../assets/scss/app.scss";
 .PostCreate {
-    background-color: $bg_posts_create;
     display: flex;
     justify-content: center;
     align-items: center;
     &__form {
-        width: 868px;
+        width: 100%;
         height: 738px;
         background: $bg_login_form;
         border-radius: 5px;

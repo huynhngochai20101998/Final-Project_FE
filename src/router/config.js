@@ -8,6 +8,7 @@ import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
 import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
 import Login from "pages/Authentication/Login/Login";
+import { HomeUser } from "pages/Home/Home";
 
 export const routeConfig = [
   {
@@ -39,6 +40,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: PostCreatrion
+  },
+  {
+    path: "/home",
+    isPrivate: false,
+    exact: true,
+    component: HomeUser
   },
   { path: "*", component: Error }
 ];
