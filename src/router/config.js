@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import SignUp from "pages/Authentication/SignUp/SignUp";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
+import Commenting from "components/Post/Commenting/Commenting";
 import Error from "pages/Error/Error";
 import Login from "pages/Authentication/Login/Login";
 
@@ -32,6 +33,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: ResetPassword
+  },
+  {
+    path: "/test",
+    isPrivate: false,
+    exact: true,
+    component: Commenting
   },
   { path: "*", component: Error }
 ];
