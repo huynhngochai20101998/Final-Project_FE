@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 import "./SignUp.scss";
 import { Formik, Form } from "formik";
@@ -7,83 +7,52 @@ import * as Yup from "yup";
 import RequiredCheck from "./RequiredCheck";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import { pushToast } from "components/Toast";
+import Loading from "components/Loading/Loading";
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState("");
   const history = useHistory();
-  const [existUser, setExistUser] = useState([]); // lấy ra mảng user
-  const [logError, setLogError] = useState(""); //nếu tồn tại email thông báo email tồn tại, còn không trả về ""
-  const [checkClick, setCheckClick] = useState("");
-  const errors = "Email đã tồn tại";
-
   const validate = Yup.object({
-    firstName: Yup.string().required("Tên bạn là gì?"),
-    lastName: Yup.string().required("Tên bạn là gì?"),
+    first_name: Yup.string().required("Tên bạn là gì?"),
+    last_name: Yup.string().required("Tên bạn là gì?"),
     email: Yup.string().email("email không hợp lệ").required("Nhập vào email"),
     password: Yup.string()
-      .min(5, "Mật khẩu ít nhất 5 ký tự")
+      .min(8, "Mật khẩu ít nhất 8 ký tự")
       .required("Nhập vào mật khẩu"),
-    confirmPassword: Yup.string()
+    password_confirmation: Yup.string()
       .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp")
       .required("Xác nhận lại mật khẩu của bạn"),
     termsAndConditions: Yup.bool().oneOf([true], "Yêu cầu chấp nhận điều khoản")
   });
 
   function handleSubmit(values) {
-    handleExistUser(values);
-    if (!handleExistUser(values)) {
-      const { termsAndConditions, ...dataUser } = values;
-      console.log(termsAndConditions);
-      axios
-        .post("http://localhost:3000/user", dataUser)
-        .then((response) => {
-          console.log(response);
-          history.push("/signin");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }
-
-  function handleExistUser(values) {
-    const checkUser = existUser.some((item) => {
-      return item.email === values.email;
-    });
-    if (checkUser) {
-      setLogError(errors);
-      setCheckClick("");
-    } else {
-      setLogError("");
-    }
-    return checkUser;
-  }
-
-  function onclickinput() {
-    setCheckClick("true");
-    setLogError("");
-  }
-
-  useEffect(() => {
+    setIsLoading("true");
+    const { termsAndConditions, ...dataUser } = values;
+    console.log(termsAndConditions);
     axios
-      .get("http://localhost:3000/user")
+      .post("https://final-project-team.herokuapp.com/api/register", dataUser)
       .then((response) => {
-        const listUser = response.data;
-        setExistUser(listUser);
+        console.log(response);
+        history.push("/login");
       })
       .catch((error) => {
-        console.log(error);
+        setIsLoading("");
+        let errorEmail = Object.values(error.response.data.errors)[0][0];
+        pushToast("error", errorEmail);
       });
-  }, []);
+  }
 
   return (
     <AuthLayout>
+      <Loading visible={isLoading} />
       <Formik
         initialValues={{
-          firstName: "",
-          lastName: "",
+          first_name: "",
+          last_name: "",
           email: "",
           password: "",
-          confirmPassword: "",
+          password_confirmation: "",
           termsAndConditions: false
         }}
         validationSchema={validate}
@@ -98,13 +67,13 @@ const SignUp = () => {
               <div className="row">
                 <TextField
                   label="Họ"
-                  name="firstName"
+                  name="first_name"
                   type="text"
                   className="form-group col-md-6"
                 />
                 <TextField
                   label="Tên"
-                  name="lastName"
+                  name="last_name"
                   type="text"
                   className="form-group col-md-6"
                 />
@@ -114,9 +83,6 @@ const SignUp = () => {
                 name="email"
                 type="email"
                 className="form-group"
-                errormess={logError}
-                onClick={onclickinput}
-                checkclick={checkClick}
               />
               <TextField
                 label="Mật Khẩu"
@@ -126,17 +92,17 @@ const SignUp = () => {
               />
               <TextField
                 label="Xác Nhận Mật Khẩu"
-                name="confirmPassword"
+                name="password_confirmation"
                 type="password"
                 className="form-group"
               />
               <RequiredCheck
                 name="termsAndConditions"
                 label="Tôi đồng ý với các điều khoản và điều kiện"
-                className="form-group"
+                className="form-group check-term"
                 type="checkbox"
               ></RequiredCheck>
-              <div className="col-md-12 text-center">
+              <div className="col-md-12 text-center form-group">
                 <button
                   type="submit"
                   className="btn btn-primary"
