@@ -147,7 +147,7 @@ const SignUp = () => {
               </div>
               <div className="register-bottom">
                 <span>Đã có tài khoản?</span>
-                <Link to="/signin" className="link-sign-in">
+                <Link to="/login" className="link-sign-in">
                   Đăng nhập
                 </Link>
               </div>
