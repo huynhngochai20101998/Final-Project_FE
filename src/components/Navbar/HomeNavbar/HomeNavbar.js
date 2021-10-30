@@ -1,9 +1,7 @@
 import React from "react";
 
-export const VisitorNavbar = () => {
+const HomeNabar = () => {
   return <div></div>;
 };
 
-export const UserNabar = () => {
-  return <div></div>;
-};
+export default HomeNabar;

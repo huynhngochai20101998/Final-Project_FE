@@ -13,8 +13,8 @@ const AuthLayout = (props) => {
           <AuthNavbar />
         </Col>
       </Row>
-      <Row className="auth-main">
-        <Col className="auth-main-content">{props.children}</Col>
+      <Row className="auth-layout__main">
+        <Col className="auth-layout__main-content">{props.children}</Col>
       </Row>
     </div>
   );
