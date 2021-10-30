@@ -42,10 +42,10 @@ export const LogoIMG = () => {
 export const ButtonAuth = () => {
   return (
     <div className="btn-authen">
-      <Link to="#" className="btn-authen-item btn-login">
+      <Link to="/login" className="btn-authen-item btn-login">
         <p>Đăng Nhập</p>
       </Link>
-      <Link to="#" className="btn-authen-item btn-signup">
+      <Link to="/signup" className="btn-authen-item btn-signup">
         <p>Đăng Ký</p>
       </Link>
     </div>

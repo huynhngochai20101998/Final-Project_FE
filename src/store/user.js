@@ -1,10 +1,8 @@
-/* eslint-disable */
 import { createSlice } from "@reduxjs/toolkit";
 import { setUserLocal, removeUserLocal } from "core/localStore";
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
-import { USER_ROLE, ERRORS } from "core/constants";
-import { useHistory } from "react-router";
+import { ERRORS, USER_ROLE } from "core/constants";
 // Slice
 
 const initialUser = localStorage.getItem("user")
@@ -18,28 +16,17 @@ const slice = createSlice({
     loading: false
   },
   reducers: {
-    loginSuccess: (state, action) => {  
+    loginSuccess: (state, action) => {
       const { payload } = action;
+
       state.user = payload?.user;
+
       setUserLocal(payload?.token, payload?.user);
 
-      if (payload?.rememberMe?.isRemember) {  
-        localStorage.setItem("rememberMe", JSON.stringify(payload?.rememberMe));
-      } else {
-        localStorage.removeItem("rememberMe");
-      }
-
-      // if (!payload?.user?.isEnable) {
-      //   window.location.href = "/verify-email";
-      //   return;
-      // }
-
-      if (payload?.user?.roles[0] === USER_ROLE.ADMIN) {
-        // window.location.href = "/admin";
-        window.location.href = "/admin";
-      } else {
-        // window.location.href = "/user-home";
+      if (payload?.user?.role === USER_ROLE.USER) {
         window.location.href = "/home";
+      } else if (payload?.user?.role === USER_ROLE.ADMIN) {
+        window.location.href = "/admin";
       }
     },
 
@@ -60,21 +47,23 @@ export default slice.reducer;
 
 // Actions
 
-const { loginSuccess, logoutSuccess, setLoading } = slice.actions;
+const { logoutSuccess, loginSuccess, setLoading } = slice.actions;
 
 export const login = (values) => async (dispatch) => {
   // window.location.href = "/home";
   try {
     dispatch(setLoading({ loading: true }));
-    const  {data}  = await http.post("/api/login", {
+
+    const res = await http.post("/api/login", {
       email: values.email,
       password: values.password
     });
+
     let user = {
-      ...data.user
+      ...res.data.user
     };
-  
-    const token = data.access_token || false;
+
+    let token = res.data.access_token;
 
     const rememberMe = {
       isRemember: values.isRemember,
@@ -82,30 +71,19 @@ export const login = (values) => async (dispatch) => {
       password: values.password
     };
 
-     dispatch(setLoading({ loading: false }));
-    if(token){
-      window.location.href = "/home";
-    }
-    // if(data.result){
-    //   window.location.href = "/home";
-    // }else{
-    //   pushToast("error", "Login fail.")
-    // }
-      // if(!token){
-      //   pushToast("error", data?.message);
+    dispatch(setLoading({ loading: false }));
 
-      // }
-  
-    // if (!token) {
-    //   pushToast("error", data?.message);
-    // } else if (data?.user?.roles[0] === USER_ROLE.ADMIN) {
-    //   pushToast("error", ERRORS.ACCOUNT_PERMISSION);
-    // } else {
-    //   dispatch(loginSuccess({ user, token, rememberMe }));
-    // }
+    if (!res.success) {
+      pushToast("error", res?.message);
+    } else if (res?.data?.user?.role[0] === USER_ROLE.ADMIN) {
+      pushToast("error", ERRORS.ACCOUNT_PERMISSION);
+    } else {
+      dispatch(loginSuccess({ user, token, rememberMe }));
+    }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
-    pushToast("error",e.message);
+    pushToast("error", e.message);
+
     return console.error(e.message);
   }
 };
@@ -116,5 +94,25 @@ export const logout = () => async (dispatch) => {
     return dispatch(logoutSuccess());
   } catch (e) {
     return console.error(e.message);
+  }
+};
+
+export const forgotPass = (values) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: true }));
+    const res = await http.post("/api/forgot-password", {
+      email: values.email
+    });
+
+    dispatch(setLoading({ loading: false }));
+
+    if (res.success) {
+      pushToast("success", res.status);
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
+    pushToast("error", e?.response?.data.message);
+
+    return console.error(e?.response?.data.message);
   }
 };
