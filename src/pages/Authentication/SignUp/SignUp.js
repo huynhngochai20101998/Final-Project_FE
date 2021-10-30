@@ -5,13 +5,14 @@ import { Formik, Form } from "formik";
 import TextField from "./TextField";
 import * as Yup from "yup";
 import RequiredCheck from "./RequiredCheck";
-import axios from "axios";
+// import axios from "axios";
+import http from "core/services/httpService";
 import { Link, useHistory } from "react-router-dom";
 import { pushToast } from "components/Toast";
 import Loading from "components/Loading/Loading";
 
 const SignUp = () => {
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const validate = Yup.object({
     first_name: Yup.string().required("Tên bạn là gì?"),
@@ -27,18 +28,18 @@ const SignUp = () => {
   });
 
   function handleSubmit(values) {
-    setIsLoading("true");
+    setIsLoading(true);
     const { termsAndConditions, ...dataUser } = values;
     console.log(termsAndConditions);
-    axios
-      .post("https://final-project-team.herokuapp.com/api/register", dataUser)
+    http
+      .post("/api/register", dataUser)
       .then((response) => {
         console.log(response);
         history.push("/login");
       })
       .catch((error) => {
-        setIsLoading("");
-        let errorEmail = Object.values(error.response.data.errors)[0][0];
+        setIsLoading(false);
+        let errorEmail = Object.values(error.response.data.data)[0][0];
         pushToast("error", errorEmail);
       });
   }
