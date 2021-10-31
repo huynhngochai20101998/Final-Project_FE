@@ -52,10 +52,23 @@
 
       .navbar-icon-lang {
         cursor: pointer;
+        position: relative;
+        z-index: 10;
 
-        &-img {
+        .img {
           height: 31px;
           width: 31px;
+        }
+
+        .language-list {
+          position: absolute !important;
+          left: 0;
+          z-index: 100;
+
+          background-color: red;
+
+          height: 100px;
+          width: 100px;
         }
       }
 

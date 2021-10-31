@@ -18,7 +18,13 @@ const HomeNabar = () => {
           <LogoIMG />
         </div>
         <div className="home-navbar-content__btn-home">
-          <MultiLang />
+          <div className="">
+            <img className="img" src={IconLang} alt="" />
+            <ul className="language-list">
+              <li className="language-item">EN</li>
+              <li className="language-item">VN</li>
+            </ul>
+          </div>
           {userInfo ? <UserNav /> : <ButtonAuth />}
         </div>
       </div>
@@ -48,14 +54,6 @@ export const LogoIMG = () => {
       <img src={Logo} alt="" className="img" />
       <img src={LogoName} alt="" className="brand" />
     </Link>
-  );
-};
-
-export const MultiLang = () => {
-  return (
-    <div className="navbar-icon-lang">
-      <img className="navbar-icon-lang-img" src={IconLang} alt="" />
-    </div>
   );
 };
 

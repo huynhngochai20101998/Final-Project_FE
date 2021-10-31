@@ -10,6 +10,7 @@ import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
 import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
+import PostList from "pages/Post/PostList/PostList";
 
 export const routeConfig = [
   {
@@ -35,6 +36,12 @@ export const routeConfig = [
     isPrivate: true,
     exact: true,
     component: ResetPassword
+  },
+  {
+    path: "/post-list",
+    isPrivate: false,
+    exact: true,
+    component: PostList
   },
   {
     path: "/post-creation",
