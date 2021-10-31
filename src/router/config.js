@@ -8,6 +8,7 @@ import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
 import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
 import Login from "pages/Authentication/Login/Login";
+import PostList from "pages/Post/PostList/PostList";
 import { HomeUser } from "pages/Home/Home";
 
 export const routeConfig = [
@@ -36,6 +37,11 @@ export const routeConfig = [
     component: ResetPassword
   },
   {
+    path: "/post-list",
+    isPrivate: false,
+    exact: true,
+    component: PostList
+  },
     path: "/post-create",
     isPrivate: false,
     exact: true,
