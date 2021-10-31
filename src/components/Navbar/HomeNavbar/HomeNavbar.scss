@@ -1,0 +1,158 @@
+@import "../../../assets/scss/app.scss";
+
+.home-navbar {
+  background-color: $bg_login_form;
+  height: 76px;
+  width: 100%;
+
+  padding: 0px 100px;
+
+  &-content {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+
+    &__logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      .navbar-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .img {
+          width: 32px;
+          margin-right: 13px;
+        }
+
+        .brand {
+          padding-top: 5px;
+          height: 23px;
+          width: 97px;
+        }
+      }
+    }
+
+    &__add-on {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__btn-home {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .navbar-icon-lang {
+        cursor: pointer;
+
+        &-img {
+          height: 31px;
+          width: 31px;
+        }
+      }
+
+      .btn-home {
+        display: flex;
+        flex-direction: row;
+
+        margin-left: 30px;
+
+        &-item {
+          width: 80px;
+          height: 40px;
+          border-radius: 10px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          text-decoration: none;
+
+          p {
+            padding: 0px;
+            margin: 0px;
+            font-size: 12px;
+            font-weight: 700;
+          }
+        }
+
+        .btn-login {
+          background-color: $bg_login_title;
+
+          p {
+            color: $color_white;
+          }
+        }
+
+        .btn-signup {
+          background-color: $color_text_blue;
+
+          margin-left: 13px;
+
+          p {
+            color: $color_black;
+          }
+        }
+      }
+
+      .home-user {
+        height: 50px;
+        max-width: 150px;
+        margin-left: 15px;
+        padding: 5px 10px;
+        border-radius: 40px 40px;
+        transition: 0.2s;
+        cursor: pointer;
+
+        &:hover {
+          transition: 0.2s;
+          background-color: $bg_hover_avatar;
+        }
+
+        display: flex;
+        align-items: center;
+
+        &__content {
+          height: max-content;
+
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+
+          .user-img {
+            height: 36px;
+            width: 36px;
+            box-sizing: border-box;
+            overflow: hidden;
+
+            border-radius: 40px;
+            margin-right: 7px;
+          }
+
+          .name {
+            max-width: 80px;
+            text-align: center;
+
+            p {
+              margin: auto 0px;
+              font-size: 18px;
+              font-weight: 600;
+              color: $color_white;
+            }
+          }
+        }
+
+        &__control {
+        }
+      }
+    }
+  }
+}
