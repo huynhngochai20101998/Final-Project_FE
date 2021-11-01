@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
-// import Axios from "axios";
 import http from "core/services/httpService";
 import "./PostList.scss";
 import { Link } from "react-router-dom";
