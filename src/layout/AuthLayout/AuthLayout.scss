@@ -1,0 +1,35 @@
+@import "../../assets/scss/app.scss";
+
+.auth-layout {
+	overflow: hidden;
+
+	.auth-navbar {
+	}
+
+	.auth-main {
+		height: 100vh;
+		padding-top: 80px;
+		background-color: $bg_main;
+
+		&-content {
+			display: flex;
+			justify-content: center;
+		}
+	}
+}
+
+@media only screen and (max-width: $tablet-width) {
+}
+
+@media only screen and (max-width: $mobile-width) {
+	.auth-layout {
+		.auth-navbar {
+		}
+
+		.auth-main {
+			&-content {
+				padding: 20px;
+			}
+		}
+	}
+}

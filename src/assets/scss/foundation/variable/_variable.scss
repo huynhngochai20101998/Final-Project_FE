@@ -1,0 +1,65 @@
+//  val
+$global-font-size: 16px;
+$font-family-base: "ToyotaType", serif, sans-serif;
+
+//  break point for _responsive.scss
+$bp_tab_max_width: 991;
+$bp_sp_max_width: 768;
+
+// layout setting
+$pc_min_width: 1000px;
+$pc_medium_width: 1050px;
+$pc_max_width: 1160px;
+
+// $pc_top_visual_padding_top: 400px;
+$pc_top_visual_padding_top: 56.25%; // 16:9
+$sp_top_visual_padding_top: 56.25%; // 16:9
+
+$pc_top_visual_min_height: 400px;
+$pc_top_visual_max_height: 675px;
+$sp_top_visual_min_height: 300px;
+$sp_top_visual_max_height: 600px;
+
+$pc_top_content_side_padding: 20px;
+$sp_top_content_side_padding: 3.5%;
+
+$pc_page_content_side_padding: 20px;
+$sp_page_content_side_padding: 20px;
+
+$pc_page_sidebar_width: 310px;
+$pc_page_sidebar_margin: 50px;
+$pc_page_sidebar_padding: 40px;
+
+//  color
+$color_black: #000;
+$color_white: #fff;
+$color_blue: #0066CC;
+$sencond_color_hover:#71c6ddde;
+$sencond_color_active:#71c6ddb9;
+$success_color: green;
+$bg_main: #2d2d39;
+$color_text_blue: #71c6dd;
+$color_failure: #fd6c6c;
+$color_error: red;
+$bg_login_title: #696d97;
+$text_post_list: #cccccc;
+$bg_login_form: #3f4156;
+$success_color: green;
+
+// width
+$mobile-width: 480px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+// boostrap width
+$sm-width: 576px;
+$md-width: 768px;
+$lg-width: 992px;
+$xl-width: 1200px;
+$xxl-width: 1400px;
+
+// custom-width
+$homepage-md-width: 814px;
+
+// custom-width
+$capabilities-md-width: 850px;
