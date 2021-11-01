@@ -1,7 +1,7 @@
 import React from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
-import { api } from "core/services/apiCaller";
+import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, ErrorMessage } from "formik";
@@ -33,7 +33,7 @@ const PostCreatrion = () => {
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
-                      api.post("/posts", values).then(() => {
+                      http.post("/api/posts", values).then(() => {
                         alert("Bạn đã đăng thành công");
                         actions.setSubmitting(false);
                         actions.resetForm({
