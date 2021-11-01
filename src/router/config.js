@@ -42,6 +42,7 @@ export const routeConfig = [
     exact: true,
     component: PostList
   },
+  {
     path: "/post-create",
     isPrivate: false,
     exact: true,
