@@ -20,6 +20,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      .navbar-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .img {
+          width: 32px;
+          margin-right: 13px;
+        }
+
+        .brand {
+          padding-top: 5px;
+          height: 23px;
+          width: 97px;
+        }
+      }
     }
 
     &__add-on {
@@ -31,73 +48,58 @@
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-  }
 
-  .navbar-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      .navbar-icon-lang {
+        cursor: pointer;
 
-    .img {
-      width: 32px;
-      margin-right: 13px;
-    }
-
-    .brand {
-      padding-top: 5px;
-      height: 23px;
-      width: 97px;
-    }
-  }
-
-  .btn-authen {
-    display: flex;
-    flex-direction: row;
-
-    margin-left: 30px;
-
-    &-item {
-      width: 80px;
-      height: 40px;
-      border-radius: 10px;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      text-decoration: none;
-
-      p {
-        padding: 0px;
-        margin: 0px;
-        font-size: 12px;
-        font-weight: 700;
+        &-img {
+          height: 31px;
+          width: 31px;
+        }
       }
-    }
 
-    .navbar-icon-lang {
-      &-img {
-        height: 31px;
-        width: 31px;
-      }
-    }
+      .btn-authen {
+        display: flex;
+        flex-direction: row;
 
-    .btn-login {
-      background-color: $bg_login_title;
+        margin-left: 30px;
 
-      p {
-        color: $color_white;
-      }
-    }
+        &-item {
+          width: 80px;
+          height: 40px;
+          border-radius: 10px;
 
-    .btn-signup {
-      background-color: $color_text_blue;
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
-      margin-left: 13px;
+          text-decoration: none;
 
-      p {
-        color: $color_black;
+          p {
+            padding: 0px;
+            margin: 0px;
+            font-size: 12px;
+            font-weight: 700;
+          }
+        }
+
+        .btn-login {
+          background-color: $bg_login_title;
+
+          p {
+            color: $color_white;
+          }
+        }
+
+        .btn-signup {
+          background-color: $color_text_blue;
+
+          margin-left: 13px;
+
+          p {
+            color: $color_black;
+          }
+        }
       }
     }
   }

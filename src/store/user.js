@@ -107,6 +107,7 @@ export const forgotPass = (values) => async (dispatch) => {
     dispatch(setLoading({ loading: false }));
 
     if (res.success) {
+      localStorage.setItem("email", values.email);
       pushToast("success", res.status);
     }
   } catch (e) {
@@ -114,5 +115,27 @@ export const forgotPass = (values) => async (dispatch) => {
     pushToast("error", e?.response?.data.message);
 
     return console.error(e?.response?.data.message);
+  }
+};
+
+export const resetPassword = (values) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: false }));
+
+    const res = await http.put("/api/reset-password", {
+      token: values.token,
+      email: localStorage.getItem("email"),
+      password: values.password,
+      password_confirmation: values.confirmPassword
+    });
+
+    dispatch(setLoading({ loading: false }));
+    if (res.success) {
+      window.location.href = "/login";
+    } else {
+      pushToast("error", res.message);
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
   }
 };

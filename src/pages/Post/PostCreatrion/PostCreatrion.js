@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeUserLayout } from "layout/HomeLayout/HomeLayout";
+import HomeLayout from "layout/HomeLayout/HomeLayout";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
@@ -14,7 +14,7 @@ const PostCreatrion = () => {
     numberMember: Yup.number().required("Bạn phải nhập số thành viên tham gia")
   });
   return (
-    <HomeUserLayout>
+    <HomeLayout>
       <div className="PostCreate">
         <div className="container">
           <div className="row">
@@ -128,7 +128,7 @@ const PostCreatrion = () => {
           </div>
         </div>
       </div>
-    </HomeUserLayout>
+    </HomeLayout>
   );
 };
 

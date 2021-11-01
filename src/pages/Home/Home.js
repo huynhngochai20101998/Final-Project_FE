@@ -2,23 +2,14 @@ import React from "react";
 
 import "./Home.scss";
 
-import {
-  HomeUserLayout,
-  HomeVisitorLayout
-} from "layout/HomeLayout/HomeLayout";
+import HomeLayout from "layout/HomeLayout/HomeLayout";
 
-export const HomeVisitor = () => {
+const Home = () => {
   return (
-    <HomeVisitorLayout>
+    <HomeLayout>
       <div>Home visitor</div>
-    </HomeVisitorLayout>
+    </HomeLayout>
   );
 };
 
-export const HomeUser = () => {
-  return (
-    <HomeUserLayout>
-      <div>Home user</div>
-    </HomeUserLayout>
-  );
-};
+export default Home;

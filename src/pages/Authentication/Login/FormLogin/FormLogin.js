@@ -8,30 +8,14 @@ import { login } from "store/user";
 import * as Yup from "yup";
 
 function FormLogin() {
-  // const userStore = useSelector((state) => state.user.user);
   const isLoading = useSelector((state) => state.user.loading);
 
   const rememberMe = localStorage.getItem("rememberMe")
     ? JSON.parse(localStorage.getItem("rememberMe"))
     : null;
 
-  // const [user] = useState(userStore);
-
   const [isShowPassword, setIsShowPassword] = useState(false);
   const dispatch = useDispatch();
-
-  // let history = useHistory();
-
-  // useEffect(() => {
-  //   if (user?.isEnable && user?.email) {
-  //     if (user.roles[0] === USER_ROLE.USER) {
-  //       history.push("/home");
-  //     } else {
-  //       history.push("/signup");
-  //     }
-  //     return;
-  //   }
-  // }, []);
 
   const formik = useFormik({
     initialValues: {
