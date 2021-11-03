@@ -1,4 +1,5 @@
 // html {
+
 //   font-size: 62.5%;
 // }
 
@@ -8,8 +9,9 @@ body {
   color: $color_black;
   font-size: $global-font-size;
   line-height: 1.875; // 30px
-  font-family: $font-family-base !important;
+  font-family: "Roboto", sans-serif;
   -webkit-text-size-adjust: 100%;
+  overflow: auto;
 }
 
 a {

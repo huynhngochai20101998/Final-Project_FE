@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setUserLocal, removeUserLocal } from "core/localStore";
-import { pushToast } from "../components/Toast";
-import { USER_ROLE } from "core/constants";
+import { pushToast } from "components/Toast";
+import http from "core/services/httpService";
+import { ERRORS, USER_ROLE } from "core/constants";
 // Slice
 
 const initialUser = localStorage.getItem("user")
@@ -11,24 +12,33 @@ const initialUser = localStorage.getItem("user")
 const slice = createSlice({
   name: "user",
   initialState: {
-    user: initialUser
+    user: initialUser,
+    loading: false
   },
   reducers: {
     loginSuccess: (state, action) => {
-      state.user = action.payload;
-      // localStorage.setItem("user", JSON.stringify(action.payload));
-      setUserLocal(action.payload?.token, action?.payload?.user);
-      console.log("action?.payload?.user?.role: ", action?.payload?.user?.role);
-      if (action?.payload?.user?.role == USER_ROLE.ADMIN) {
-        window.location.href = "/general-information";
-      } else {
-        window.location.href = "/profile-creation";
+      const { payload } = action;
+
+      state.user = payload?.user;
+
+      setUserLocal(payload?.token, payload?.user);
+
+      if (payload?.user?.role === USER_ROLE.USER) {
+        window.location.href = "/home";
+      } else if (payload?.user?.role === USER_ROLE.ADMIN) {
+        window.location.href = "/admin";
       }
     },
+
     logoutSuccess: (state) => {
       state.user = null;
-      // localStorage.removeItem("user");
       removeUserLocal();
+      window.location.href = "/login";
+    },
+
+    setLoading: (state, action) => {
+      const { payload } = action;
+      state.loading = payload.loading;
     }
   }
 });
@@ -37,26 +47,43 @@ export default slice.reducer;
 
 // Actions
 
-const { loginSuccess, logoutSuccess } = slice.actions;
+const { logoutSuccess, loginSuccess, setLoading } = slice.actions;
 
 export const login = (values) => async (dispatch) => {
+  // window.location.href = "/home";
   try {
-    // await api.post("/api/auth/login/", { username, password });
+    dispatch(setLoading({ loading: true }));
 
-    let role = USER_ROLE.USER;
-    if (values?.email === "admin@gmail.com") {
-      role = USER_ROLE.ADMIN;
-    }
+    const res = await http.post("/api/login", {
+      email: values.email,
+      password: values.password
+    });
 
     let user = {
-      username: values?.email,
-      role: role
+      ...res.data.user
     };
-    let token = "faketoken";
 
-    dispatch(loginSuccess({ user: user, token: token }));
+    let token = res.data.access_token;
+
+    const rememberMe = {
+      isRemember: values.isRemember,
+      email: values.email,
+      password: values.password
+    };
+
+    dispatch(setLoading({ loading: false }));
+
+    if (!res.success) {
+      pushToast("error", res?.message);
+    } else if (res?.data?.user?.role[0] === USER_ROLE.ADMIN) {
+      pushToast("error", ERRORS.ACCOUNT_PERMISSION);
+    } else {
+      dispatch(loginSuccess({ user, token, rememberMe }));
+    }
   } catch (e) {
-    pushToast("error", e?.message);
+    dispatch(setLoading({ loading: false }));
+    pushToast("error", e.message);
+
     return console.error(e.message);
   }
 };
@@ -67,5 +94,48 @@ export const logout = () => async (dispatch) => {
     return dispatch(logoutSuccess());
   } catch (e) {
     return console.error(e.message);
+  }
+};
+
+export const forgotPass = (values) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: true }));
+    const res = await http.post("/api/forgot-password", {
+      email: values.email
+    });
+
+    dispatch(setLoading({ loading: false }));
+
+    if (res.success) {
+      localStorage.setItem("email", values.email);
+      pushToast("success", res.status);
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
+    pushToast("error", e?.response?.data.message);
+
+    return console.error(e?.response?.data.message);
+  }
+};
+
+export const resetPassword = (values) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: false }));
+
+    const res = await http.put("/api/reset-password", {
+      token: values.token,
+      email: localStorage.getItem("email"),
+      password: values.password,
+      password_confirmation: values.confirmPassword
+    });
+
+    dispatch(setLoading({ loading: false }));
+    if (res.success) {
+      window.location.href = "/login";
+    } else {
+      pushToast("error", res.message);
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
   }
 };
