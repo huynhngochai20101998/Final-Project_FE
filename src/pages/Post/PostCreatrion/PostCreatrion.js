@@ -1,18 +1,46 @@
 import React from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
-import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
-import http from "core/services/httpService";
+import { Button, FormGroup, Input, Label, Spinner } from "reactstrap";
+// import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form, FastField } from "formik";
 
 import "./PostCreatrion.scss";
+import InputField from "../custom-field/inputField";
+import SelectField from "../custom-field/selectField";
 const PostCreatrion = () => {
   let history = useHistory();
   const validationSchema = Yup.object().shape({
-    topic: Yup.string().required("Bạn phải nhập chủ đề bài viết"),
-    numberMember: Yup.number().required("Bạn phải nhập số thành viên tham gia")
+    title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
+    topic: Yup.string().required("Bạn phải nhập chủ đề bài viết").nullable(),
+    sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
+    numberMember: Yup.number()
+      .required("Bạn phải nhập số thành viên")
+      .nullable(),
+    sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học")
   });
+  const TOPIC_OPTIONS = [
+    { value: "Java", label: "Java" },
+    { value: "PHP", label: "PHP" },
+    { value: "Javascript", label: "Javascript" },
+    { value: "NodeJS", label: "NodeJS" },
+    { value: "SQL", label: "SQL" }
+  ];
+  const SESSIONS_OPTIONS = [
+    { value: 1, label: 1 },
+    { value: 2, label: 2 },
+    { value: 3, label: 3 },
+    { value: 4, label: 4 },
+    { value: 5, label: 5 }
+  ];
+  const MEMBER_OPTIONS = [
+    { value: 1, label: 1 },
+    { value: 2, label: 2 },
+    { value: 3, label: 3 },
+    { value: 4, label: 4 },
+    { value: 5, label: 5 }
+  ];
   return (
     <HomeLayout>
       <div className="PostCreate">
@@ -27,87 +55,91 @@ const PostCreatrion = () => {
                 <div className="PostCreate__form__content">
                   <Formik
                     initialValues={{
-                      topic: "",
-                      numberMember: 1,
+                      title: "",
+                      topic: null,
+                      sessions: null,
+                      numberMember: null,
+                      sumWeek: 3,
                       content: ""
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values, actions) => {
-                      http.post("/api/posts", values).then(() => {
-                        alert("Bạn đã đăng thành công");
-                        actions.setSubmitting(false);
-                        actions.resetForm({
-                          values: {
-                            topic: "",
-                            numberMember: 1,
-                            content: ""
-                          }
-                        });
-                        history.push("/");
-                      });
+                    onSubmit={(values) => {
+                      console.log(values);
+                      // http.post("/api/posts", values).then(() => {
+                      //   alert("Bạn đã đăng thành công");
+                      //   actions.setSubmitting(false);
+                      //   actions.resetForm({
+                      //     values: {
+                      //       title: "",
+                      //       numberMember: 1,
+                      //       content: ""
+                      //     }
+                      //   });
+                      //   history.push("/");
+                      // });
                     }}
                   >
                     {(formikProps) => {
-                      const {
-                        values,
-                        errors,
-                        touched,
-                        handleChange,
-                        handleBlur,
-                        handleSubmit
-                      } = formikProps;
+                      const { isSubmitting } = formikProps;
                       return (
-                        <Form onSubmit={handleSubmit}>
-                          <FormGroup>
-                            <Label for="topic">Chủ đề</Label>
-                            <Input
-                              type="text"
+                        <Form>
+                          <FastField
+                            name="title"
+                            component={InputField}
+                            label="Tiêu đề"
+                            placeholder=""
+                          />
+                          <div>
+                            <FormGroup>
+                              <Label for="exampleSelect">Select</Label>
+                              <Input
+                                id="exampleSelect"
+                                name="select"
+                                type="select"
+                              >
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </Input>
+                            </FormGroup>
+                            <FastField
                               name="topic"
-                              id="topic"
-                              placeholder=""
-                              value={values.topic}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              invalid={errors["topic"] && touched["topic"]}
+                              component={SelectField}
+                              label="Chủ đề"
+                              placeholder="Chọn chủ đề ?"
+                              options={TOPIC_OPTIONS}
                             />
-                            <ErrorMessage
-                              name={"topic"}
-                              component={FormFeedback}
+                            <FastField
+                              name="sessions"
+                              component={SelectField}
+                              label="Số buổi/tuần"
+                              placeholder="Chọn số buổi?"
+                              options={SESSIONS_OPTIONS}
                             />
-                          </FormGroup>
-                          <FormGroup>
-                            <Label for="numberMember">
-                              Số lượng thành viên
-                            </Label>
-                            <Input
-                              type="number"
+                            <FastField
                               name="numberMember"
-                              id="numberMember"
+                              component={SelectField}
+                              label="Số lượng thành viên"
+                              placeholder="Chọn số lượng thành viên?"
+                              options={MEMBER_OPTIONS}
+                            />
+                            <FastField
+                              name="sumWeek"
+                              component={InputField}
+                              label="Tổng số tuần học"
                               placeholder=""
-                              value={values.numberMember}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              invalid={
-                                errors["numberMember"] &&
-                                touched["numberMember"]
-                              }
+                              type="number"
                             />
-                            <ErrorMessage
-                              name={"numberMember"}
-                              component={FormFeedback}
-                            />
-                          </FormGroup>
-                          <FormGroup>
-                            <Label for="content">Nội dung</Label>
-                            <Input
-                              type="textarea"
-                              name="content"
-                              id="content"
-                              placeholder=""
-                              value={values.content}
-                              onChange={handleChange}
-                            />
-                          </FormGroup>
+                          </div>
+                          <FastField
+                            name="content"
+                            component={InputField}
+                            label="Nội dung"
+                            placeholder=""
+                            type="textarea"
+                          />
                           <div className="PostCreate__form__button">
                             <Button
                               type="reset"
@@ -115,7 +147,12 @@ const PostCreatrion = () => {
                             >
                               Hủy
                             </Button>
-                            <Button type="submit">Đăng</Button>
+                            <Button type="submit">
+                              {isSubmitting && (
+                                <Spinner color="light" size="sm" />
+                              )}
+                              Đăng
+                            </Button>
                           </div>
                         </Form>
                       );
