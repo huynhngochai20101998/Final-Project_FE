@@ -1,6 +1,6 @@
 import React from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
-import { Button, FormGroup, Input, Label, Spinner } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 // import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
@@ -90,20 +90,6 @@ const PostCreatrion = () => {
                             placeholder=""
                           />
                           <div>
-                            <FormGroup>
-                              <Label for="exampleSelect">Select</Label>
-                              <Input
-                                id="exampleSelect"
-                                name="select"
-                                type="select"
-                              >
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                              </Input>
-                            </FormGroup>
                             <FastField
                               name="topic"
                               component={SelectField}
