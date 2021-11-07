@@ -15,40 +15,20 @@ import { Formik, Form, FastField, ErrorMessage } from "formik";
 
 import "./PostCreatrion.scss";
 import InputField from "../custom-field/inputField";
-import SelectField from "../custom-field/selectField";
 const PostCreatrion = () => {
   let history = useHistory();
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
-    select: Yup.number().required("Bạn phải nhập chủ đề bài viết").nullable(),
     topic: Yup.string().required("Bạn phải nhập chủ đề bài viết").nullable(),
     sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
     numberMember: Yup.number()
+      .min(3, "Thấp nhất 3 thành viên")
+      .max(10, "Nhiều nhất 10 thành viên")
       .required("Bạn phải nhập số thành viên")
       .nullable(),
-    sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học")
+    sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học").nullable(),
+    content: Yup.string().required("Bạn phải nhập nội dung bài viết")
   });
-  const TOPIC_OPTIONS = [
-    { value: "Java", label: "Java" },
-    { value: "PHP", label: "PHP" },
-    { value: "Javascript", label: "Javascript" },
-    { value: "NodeJS", label: "NodeJS" },
-    { value: "SQL", label: "SQL" }
-  ];
-  const SESSIONS_OPTIONS = [
-    { value: 1, label: 1 },
-    { value: 2, label: 2 },
-    { value: 3, label: 3 },
-    { value: 4, label: 4 },
-    { value: 5, label: 5 }
-  ];
-  const MEMBER_OPTIONS = [
-    { value: 1, label: 1 },
-    { value: 2, label: 2 },
-    { value: 3, label: 3 },
-    { value: 4, label: 4 },
-    { value: 5, label: 5 }
-  ];
   return (
     <HomeLayout>
       <div className="PostCreate">
@@ -64,11 +44,10 @@ const PostCreatrion = () => {
                   <Formik
                     initialValues={{
                       title: "",
-                      select: 1,
-                      topic: null,
-                      sessions: null,
-                      numberMember: null,
-                      sumWeek: 3,
+                      topic: "",
+                      sessions: 1,
+                      numberMember: 3,
+                      sumWeek: 1,
                       content: ""
                     }}
                     validationSchema={validationSchema}
@@ -105,56 +84,53 @@ const PostCreatrion = () => {
                             label="Tiêu đề"
                             placeholder=""
                           />
-                          <div>
-                            <FormGroup>
-                              <Label for="exampleSelect">Select</Label>
-                              <Input
-                                id="exampleSelect"
-                                name="select"
-                                type="select"
-                                placeholder="Chọn chủ đề ?"
-                                value={Number(values.select)}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                invalid={errors["select"] && touched["select"]}
-                              >
-                                <option>{Number("1")}</option>
-                                <option>{Number("2")}</option>
-                                <option>{Number("3")}</option>
-                              </Input>
-                              <ErrorMessage
-                                name={"select"}
-                                component={FormFeedback}
+                          <div className="PostCreate__form__content__select">
+                            <div className="PostCreate__form__content__select__topic">
+                              <FormGroup>
+                                <Label for="exampleSelect">Chủ đề</Label>
+                                <Input
+                                  name="topic"
+                                  type="select"
+                                  value={values.select}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  invalid={
+                                    errors["select"] && touched["select"]
+                                  }
+                                >
+                                  <option>Java</option>
+                                  <option>NodeJS</option>
+                                  <option>NestJS</option>
+                                </Input>
+                                <ErrorMessage
+                                  name={"select"}
+                                  component={FormFeedback}
+                                />
+                              </FormGroup>
+                            </div>
+                            <div className="PostCreate__form__content__select__number">
+                              <FastField
+                                name="sessions"
+                                component={InputField}
+                                label="Số buổi/tuần"
+                                placeholder=""
+                                type="number"
                               />
-                            </FormGroup>
-                            <FastField
-                              name="topic"
-                              component={SelectField}
-                              label="Chủ đề"
-                              placeholder="Chọn chủ đề ?"
-                              options={TOPIC_OPTIONS}
-                            />
-                            <FastField
-                              name="sessions"
-                              component={SelectField}
-                              label="Số buổi/tuần"
-                              placeholder="Chọn số buổi?"
-                              options={SESSIONS_OPTIONS}
-                            />
-                            <FastField
-                              name="numberMember"
-                              component={SelectField}
-                              label="Số lượng thành viên"
-                              placeholder="Chọn số lượng thành viên?"
-                              options={MEMBER_OPTIONS}
-                            />
-                            <FastField
-                              name="sumWeek"
-                              component={InputField}
-                              label="Tổng số tuần học"
-                              placeholder=""
-                              type="number"
-                            />
+                              <FastField
+                                name="numberMember"
+                                component={InputField}
+                                label="Số thành viên"
+                                placeholder=""
+                                type="number"
+                              />
+                              <FastField
+                                name="sumWeek"
+                                component={InputField}
+                                label="Tổng số tuần học"
+                                placeholder=""
+                                type="number"
+                              />
+                            </div>
                           </div>
                           <FastField
                             name="content"

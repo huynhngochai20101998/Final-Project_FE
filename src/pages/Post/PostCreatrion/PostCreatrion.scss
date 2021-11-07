@@ -28,7 +28,8 @@
                 color: $color_white;
                 margin: 18px 0;
             }
-            input {
+            input,
+            select {
                 background: $bg_login_form;
                 border: 1px solid $bg_login_title;
                 box-sizing: border-box;
@@ -62,6 +63,25 @@
                     outline: none;
                     box-shadow: none !important;
                     color: $color_white;
+                }
+            }
+            &__select {
+                label {
+                    height: 38px;
+                }
+                display: flex;
+                &__topic {
+                    width: 100%;
+                    padding-right: 17px;
+                }
+                &__number {
+                    display: flex;
+                    width: 100%;
+                    justify-content: flex-end;
+                    .form-group{
+                        width: 100%;
+                        padding: 0 5px;
+                    }
                 }
             }
         }
