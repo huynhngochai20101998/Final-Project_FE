@@ -1,10 +1,17 @@
 import React from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
-import { Button, Spinner } from "reactstrap";
+import {
+  Button,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+  Spinner
+} from "reactstrap";
 // import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
-import { Formik, Form, FastField } from "formik";
+import { Formik, Form, FastField, ErrorMessage } from "formik";
 
 import "./PostCreatrion.scss";
 import InputField from "../custom-field/inputField";
@@ -13,6 +20,7 @@ const PostCreatrion = () => {
   let history = useHistory();
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
+    select: Yup.number().required("Bạn phải nhập chủ đề bài viết").nullable(),
     topic: Yup.string().required("Bạn phải nhập chủ đề bài viết").nullable(),
     sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
     numberMember: Yup.number()
@@ -56,6 +64,7 @@ const PostCreatrion = () => {
                   <Formik
                     initialValues={{
                       title: "",
+                      select: 1,
                       topic: null,
                       sessions: null,
                       numberMember: null,
@@ -80,7 +89,14 @@ const PostCreatrion = () => {
                     }}
                   >
                     {(formikProps) => {
-                      const { isSubmitting } = formikProps;
+                      const {
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        isSubmitting
+                      } = formikProps;
                       return (
                         <Form>
                           <FastField
@@ -90,6 +106,27 @@ const PostCreatrion = () => {
                             placeholder=""
                           />
                           <div>
+                            <FormGroup>
+                              <Label for="exampleSelect">Select</Label>
+                              <Input
+                                id="exampleSelect"
+                                name="select"
+                                type="select"
+                                placeholder="Chọn chủ đề ?"
+                                value={Number(values.select)}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                invalid={errors["select"] && touched["select"]}
+                              >
+                                <option>{Number("1")}</option>
+                                <option>{Number("2")}</option>
+                                <option>{Number("3")}</option>
+                              </Input>
+                              <ErrorMessage
+                                name={"select"}
+                                component={FormFeedback}
+                              />
+                            </FormGroup>
                             <FastField
                               name="topic"
                               component={SelectField}
