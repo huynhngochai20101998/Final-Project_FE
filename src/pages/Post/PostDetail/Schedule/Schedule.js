@@ -58,7 +58,7 @@ const Schedule = () => {
             values="Thứ 3"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue checked="" style={styleSell("#51546E", "#ffffff")} />
           <SellValue style={styleSell("#696D97", "#ffffff")} />
           <SellValue style={styleSell("#51546E", "#ffffff")} />
           <SellValue style={styleSell("#696D97", "#ffffff")} />

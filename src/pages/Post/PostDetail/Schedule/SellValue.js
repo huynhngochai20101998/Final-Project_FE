@@ -6,7 +6,13 @@ const SellValue = (props) => {
 
   return (
     <div className="sell" style={props.style}>
-      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+      <input
+        type="checkbox"
+        id="vehicle1"
+        name="vehicle1"
+        value="Bike"
+        // checked={props.checked}
+      />
     </div>
   );
 };
