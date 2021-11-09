@@ -8,7 +8,7 @@ import {
   Label,
   Spinner
 } from "reactstrap";
-// import http from "core/services/httpService";
+import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
@@ -19,14 +19,14 @@ const PostCreatrion = () => {
   let history = useHistory();
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
-    topic: Yup.string().required("Bạn phải nhập chủ đề bài viết").nullable(),
-    sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
-    numberMember: Yup.number()
-      .min(3, "Thấp nhất 3 thành viên")
-      .max(10, "Nhiều nhất 10 thành viên")
+    topic_id: Yup.number().required("Bạn phải chọn chủ đề bài viết").nullable(),
+    // sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
+    members: Yup.number()
+      .min(3, "Tối thiểu 3 thành viên")
+      .max(10, "Tối đa 10 thành viên")
       .required("Bạn phải nhập số thành viên")
       .nullable(),
-    sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học").nullable(),
+    // sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học").nullable(),
     content: Yup.string().required("Bạn phải nhập nội dung bài viết")
   });
   return (
@@ -44,27 +44,34 @@ const PostCreatrion = () => {
                   <Formik
                     initialValues={{
                       title: "",
-                      topic: "",
-                      sessions: 1,
-                      numberMember: 3,
-                      sumWeek: 1,
+                      topic_id: "",
+                      // sessions: 1,
+                      members: 3,
+                      // sumWeek: 1,
                       content: ""
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
-                      console.log(values);
-                      // http.post("/api/posts", values).then(() => {
-                      //   alert("Bạn đã đăng thành công");
-                      //   actions.setSubmitting(false);
-                      //   actions.resetForm({
-                      //     values: {
-                      //       title: "",
-                      //       numberMember: 1,
-                      //       content: ""
-                      //     }
-                      //   });
-                      //   history.push("/");
-                      // });
+                    onSubmit={(values, actions) => {
+                      const formatValue = {
+                        ...values,
+                        topic_id: Number(values.topic_id)
+                      };
+                      http.post("/api/posts", formatValue).then(() => {
+                        alert("Bạn đã đăng thành công");
+                        actions.setSubmitting(false);
+                        actions.resetForm({
+                          values: {
+                            title: "",
+                            topic_id: "",
+                            // sessions: 1,
+                            members: 3,
+                            // sumWeek: 1,
+                            content: ""
+                          }
+                        });
+                        history.push("/");
+                      });
+                      console.log(formatValue);
                     }}
                   >
                     {(formikProps) => {
@@ -89,47 +96,53 @@ const PostCreatrion = () => {
                               <FormGroup>
                                 <Label for="exampleSelect">Chủ đề</Label>
                                 <Input
-                                  name="topic"
+                                  name="topic_id"
                                   type="select"
-                                  value={values.select}
+                                  value={values.topic_id}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
+                                  defaultValue=""
                                   invalid={
-                                    errors["select"] && touched["select"]
+                                    errors["topic_id"] && touched["topic_id"]
                                   }
                                 >
-                                  <option>Java</option>
-                                  <option>NodeJS</option>
-                                  <option>NestJS</option>
+                                  <option
+                                    value=""
+                                    disabled
+                                    label="Chọn chủ đề"
+                                  />
+                                  <option value="1" label="java" />
+                                  <option value="2" label="javascript" />
+                                  <option value="3" label="Nestjs" />
                                 </Input>
                                 <ErrorMessage
-                                  name={"select"}
+                                  name={"topic_id"}
                                   component={FormFeedback}
                                 />
                               </FormGroup>
                             </div>
                             <div className="PostCreate__form__content__select__number">
-                              <FastField
+                              {/* <FastField
                                 name="sessions"
                                 component={InputField}
                                 label="Số buổi/tuần"
                                 placeholder=""
                                 type="number"
-                              />
+                              /> */}
                               <FastField
-                                name="numberMember"
+                                name="members"
                                 component={InputField}
                                 label="Số thành viên"
                                 placeholder=""
                                 type="number"
                               />
-                              <FastField
+                              {/* <FastField
                                 name="sumWeek"
                                 component={InputField}
                                 label="Tổng số tuần học"
                                 placeholder=""
                                 type="number"
-                              />
+                              /> */}
                             </div>
                           </div>
                           <FastField
