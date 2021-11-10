@@ -49,6 +49,23 @@ export default slice.reducer;
 
 const { logoutSuccess, loginSuccess, setLoading } = slice.actions;
 
+export const sendEmailConfirmAcc = (values) => async () => {
+  try {
+    // const headers = {
+    //   // eslint-disable-next-line prettier/prettier
+    //   "Authorization": `${values}`
+    // };
+
+    console.log(values);
+
+    const res = await http.post("/api/email/verification-notification");
+
+    console.log(res);
+  } catch (e) {
+    return console.error(e.message);
+  }
+};
+
 export const login = (values) => async (dispatch) => {
   // window.location.href = "/home";
   try {
@@ -74,7 +91,13 @@ export const login = (values) => async (dispatch) => {
     dispatch(setLoading({ loading: false }));
 
     if (!res.success) {
-      pushToast("error", res?.message);
+      console.log(res.data.access_token);
+      localStorage.setItem("token", res.data.access_token);
+      dispatch(sendEmailConfirmAcc(res.data.access_token));
+      pushToast(
+        "warn",
+        "Your email address is not verified, Verification link sent email"
+      );
     } else if (res?.data?.user?.role[0] === USER_ROLE.ADMIN) {
       pushToast("error", ERRORS.ACCOUNT_PERMISSION);
     } else {
@@ -82,6 +105,7 @@ export const login = (values) => async (dispatch) => {
     }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
+
     pushToast("error", e.message);
 
     return console.error(e.message);
@@ -90,9 +114,12 @@ export const login = (values) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    // await api.post('/api/auth/logout/')
-    return dispatch(logoutSuccess());
+    const res = await http.post("/api/logout");
+    if (res.success) {
+      dispatch(logoutSuccess());
+    }
   } catch (e) {
+    pushToast("error", e?.response?.data.message);
     return console.error(e.message);
   }
 };
