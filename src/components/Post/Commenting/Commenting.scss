@@ -27,7 +27,7 @@
         button {
             background: $color_text_blue;
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 16px;
             color: $color_black;
             width: 100px;
@@ -47,10 +47,18 @@
             width: 100%;
             span {
                 color: $color_text_blue;
+                font-weight: 500;
+                line-height: 20px;
+                margin-bottom: 10px;
             }
             p {
                 color: $color_white;
                 width: 100%;
+                word-break: break-all;
+                display: -webkit-box;
+                line-height: 25px;
+                -webkit-box-orient: vertical;
+                margin-top: 10px;
             }
         }
     }
