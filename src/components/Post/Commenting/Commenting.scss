@@ -1,0 +1,57 @@
+@import "../../../assets/scss/app.scss";
+.Commenting {
+    img {
+        width: 54px;
+        height: 46px;
+        border-radius: 50%;
+    }
+    &__input {
+        display: flex;
+        margin: 50px 0;
+        input {
+            background: $color_input_post-detail;
+            border: 1px solid $color_input_post-detail;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 0px 20px;
+            margin: 0px 20px;
+            height: 46px;
+            color: $color_white;
+            &:focus {
+                background: $color_input_post-detail;
+                outline: none;
+                box-shadow: none !important;
+                color: $color_white;
+            }
+        }
+        button {
+            background: $color_text_blue;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 16px;
+            color: $color_black;
+            width: 100px;
+            height: 46px;
+            font-weight: 500;
+            border: none;
+        }
+    }
+    &__list {
+        display: flex;
+        margin: 25px 0;
+        &__frame {
+            background-color: $color_input_post-detail;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 106px 0 20px;
+            width: 100%;
+            span {
+                color: $color_text_blue;
+            }
+            p {
+                color: $color_white;
+                width: 100%;
+            }
+        }
+    }
+}
