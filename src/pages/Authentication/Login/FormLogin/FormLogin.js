@@ -64,10 +64,10 @@ function FormLogin() {
             value={values.email}
             onChange={formik.handleChange}
           />
-          {error.email && touched.email && (
-            <p className="errors">{error.email}</p>
-          )}
         </div>
+        {error.email && touched.email && (
+          <p className="errors">{error.email}</p>
+        )}
         <div className="login-form-group ">
           <label>Mật Khẩu</label>
           <input
@@ -84,15 +84,16 @@ function FormLogin() {
             onClick={() => setIsShowPassword(!isShowPassword)}
           >
             {isShowPassword ? (
-              <i className="far fa-eye" />
+              <i className="far fa-eye icon" />
             ) : (
-              <i className="far fa-eye-slash" />
+              <i className="far fa-eye-slash icon" />
             )}
           </div>
-          {error.password && touched.password && (
-            <p className="errors">{error.password}</p>
-          )}
         </div>
+        {error.password && touched.password && (
+          <p className="errors">{error.password}</p>
+        )}
+
         <div className="login-form-group remember-forgot-group">
           <div className="login-form-forgot">
             <Link to="/forgot-password" className="forgot-password">

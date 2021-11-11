@@ -28,10 +28,6 @@ const HomeNabar = () => {
         <div className="home-navbar-content__user">
           <div className="">
             <img className="img" src={IconLang} alt="" />
-            <ul className="language-list">
-              <li className="language-item">EN</li>
-              <li className="language-item">VN</li>
-            </ul>
           </div>
           {userInfo ? (
             <div className="home-user">

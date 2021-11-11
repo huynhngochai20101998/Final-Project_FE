@@ -33,7 +33,7 @@ export const routeConfig = [
   },
   {
     path: "/reset-password",
-    isPrivate: true,
+    isPrivate: false,
     exact: true,
     component: ResetPassword
   },
@@ -51,7 +51,7 @@ export const routeConfig = [
   },
   {
     path: "/post-details",
-    isPrivate: true,
+    isPrivate: false,
     exact: true,
     component: PostDetail
   },

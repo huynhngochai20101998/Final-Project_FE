@@ -69,7 +69,6 @@ export const sendEmailConfirmAcc = () => async () => {
 };
 
 export const login = (values) => async (dispatch) => {
-  // window.location.href = "/home";
   try {
     dispatch(setLoading({ loading: true }));
 
@@ -77,6 +76,8 @@ export const login = (values) => async (dispatch) => {
       email: values.email,
       password: values.password
     });
+
+    console.log(res);
 
     let user = {
       ...res.data.user
@@ -111,6 +112,7 @@ export const login = (values) => async (dispatch) => {
   } catch (e) {
     dispatch(setLoading({ loading: false }));
 
+    console.log(e);
     pushToast("error", e.message);
 
     // return console.error(e.message);
@@ -158,6 +160,8 @@ export const resetPassword = (values) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: false }));
 
+    console.log(values);
+
     const res = await http.put("/api/reset-password", {
       token: values.token,
       email: localStorage.getItem("email"),
@@ -168,11 +172,13 @@ export const resetPassword = (values) => async (dispatch) => {
     dispatch(setLoading({ loading: false }));
     if (res.success) {
       localStorage.removeItem("email");
+
       window.location.href = "/login";
     } else {
       pushToast("error", res.message);
     }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
+    pushToast("error", e?.response?.data.message);
   }
 };
