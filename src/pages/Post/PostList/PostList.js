@@ -38,14 +38,16 @@ export default function PostList() {
                 <Loading visible={isLoading} />
               ) : (
                 postList.map((post) => {
+                  const formatDate = post.created_at.slice(0, 10).split("-");
+                  const datePost = `${formatDate[2]}-${formatDate[1]}-${formatDate[0]}`;
                   return (
                     <div className="PostList__form" key={post.id}>
                       <div className="PostList__form__info-user">
                         <div>
                           <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
-                          <p>Nguyễn Dũng</p>
+                          <span>Nguyễn Dũng</span>
                         </div>
-                        <div>{post.created_at.slice(0, 10)}</div>
+                        <div>{datePost}</div>
                       </div>
                       <div className="PostList__form__info-post">
                         <h5>{post.title}</h5>
