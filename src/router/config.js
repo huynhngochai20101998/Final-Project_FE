@@ -51,7 +51,7 @@ export const routeConfig = [
   },
   {
     path: "/post-details",
-    isPrivate: false,
+    isPrivate: true,
     exact: true,
     component: PostDetail
   },

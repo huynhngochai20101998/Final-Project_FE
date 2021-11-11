@@ -14,7 +14,7 @@ const HomeLayout = (props) => {
         </Col>
       </Row>
       <Row className="auth-layout__main">
-        <Col lassName="auth-layout__main-content">{props.children}</Col>
+        <Col className="auth-layout__main-content">{props.children}</Col>
       </Row>
     </div>
   );

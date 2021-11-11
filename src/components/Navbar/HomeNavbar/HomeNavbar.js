@@ -12,9 +12,10 @@ import { logout } from "store/user";
 const HomeNabar = () => {
   // const userInfo = localStorage.getItem("user");
   const dispatch = useDispatch();
-
   const userInfo = true;
+
   const handelLogout = () => {
+    console.log("alo");
     dispatch(logout());
   };
 
@@ -43,8 +44,8 @@ const HomeNabar = () => {
                 </div>
               </div>
               <ul className="control">
-                <li className="control-item" onClick={handelLogout()}>
-                  login
+                <li className="control-item" onClick={handelLogout}>
+                  logout
                 </li>
               </ul>
             </div>

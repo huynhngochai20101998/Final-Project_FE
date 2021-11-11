@@ -32,12 +32,14 @@ const slice = createSlice({
 
     logoutSuccess: (state) => {
       state.user = null;
+
       removeUserLocal();
       window.location.href = "/login";
     },
 
     setLoading: (state, action) => {
       const { payload } = action;
+
       state.loading = payload.loading;
     }
   }
@@ -49,18 +51,18 @@ export default slice.reducer;
 
 const { logoutSuccess, loginSuccess, setLoading } = slice.actions;
 
-export const sendEmailConfirmAcc = (values) => async () => {
+export const sendEmailConfirmAcc = () => async () => {
   try {
     // const headers = {
     //   // eslint-disable-next-line prettier/prettier
     //   "Authorization": `${values}`
     // };
 
-    console.log(values);
+    // console.log(values);
 
-    const res = await http.post("/api/email/verification-notification");
+    await http.post("/api/email/verification-notification");
 
-    console.log(res);
+    // console.log(res);
   } catch (e) {
     return console.error(e.message);
   }
@@ -91,9 +93,12 @@ export const login = (values) => async (dispatch) => {
     dispatch(setLoading({ loading: false }));
 
     if (!res.success) {
-      console.log(res.data.access_token);
+      // console.log(res.data.access_token);
+
       localStorage.setItem("token", res.data.access_token);
+
       dispatch(sendEmailConfirmAcc(res.data.access_token));
+
       pushToast(
         "warn",
         "Your email address is not verified, Verification link sent email"
@@ -108,25 +113,29 @@ export const login = (values) => async (dispatch) => {
 
     pushToast("error", e.message);
 
-    return console.error(e.message);
+    // return console.error(e.message);
   }
 };
 
 export const logout = () => async (dispatch) => {
   try {
     const res = await http.post("/api/logout");
+
     if (res.success) {
       dispatch(logoutSuccess());
+    } else {
+      pushToast("error", res.message);
     }
   } catch (e) {
     pushToast("error", e?.response?.data.message);
-    return console.error(e.message);
+    // return console.error(e.message);
   }
 };
 
 export const forgotPass = (values) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: true }));
+
     const res = await http.post("/api/forgot-password", {
       email: values.email
     });
@@ -141,7 +150,7 @@ export const forgotPass = (values) => async (dispatch) => {
     dispatch(setLoading({ loading: false }));
     pushToast("error", e?.response?.data.message);
 
-    return console.error(e?.response?.data.message);
+    // return console.error(e?.response?.data.message);
   }
 };
 
@@ -158,6 +167,7 @@ export const resetPassword = (values) => async (dispatch) => {
 
     dispatch(setLoading({ loading: false }));
     if (res.success) {
+      localStorage.removeItem("email");
       window.location.href = "/login";
     } else {
       pushToast("error", res.message);
