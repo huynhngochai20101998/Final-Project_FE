@@ -4,6 +4,8 @@ import "./Sell.scss";
 const SellValue = (props) => {
   //   const [valueSchedule, setValueSchedule] = useState(false);
 
+  // const valuesPostCheck = {};
+
   return (
     <div className="sell" style={props.style}>
       <input

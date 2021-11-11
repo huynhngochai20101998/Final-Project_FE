@@ -31,7 +31,7 @@ const pushToast = (type, message) => {
 
 const Toast = () => {
   return (
-    <ToastContainer hideProgressBar autoClose={3000} closeOnClick={false} />
+    <ToastContainer hideProgressBar autoClose={5000} closeOnClick={false} />
   );
 };
 
