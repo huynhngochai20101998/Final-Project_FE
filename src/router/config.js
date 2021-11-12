@@ -35,7 +35,7 @@ export const routeConfig = [
   },
   {
     path: "/reset-password",
-    isPrivate: true,
+    isPrivate: false,
     exact: true,
     component: ResetPassword
   },
