@@ -10,9 +10,8 @@ import { useDispatch } from "react-redux";
 import { logout } from "store/user";
 
 const HomeNabar = () => {
-  // const userInfo = localStorage.getItem("user");
+  const userInfo = localStorage.getItem("user");
   const dispatch = useDispatch();
-  const userInfo = true;
 
   const handelLogout = () => {
     console.log("alo");

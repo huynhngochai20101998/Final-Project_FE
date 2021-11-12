@@ -12,21 +12,22 @@ import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
-import "./PostCreatrion.scss";
+import "./PostCreation.scss";
 import InputField from "../custom-field/inputField";
+// import { pushToast } from "components/Toast";
 const PostCreatrion = () => {
   const [isLoading, setIsLoading] = useState(true);
   let history = useHistory();
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
     topic_id: Yup.number().required("Bạn phải chọn chủ đề bài viết").nullable(),
-    sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
+    // sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
     members: Yup.number()
       .min(3, "Tối thiểu 3 thành viên")
       .max(10, "Tối đa 10 thành viên")
       .required("Bạn phải nhập số thành viên")
       .nullable(),
-    sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học").nullable(),
+    // sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học").nullable(),
     content: Yup.string().required("Bạn phải nhập nội dung bài viết")
   });
   return (
@@ -41,9 +42,9 @@ const PostCreatrion = () => {
               initialValues={{
                 title: "",
                 topic_id: "",
-                sessions: 1,
+                // sessions: 1,
                 members: 3,
-                sumWeek: 1,
+                // sumWeek: 1,
                 content: ""
               }}
               validationSchema={validationSchema}
@@ -52,22 +53,26 @@ const PostCreatrion = () => {
                   ...values,
                   topic_id: Number(values.topic_id)
                 };
-                http.post("/api/posts", formatValue).then(() => {
-                  alert("Bạn đã đăng thành công");
+                http.post("/api/posts", formatValue).then((res) => {
+                  localStorage.setItem("postCreateId", res.data.id);
+
+                  // pushToast("success", "Bạn đã đăng thành công");
                   actions.setSubmitting(false);
                   actions.resetForm({
                     values: {
                       title: "",
                       topic_id: "",
-                      sessions: 1,
+                      // sessions: 1,
                       members: 3,
-                      sumWeek: 1,
+                      // sumWeek: 1,
                       content: ""
                     }
                   });
-                  history.push("/");
+
+                  setIsLoading(!isLoading);
                 });
-                console.log(formatValue);
+
+                // console.log(formatValue);
               }}
             >
               {(formikProps) => {
@@ -153,9 +158,7 @@ const PostCreatrion = () => {
                           >
                             Hủy
                           </Button>
-                          <Button onClick={() => setIsLoading(!isLoading)}>
-                            Tiếp tục
-                          </Button>
+                          <Button type="submit">Tiếp tục</Button>
                         </div>
                       </>
                     ) : (
@@ -169,7 +172,7 @@ const PostCreatrion = () => {
                             >
                               Quay lại
                             </Button>
-                            <Button type="submit">
+                            <Button>
                               {isSubmitting && (
                                 <Spinner color="light" size="sm" />
                               )}

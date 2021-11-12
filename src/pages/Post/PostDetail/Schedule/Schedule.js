@@ -47,77 +47,217 @@ const Schedule = () => {
             values="Thứ 2"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="1"
+            timeID="1"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="1"
+            timeID="2"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="1"
+            timeID="3"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="1"
+            timeID="4"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="1"
+            timeID="5"
+          />
         </div>
         <div className="schedule-collumn">
           <SellTimeName
             values="Thứ 3"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue checked="" style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="2"
+            timeID="1"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="2"
+            timeID="2"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="2"
+            timeID="3"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="2"
+            timeID="4"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="2"
+            timeID="5"
+          />
         </div>
         <div className="schedule-collumn">
           <SellTimeName
             values="Thứ 4"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="3"
+            timeID="1"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="3"
+            timeID="2"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="3"
+            timeID="3"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="3"
+            timeID="4"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="3"
+            timeID="5"
+          />
         </div>
         <div className="schedule-collumn">
           <SellTimeName
             values="Thứ 5"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="4"
+            timeID="1"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="4"
+            timeID="2"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="4"
+            timeID="3"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="4"
+            timeID="4"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="4"
+            timeID="5"
+          />
         </div>
         <div className="schedule-collumn">
           <SellTimeName
             values="Thứ 6"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="5"
+            timeID="1"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="5"
+            timeID="2"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="5"
+            timeID="3"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="5"
+            timeID="4"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="5"
+            timeID="5"
+          />
         </div>
         <div className="schedule-collumn">
           <SellTimeName
             values="Thứ 7"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="6"
+            timeID="1"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="6"
+            timeID="2"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="6"
+            timeID="3"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="6"
+            timeID="4"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="6"
+            timeID="5"
+          />
         </div>
         <div className="schedule-collumn">
           <SellTimeName
             values="Chủ Nhât"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
-          <SellValue style={styleSell("#696D97", "#ffffff")} />
-          <SellValue style={styleSell("#51546E", "#ffffff")} />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="7"
+            timeID="1"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="7"
+            timeID="2"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="7"
+            timeID="3"
+          />
+          <SellValue
+            style={styleSell("#696D97", "#ffffff")}
+            dayID="7"
+            timeID="4"
+          />
+          <SellValue
+            style={styleSell("#51546E", "#ffffff")}
+            dayID="7"
+            timeID="5"
+          />
         </div>
       </div>
 
