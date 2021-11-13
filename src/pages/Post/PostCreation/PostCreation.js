@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 import {
   Button,
@@ -8,27 +8,47 @@ import {
   Label,
   Spinner
 } from "reactstrap";
-import http from "core/services/httpService";
+// import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
 import "./PostCreatrion.scss";
 import InputField from "../custom-field/inputField";
-const PostCreatrion = () => {
+import http from "core/services/httpService";
+const PostCreation = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [topicList, setTopicList] = useState([]);
   let history = useHistory();
+
+  useEffect(() => {
+    async function getDataList() {
+      try {
+        const response = await http.get("/api/topics");
+        setTopicList(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getDataList();
+  }, []);
+
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
     topic_id: Yup.number().required("Bạn phải chọn chủ đề bài viết").nullable(),
-    sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
+    number_of_lessons: Yup.number()
+      .required("Bạn phải nhập số buổi")
+      .nullable(),
     members: Yup.number()
       .min(3, "Tối thiểu 3 thành viên")
       .max(10, "Tối đa 10 thành viên")
       .required("Bạn phải nhập số thành viên")
       .nullable(),
-    sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học").nullable(),
+    number_of_weeks: Yup.number()
+      .required("Bạn phải nhập tổng số tuần học")
+      .nullable(),
     content: Yup.string().required("Bạn phải nhập nội dung bài viết")
   });
+
   return (
     <HomeLayout>
       <div className="PostCreate">
@@ -41,9 +61,9 @@ const PostCreatrion = () => {
               initialValues={{
                 title: "",
                 topic_id: "",
-                sessions: 1,
+                number_of_lessons: 1,
                 members: 3,
-                sumWeek: 1,
+                number_of_weeks: 1,
                 content: ""
               }}
               validationSchema={validationSchema}
@@ -53,21 +73,19 @@ const PostCreatrion = () => {
                   topic_id: Number(values.topic_id)
                 };
                 http.post("/api/posts", formatValue).then(() => {
-                  alert("Bạn đã đăng thành công");
                   actions.setSubmitting(false);
                   actions.resetForm({
                     values: {
                       title: "",
                       topic_id: "",
-                      sessions: 1,
+                      number_of_lessons: 1,
                       members: 3,
-                      sumWeek: 1,
+                      number_of_weeks: 1,
                       content: ""
                     }
                   });
                   history.push("/");
                 });
-                console.log(formatValue);
               }}
             >
               {(formikProps) => {
@@ -99,16 +117,22 @@ const PostCreatrion = () => {
                                 value={values.topic_id}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                // defaultValue=""
                                 invalid={
                                   errors["topic_id"] && touched["topic_id"]
                                 }
                               >
                                 <option value="" disabled label="Chọn chủ đề" />
-                                <option value="1" label="java" />
-                                <option value="2" label="javascript" />
-                                <option value="3" label="Nestjs" />
+                                {topicList.map((topic) => {
+                                  return (
+                                    <option
+                                      key={topic.id}
+                                      value={topic.id}
+                                      label={topic.name}
+                                    />
+                                  );
+                                })}
                               </Input>
+                              ;
                               <ErrorMessage
                                 name={"topic_id"}
                                 component={FormFeedback}
@@ -117,7 +141,7 @@ const PostCreatrion = () => {
                           </div>
                           <div className="PostCreate__form__content__select__number">
                             <FastField
-                              name="sessions"
+                              name="number_of_lessons"
                               component={InputField}
                               label="Số buổi/tuần"
                               placeholder=""
@@ -131,7 +155,7 @@ const PostCreatrion = () => {
                               type="number"
                             />
                             <FastField
-                              name="sumWeek"
+                              name="number_of_weeks"
                               component={InputField}
                               label="Tổng số tuần học"
                               placeholder=""
@@ -190,4 +214,4 @@ const PostCreatrion = () => {
   );
 };
 
-export default PostCreatrion;
+export default PostCreation;

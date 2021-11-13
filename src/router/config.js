@@ -6,7 +6,7 @@ import SignUp from "pages/Authentication/SignUp/SignUp";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
-import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
+import PostCreation from "pages/Post/PostCreation/PostCreation";
 import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
@@ -47,7 +47,7 @@ export const routeConfig = [
     path: "/post-creation",
     isPrivate: true,
     exact: true,
-    component: PostCreatrion
+    component: PostCreation
   },
   {
     path: "/post-details",
