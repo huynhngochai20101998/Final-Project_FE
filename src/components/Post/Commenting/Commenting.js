@@ -8,8 +8,8 @@ const Commenting = () => {
   useEffect(() => {
     async function getDataList() {
       try {
-        const response = await http.get("");
-        setCommentList(response.data.data);
+        const response = await http.get("/api/comments");
+        setCommentList(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -23,13 +23,14 @@ const Commenting = () => {
         <Input />
         <button>Gửi</button>
       </div>
-      {commentList.map((comments) => {
-        console.log(comments);
-        <div className="Commenting__list" key={comments.id}>
-          <img src={comments.image} />
+      {commentList.map((comment) => {
+        <div className="Commenting__list" key={comment.id}>
+          <img src={comment.user.image} />
           <div className="Commenting__list__frame">
-            <span>{comments.userName}</span>
-            <p>{comments.comments}</p>
+            <span>
+              {comment.user.first_name} {comment.user.last_name}
+            </span>
+            <p>{comment.content}</p>
           </div>
         </div>;
       })}
