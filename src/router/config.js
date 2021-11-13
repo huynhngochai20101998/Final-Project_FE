@@ -11,6 +11,8 @@ import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostList from "pages/Post/PostList/PostList";
+import Search from "components/Searching/Searching";
+import SearchFound from "components/Searching/SearchFound";
 
 export const routeConfig = [
   {
@@ -60,6 +62,18 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: Home
+  },
+  {
+    path: "/search",
+    isPrivate: false,
+    exact: true,
+    component: Search
+  },
+  {
+    path: "/search-result",
+    isPrivate: false,
+    exact: true,
+    component: SearchFound
   },
   { path: "*", component: Error }
 ];
