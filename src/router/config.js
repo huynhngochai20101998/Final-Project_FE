@@ -11,6 +11,7 @@ import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostList from "pages/Post/PostList/PostList";
+import PostListSign from "pages/Post/PostListSigning/PostListSigning";
 
 export const routeConfig = [
   {
@@ -54,6 +55,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: PostDetail
+  },
+  {
+    path: "/post-list-sign",
+    isPrivate: false,
+    exact: true,
+    component: PostListSign
   },
   {
     path: "/home",

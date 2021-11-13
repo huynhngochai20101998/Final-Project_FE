@@ -1,26 +1,28 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addSchedule } from "store/post";
 
 import "./Sell.scss";
 
 const SellValue = (props) => {
-  const [valueSchedule, setValueSchedule] = useState(false);
+  const dispatch = useDispatch();
+  const [valueSchedule, setValueSchedule] = useState(true);
 
   const valueSell = {
     post_id: 1,
     day_id: parseInt(props.dayID),
     time_id: parseInt(props.timeID),
-    value: valueSchedule ? 1 : 0
+    value: valueSchedule
   };
 
   const clickCheckBox = () => {
-    console.log("alo");
     setValueSchedule(!valueSchedule);
+
+    dispatch(addSchedule(valueSell));
   };
 
-  console.log(valueSell);
-
   return (
-    <div className="sell">
+    <div className="sell" style={props.style}>
       <input type="checkbox" id="scheduleCheckbox" onClick={clickCheckBox} />
     </div>
   );

@@ -68,11 +68,11 @@ const PostDetail = () => {
                 <p>{valuePost.postTitle}</p>
               </h4>
               <p className="content__topic">{`#${valuePost.postTopic}`}</p>
-              <p className="content__require-member">
+              <span className="content__require-member">
                 <p className="content__require-member-label">
                   {`Yêu cầu thành viên :  ${valuePost.requireMember} Nguời`}
                 </p>
-              </p>
+              </span>
               <div className="content__text">
                 <p>{valuePost.content}</p>
               </div>
