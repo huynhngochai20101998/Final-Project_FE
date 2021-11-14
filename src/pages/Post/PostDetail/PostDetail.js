@@ -5,26 +5,21 @@ import ImgAvatar from "../../../assets/images/user-avatar.png";
 import IconVote from "../../../assets/icons/vote-star.svg";
 
 import "./PostDetail.scss";
-import Schedule from "./Schedule/Schedule";
+import Schedule from "../../../components/Post/Schedule/Schedule";
+import { createPost } from "store/post";
+import { useDispatch } from "react-redux";
+import moment from "moment";
 
 const PostDetail = () => {
   const [report, setReport] = useState(false);
+  const dispatch = useDispatch();
 
   const userInfo = {
     userAvatar: ImgAvatar,
     userName: "Nguyễn Ngọc Dũng"
   };
 
-  const valuePost = {
-    postTitle: "Tìm nhóm cùng học javascript",
-    postTopic: "javascript",
-    requireMember: 5,
-    reported: report,
-    rating: 5,
-    createAt: "15/10/2021",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sedarcu nunc sagittis ornare a convallisalesuada egestas duis nonut. Vel est bibendum etiam ornare. iaculis nunc luctus. Netustellus sapien vitae, arcu et volutpat integer arcu."
-  };
+  const postCurrent = JSON.parse(localStorage.getItem("postCurrent"));
 
   return (
     <HomeLayout>
@@ -38,7 +33,9 @@ const PostDetail = () => {
                 </div>
                 <div className="user-name">
                   <p className="text m-0 p-0">{userInfo.userName}</p>
-                  <p className="text-white tr">{valuePost.createAt}</p>
+                  <p className="text-white tr">
+                    {moment(postCurrent.created_at).format("DD/MM/YYYY")}
+                  </p>
                 </div>
               </a>
             </div>
@@ -47,7 +44,7 @@ const PostDetail = () => {
                 <i
                   className="fas fa-flag icon-report"
                   style={
-                    valuePost.reported ? { color: "red" } : { color: "white" }
+                    postCurrent.reported ? { color: "red" } : { color: "white" }
                   }
                   onClick={() => setReport(!report)}
                 />
@@ -57,7 +54,7 @@ const PostDetail = () => {
                   <img src={IconVote} className="icon mx-2" alt="" />
                 </div>
                 <div className="vote-quantity mx-1 fs-3 text-white po">
-                  {valuePost.rating}
+                  {/* {postCurrent.rating} */}3
                 </div>
               </div>
             </div>
@@ -65,22 +62,30 @@ const PostDetail = () => {
           <div className="post-detail__body d-flex flex-column justify-content-center ">
             <div className="content">
               <h4 className="content__title no-gutters">
-                <p>{valuePost.postTitle}</p>
+                <p>{postCurrent.title}</p>
               </h4>
-              <p className="content__topic">{`#${valuePost.postTopic}`}</p>
-              <p className="content__require-member">
+              <p className="content__topic">{`#${postCurrent.topic_id}`}</p>
+              <span className="content__require-member">
                 <p className="content__require-member-label">
-                  {`Yêu cầu thành viên :  ${valuePost.requireMember} Nguời`}
+                  {`Yêu cầu thành viên :  ${postCurrent.members} Nguời`}
                 </p>
-              </p>
+              </span>
               <div className="content__text">
-                <p>{valuePost.content}</p>
+                <p>{postCurrent.content}</p>
               </div>
             </div>
             <div className="schedule d-flex justify-content-center">
               <Schedule />
             </div>
           </div>
+          <button
+            className="float-end btn btn-info me-2"
+            onClick={() => {
+              dispatch(createPost());
+            }}
+          >
+            Hoàn Tất
+          </button>
         </div>
       </div>
     </HomeLayout>

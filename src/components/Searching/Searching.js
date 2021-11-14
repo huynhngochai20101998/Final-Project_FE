@@ -28,9 +28,9 @@ const Searching = () => {
   const onSubmitSearch = (e) => {
     e.preventDefault();
     if (inputValues.value && postList.length > 0) {
-      history.push({ pathname: "/search-result", state: postList });
+      history.push({ pathname: "/home-search", state: postList });
     } else if (inputValues.value && postList.length <= 0) {
-      history.push({ pathname: "/search-result", state: postList });
+      history.push({ pathname: "/home-search", state: postList });
     }
   };
 
