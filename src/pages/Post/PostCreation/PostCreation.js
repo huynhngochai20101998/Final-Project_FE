@@ -14,11 +14,15 @@ import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
 import "./PostCreation.scss";
 import InputField from "../custom-field/inputField";
-import Schedule from "../PostDetail/Schedule/Schedule";
+import Schedule from "../../../components/Post/Schedule/Schedule";
+import { useDispatch } from "react-redux";
+import { createPost } from "store/post";
 // import { pushToast } from "components/Toast";
 const PostCreatrion = () => {
   const [isLoading, setIsLoading] = useState(true);
   let history = useHistory();
+  const dispatch = useDispatch();
+
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
     topic_id: Yup.number().required("Bạn phải chọn chủ đề bài viết").nullable(),
@@ -180,7 +184,11 @@ const PostCreatrion = () => {
                             >
                               Quay lại
                             </Button>
-                            <Button>
+                            <Button
+                              onClick={() => {
+                                dispatch(createPost());
+                              }}
+                            >
                               {isSubmitting && (
                                 <Spinner color="light" size="sm" />
                               )}

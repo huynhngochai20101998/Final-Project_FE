@@ -10,8 +10,8 @@ import PostCreatrion from "pages/Post/PostCreation/PostCreation";
 import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
-import PostList from "pages/Post/PostList/PostList";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
+import SearchFound from "components/Searching/SearchFound";
 
 export const routeConfig = [
   {
@@ -39,12 +39,6 @@ export const routeConfig = [
     component: ResetPassword
   },
   {
-    path: "/post-list",
-    isPrivate: false,
-    exact: true,
-    component: PostList
-  },
-  {
     path: "/post-creation",
     isPrivate: true,
     exact: true,
@@ -67,6 +61,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: Home
+  },
+  {
+    path: "/home-search",
+    isPrivate: false,
+    exact: true,
+    component: SearchFound
   },
   { path: "*", component: Error }
 ];

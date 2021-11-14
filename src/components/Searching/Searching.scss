@@ -1,0 +1,69 @@
+@import "../../assets/scss/foundation/variable/variable";
+
+.search-component{
+    margin-top: 10px;
+
+    .container {
+
+        .searchbar {
+            margin-bottom: auto;
+            margin-top: auto;
+            height: 50px;
+            background-color: $search_bar;
+            border-radius: 10px;
+            padding: 10px;
+            }
+        
+        .search_input {
+            padding: 0 10px;
+            caret-color: $color_white;
+            color: $color_white;
+            border: 0;
+            outline: 0;
+            background: none;
+            width: 450px;
+            line-height: 30px;
+            font-size: 16px;
+    
+            &::placeholder{
+                color: $color_gray;
+            }
+        }
+        .search_icon {
+            background: $bg_login_title;
+            color: $color_white;
+            height: 30px;
+            width: 30px;
+            float: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            text-decoration: none;
+        }
+    
+        .list-result{
+            background-color: $search_bar;
+            width: 500px;
+            margin-top: -8px;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+
+            .loading{
+                position: absolute;
+            }
+
+            li{
+                cursor: pointer;
+                color: $color_white;
+                padding: 5px 0 5px 6px;
+
+                &:hover{
+                    color: $sencond_color_hover;
+                }
+            }
+        }
+    }
+
+}
+

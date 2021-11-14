@@ -260,10 +260,6 @@ const Schedule = () => {
           />
         </div>
       </div>
-
-      <div className="btn btn-info btn-submit float-end">
-        <span>Gửi</span>
-      </div>
     </div>
   );
 };
