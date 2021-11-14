@@ -1,5 +1,7 @@
 @import "../../../assets/scss/app.scss";
 .PostList {
+    width: 100%;
+    padding: 0 25px;
     &__add {
         display: flex;
         justify-content: flex-end;
@@ -32,9 +34,10 @@
                     height: 40px;
                     border-radius: 50%;
                 }
-                p {
-                    color: $color_white;
+                span {
+                    color: $color_text_blue;
                     margin: 0 10px;
+                    font-weight: 500;
                 }
             }
         }

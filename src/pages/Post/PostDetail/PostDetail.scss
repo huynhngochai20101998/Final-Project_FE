@@ -1,23 +1,140 @@
 @import "../../../assets/scss/app.scss";
 
-.post-detail {
-    padding: 20px 30px 50px 60px;
-    background-color: bg_login_form;
+.post-detail-container {
+  width: 100%;
+  height: max-content;
+  padding: 100px 250px;
+  padding-top: 0px;
+
+  .post-detail {
+    background-color: $bg_login_form;
+    border-radius: 10px;
+    padding: 35px 55px 50px 70px;
 
     &__header {
-        &-start {
-            .avatar {
-                width: 50px;
-                height: 50px;
-                background-color: $color_error;
+      &-start {
+        width: max-content;
 
-                .img {
-                    width: 100%;
-                    height: 100%;
-                }
+        .user {
+          text-decoration: none;
+
+          &:hover {
+            background-color: transparent;
+          }
+
+          &-avatar {
+            width: 45px;
+            height: 45px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-right: 7px;
+
+            .img {
+              width: 100%;
+              height: 100%;
             }
+          }
+
+          &-name {
+            text-transform: capitalize;
+
+            font-size: 16px;
+
+            .text {
+              color: $color_white;
+              font-weight: 700;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
         }
-        &-end {
+      }
+      &-end {
+        width: max-content;
+        height: 100%;
+
+        .report {
+          cursor: pointer;
+          height: 40px;
+          width: 40px;
+          padding: 5px;
+          border-radius: 50%;
+          transition: 0.5s;
+
+          .icon-report {
+            font-size: 20px;
+          }
+
+          &:hover {
+            background-color: $bg_login_title;
+            transition: 0.5s;
+          }
         }
+
+        .vote {
+          &-icon {
+            cursor: pointer;
+            height: 40px;
+            width: 40px;
+            overflow: hidden;
+            border-radius: 50%;
+            transition: 0.5s;
+
+            &:hover {
+              background-color: $bg_login_title;
+              transition: 0.5s;
+            }
+          }
+
+          .icon {
+            height: 100%;
+            width: 100%;
+          }
+        }
+
+        .icon-report {
+          margin-top: 4px;
+          width: 20px;
+        }
+      }
     }
+
+    &__body {
+      .content {
+        padding: 0px 0px 20px 0px;
+
+        &__title {
+          p {
+            color: $color_white;
+            padding-bottom: 0px;
+            margin: 0px;
+            text-transform: capitalize;
+          }
+        }
+
+        &__topic {
+          color: $color_post_topic;
+          padding: 0px;
+          text-transform: capitalize;
+        }
+        &__require-member {
+          &-label {
+            color: $color_white;
+            display: inline;
+          }
+        }
+        &__text {
+          p {
+            color: $color_white;
+          }
+        }
+      }
+
+      .schedule {
+        padding: 30px 0px;
+      }
+    }
+  }
 }

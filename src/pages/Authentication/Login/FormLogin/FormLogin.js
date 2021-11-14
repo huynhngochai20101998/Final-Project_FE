@@ -1,6 +1,8 @@
 import Loading from "components/Loading/Loading";
 // import { USER_ROLE } from "core/constants";
 import { useFormik } from "formik";
+// import useModal from "hook/useModal";
+// import ConfirmAccount from "modals/ConfirmAccount/ConfirmAccount";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,6 +11,11 @@ import * as Yup from "yup";
 
 function FormLogin() {
   const isLoading = useSelector((state) => state.user.loading);
+  // const { isShowing, toggle } = useModal();
+
+  // if () {
+  //   toggle();
+  // }
 
   const rememberMe = localStorage.getItem("rememberMe")
     ? JSON.parse(localStorage.getItem("rememberMe"))
@@ -45,6 +52,7 @@ function FormLogin() {
     <>
       <form onSubmit={formik.handleSubmit}>
         <Loading visible={isLoading} />
+        {/* <ConfirmAccount isShowing={isShowing} toggle={toggle} /> */}
 
         <div className="form-group login-form-group ">
           <label>Email</label>
@@ -56,10 +64,10 @@ function FormLogin() {
             value={values.email}
             onChange={formik.handleChange}
           />
-          {error.email && touched.email && (
-            <p className="errors">{error.email}</p>
-          )}
         </div>
+        {error.email && touched.email && (
+          <p className="errors">{error.email}</p>
+        )}
         <div className="login-form-group ">
           <label>Mật Khẩu</label>
           <input
@@ -76,15 +84,15 @@ function FormLogin() {
             onClick={() => setIsShowPassword(!isShowPassword)}
           >
             {isShowPassword ? (
-              <i className="far fa-eye" />
+              <i className="far fa-eye icon" />
             ) : (
-              <i className="far fa-eye-slash" />
+              <i className="far fa-eye-slash icon" />
             )}
           </div>
-          {error.password && touched.password && (
-            <p className="errors">{error.password}</p>
-          )}
         </div>
+        {error.password && touched.password && (
+          <p className="errors">{error.password}</p>
+        )}
 
         <div className="login-form-group remember-forgot-group">
           <div className="login-form-forgot">
@@ -94,7 +102,11 @@ function FormLogin() {
           </div>
         </div>
         <div className="login-form-submit">
-          <button className="login-form-submit-btn" type="submit">
+          <button
+            className="login-form-submit-btn"
+            type="submit"
+            // onClick={toggle}
+          >
             Đăng Nhập
           </button>
         </div>

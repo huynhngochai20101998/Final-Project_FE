@@ -16,6 +16,7 @@ const ResetPassword = () => {
   const { search } = useLocation();
 
   const token = new URLSearchParams(search).get("token");
+  console.log(token);
 
   const formik = useFormik({
     initialValues: {

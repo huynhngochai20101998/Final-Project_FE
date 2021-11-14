@@ -9,8 +9,8 @@
         display: flex;
         margin: 50px 0;
         input {
-            background: $color_input_post-detail;
-            border: 1px solid $color_input_post-detail;
+            background: $search_bar;
+            border: 1px solid $search_bar;
             box-sizing: border-box;
             border-radius: 10px;
             padding: 0px 20px;
@@ -18,7 +18,7 @@
             height: 46px;
             color: $color_white;
             &:focus {
-                background: $color_input_post-detail;
+                background: $search_bar;
                 outline: none;
                 box-shadow: none !important;
                 color: $color_white;
@@ -40,7 +40,7 @@
         display: flex;
         margin: 25px 0;
         &__frame {
-            background-color: $color_input_post-detail;
+            background-color: $search_bar;
             padding: 20px;
             border-radius: 10px;
             margin: 0 106px 0 20px;

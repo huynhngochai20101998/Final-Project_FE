@@ -1,0 +1,30 @@
+@import "../../../../assets/scss/app.scss";
+
+.schedule-wrapper {
+    .schedule {
+        display: flex;
+
+        &-collumn {
+            margin-right: 2px;
+
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .btn-submit {
+        background-color: $color_text_blue;
+        border-radius: 10px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 107px;
+        height: 54px;
+
+        span {
+            font-weight: 500;
+            font-size: 16px;
+        }
+    }
+}
