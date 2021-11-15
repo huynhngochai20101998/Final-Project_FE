@@ -12,21 +12,31 @@ import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
-import "./PostCreatrion.scss";
+import "./PostCreation.scss";
 import InputField from "../custom-field/inputField";
+import Schedule from "../../../components/Post/Schedule/Schedule";
+import { useDispatch } from "react-redux";
+import { createPost } from "store/post";
+// import { pushToast } from "components/Toast";
 const PostCreatrion = () => {
   const [isLoading, setIsLoading] = useState(true);
   let history = useHistory();
+  const dispatch = useDispatch();
+
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
     topic_id: Yup.number().required("Bạn phải chọn chủ đề bài viết").nullable(),
-    sessions: Yup.number().required("Bạn phải nhập số buổi").nullable(),
+    number_of_lessons: Yup.number()
+      .required("Bạn phải nhập số buổi")
+      .nullable(),
     members: Yup.number()
       .min(3, "Tối thiểu 3 thành viên")
       .max(10, "Tối đa 10 thành viên")
       .required("Bạn phải nhập số thành viên")
       .nullable(),
-    sumWeek: Yup.number().required("Bạn phải nhập tổng số tuần học").nullable(),
+    number_of_weeks: Yup.number()
+      .required("Bạn phải nhập tổng số tuần học")
+      .nullable(),
     content: Yup.string().required("Bạn phải nhập nội dung bài viết")
   });
   return (
@@ -41,9 +51,9 @@ const PostCreatrion = () => {
               initialValues={{
                 title: "",
                 topic_id: "",
-                sessions: 1,
+                number_of_lessons: 1,
                 members: 3,
-                sumWeek: 1,
+                number_of_weeks: 1,
                 content: ""
               }}
               validationSchema={validationSchema}
@@ -52,22 +62,26 @@ const PostCreatrion = () => {
                   ...values,
                   topic_id: Number(values.topic_id)
                 };
-                http.post("/api/posts", formatValue).then(() => {
-                  alert("Bạn đã đăng thành công");
+                http.post("/api/posts", formatValue).then((res) => {
+                  localStorage.setItem("postCreateId", res.data.id);
+
+                  // pushToast("success", "Bạn đã đăng thành công");
                   actions.setSubmitting(false);
                   actions.resetForm({
                     values: {
                       title: "",
                       topic_id: "",
-                      sessions: 1,
+                      number_of_lessons: 1,
                       members: 3,
-                      sumWeek: 1,
+                      number_of_weeks: 1,
                       content: ""
                     }
                   });
-                  history.push("/");
+
+                  setIsLoading(!isLoading);
                 });
-                console.log(formatValue);
+
+                // console.log(formatValue);
               }}
             >
               {(formikProps) => {
@@ -117,7 +131,7 @@ const PostCreatrion = () => {
                           </div>
                           <div className="PostCreate__form__content__select__number">
                             <FastField
-                              name="sessions"
+                              name="number_of_lessons"
                               component={InputField}
                               label="Số buổi/tuần"
                               placeholder=""
@@ -131,7 +145,7 @@ const PostCreatrion = () => {
                               type="number"
                             />
                             <FastField
-                              name="sumWeek"
+                              name="number_of_weeks"
                               component={InputField}
                               label="Tổng số tuần học"
                               placeholder=""
@@ -153,15 +167,16 @@ const PostCreatrion = () => {
                           >
                             Hủy
                           </Button>
-                          <Button onClick={() => setIsLoading(!isLoading)}>
-                            Tiếp tục
-                          </Button>
+                          <Button type="submit">Tiếp tục</Button>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="PostCreate__form__content">
                           <Label for="exampleSelect">Thời gian rảnh</Label>
+                          <div className="PostCreate__form__content-chedule">
+                            <Schedule />
+                          </div>
                           <div className="PostCreate__form__button">
                             <Button
                               type="reset"
@@ -169,7 +184,11 @@ const PostCreatrion = () => {
                             >
                               Quay lại
                             </Button>
-                            <Button type="submit">
+                            <Button
+                              onClick={() => {
+                                dispatch(createPost());
+                              }}
+                            >
                               {isSubmitting && (
                                 <Spinner color="light" size="sm" />
                               )}
