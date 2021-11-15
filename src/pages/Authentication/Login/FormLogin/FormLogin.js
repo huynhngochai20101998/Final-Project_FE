@@ -35,7 +35,7 @@ function FormLogin() {
         .email("Định dạng email không hợp lệ!")
         .required("Trường này là bắt buộc!"),
       password: Yup.string()
-        .min(5, "Mật khẩu phải có ít nhất 5 ký tự")
+        .min(5, "Mật khẩu phải có ít nhất 8 ký tự")
         .required("Trường này là bắt buộc!"),
       isRemember: Yup.bool()
     }),

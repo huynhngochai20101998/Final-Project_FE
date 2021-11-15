@@ -8,16 +8,20 @@ import {
   Label,
   Spinner
 } from "reactstrap";
-// import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
-import "./PostCreatrion.scss";
+import "./PostCreation.scss";
 import InputField from "../custom-field/inputField";
 import http from "core/services/httpService";
+import Schedule from "../../../components/Post/Schedule/Schedule";
+import { useDispatch } from "react-redux";
+import { createPost } from "store/post";
+// import { pushToast } from "components/Toast";
 const PostCreation = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [topicList, setTopicList] = useState([]);
+  const dispatch = useDispatch();
   let history = useHistory();
 
   useEffect(() => {
@@ -72,7 +76,10 @@ const PostCreation = () => {
                   ...values,
                   topic_id: Number(values.topic_id)
                 };
-                http.post("/api/posts", formatValue).then(() => {
+                http.post("/api/posts", formatValue).then((res) => {
+                  localStorage.setItem("postCreateId", res.data.id);
+
+                  // pushToast("success", "Bạn đã đăng thành công");
                   actions.setSubmitting(false);
                   actions.resetForm({
                     values: {
@@ -84,7 +91,8 @@ const PostCreation = () => {
                       content: ""
                     }
                   });
-                  history.push("/");
+
+                  setIsLoading(!isLoading);
                 });
               }}
             >
@@ -177,15 +185,16 @@ const PostCreation = () => {
                           >
                             Hủy
                           </Button>
-                          <Button onClick={() => setIsLoading(!isLoading)}>
-                            Tiếp tục
-                          </Button>
+                          <Button type="submit">Tiếp tục</Button>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="PostCreate__form__content">
                           <Label for="exampleSelect">Thời gian rảnh</Label>
+                          <div className="PostCreate__form__content-chedule">
+                            <Schedule />
+                          </div>
                           <div className="PostCreate__form__button">
                             <Button
                               type="reset"
@@ -193,7 +202,11 @@ const PostCreation = () => {
                             >
                               Quay lại
                             </Button>
-                            <Button type="submit">
+                            <Button
+                              onClick={() => {
+                                dispatch(createPost());
+                              }}
+                            >
                               {isSubmitting && (
                                 <Spinner color="light" size="sm" />
                               )}

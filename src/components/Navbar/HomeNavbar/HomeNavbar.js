@@ -8,11 +8,11 @@ import IconLang from "../../../assets/icons/icon-lang.svg";
 import avatar from "../../../assets/images/user-avatar.png";
 import { useDispatch } from "react-redux";
 import { logout } from "store/user";
+import Searching from "components/Searching/Searching";
 
 const HomeNabar = () => {
-  // const userInfo = localStorage.getItem("user");
+  const userInfo = localStorage.getItem("user");
   const dispatch = useDispatch();
-  const userInfo = true;
 
   const handelLogout = () => {
     console.log("alo");
@@ -24,6 +24,9 @@ const HomeNabar = () => {
       <div className="home-navbar-content">
         <div className="home-navbar-content__logo">
           <LogoIMG />
+        </div>
+        <div>
+          <Searching />
         </div>
         <div className="home-navbar-content__user">
           <div className="">
