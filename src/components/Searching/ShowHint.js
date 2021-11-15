@@ -24,12 +24,10 @@ function ShowHint(props) {
               return item;
             });
             setListTitle(newlistTitle);
-            props.preparesubmit(newlistTitle); //gửi dữ liệu để submit
           } catch (err) {
             console.log(err);
             setListTitle([]);
             setLogMessage("không tìm thấy");
-            props.preparesubmit([]);
           }
         }
 
@@ -40,7 +38,6 @@ function ShowHint(props) {
         } else {
           setListTitle([]); //nếu input rỗng reset mảng
           setLogMessage(""); //nếu input rỗng reset logmessage
-          props.preparesubmit([]);
         }
 
         return () => {
@@ -54,6 +51,7 @@ function ShowHint(props) {
   const onClickText = (data) => {
     props.onclicktext(data);
     setListTitle([]);
+    setLogMessage("");
   };
 
   return (
