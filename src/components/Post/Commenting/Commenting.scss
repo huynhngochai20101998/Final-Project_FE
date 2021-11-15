@@ -1,0 +1,65 @@
+@import "../../../assets/scss/app.scss";
+.Commenting {
+    img {
+        width: 54px;
+        height: 46px;
+        border-radius: 50%;
+    }
+    &__input {
+        display: flex;
+        margin: 50px 0;
+        input {
+            background: $search_bar;
+            border: 1px solid $search_bar;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 0px 20px;
+            margin: 0px 20px;
+            height: 46px;
+            color: $color_white;
+            &:focus {
+                background: $search_bar;
+                outline: none;
+                box-shadow: none !important;
+                color: $color_white;
+            }
+        }
+        button {
+            background: $color_text_blue;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 16px;
+            color: $color_black;
+            width: 100px;
+            height: 46px;
+            font-weight: 500;
+            border: none;
+        }
+    }
+    &__list {
+        display: flex;
+        margin: 25px 0;
+        &__frame {
+            background-color: $search_bar;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 106px 0 20px;
+            width: 100%;
+            span {
+                color: $color_text_blue;
+                font-weight: 500;
+                line-height: 20px;
+                margin-bottom: 10px;
+            }
+            p {
+                color: $color_white;
+                width: 100%;
+                word-break: break-all;
+                display: -webkit-box;
+                line-height: 25px;
+                -webkit-box-orient: vertical;
+                margin-top: 10px;
+            }
+        }
+    }
+}
