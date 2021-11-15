@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 import {
   Button,
@@ -8,20 +8,33 @@ import {
   Label,
   Spinner
 } from "reactstrap";
-import http from "core/services/httpService";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
 import "./PostCreation.scss";
 import InputField from "../custom-field/inputField";
+import http from "core/services/httpService";
 import Schedule from "../../../components/Post/Schedule/Schedule";
 import { useDispatch } from "react-redux";
 import { createPost } from "store/post";
 // import { pushToast } from "components/Toast";
-const PostCreatrion = () => {
+const PostCreation = () => {
   const [isLoading, setIsLoading] = useState(true);
-  let history = useHistory();
+  const [topicList, setTopicList] = useState([]);
   const dispatch = useDispatch();
+  let history = useHistory();
+
+  useEffect(() => {
+    async function getDataList() {
+      try {
+        const response = await http.get("/api/topics");
+        setTopicList(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getDataList();
+  }, []);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
@@ -39,6 +52,7 @@ const PostCreatrion = () => {
       .nullable(),
     content: Yup.string().required("Bạn phải nhập nội dung bài viết")
   });
+
   return (
     <HomeLayout>
       <div className="PostCreate">
@@ -80,8 +94,6 @@ const PostCreatrion = () => {
 
                   setIsLoading(!isLoading);
                 });
-
-                // console.log(formatValue);
               }}
             >
               {(formikProps) => {
@@ -113,16 +125,22 @@ const PostCreatrion = () => {
                                 value={values.topic_id}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                // defaultValue=""
                                 invalid={
                                   errors["topic_id"] && touched["topic_id"]
                                 }
                               >
                                 <option value="" disabled label="Chọn chủ đề" />
-                                <option value="1" label="java" />
-                                <option value="2" label="javascript" />
-                                <option value="3" label="Nestjs" />
+                                {topicList.map((topic) => {
+                                  return (
+                                    <option
+                                      key={topic.id}
+                                      value={topic.id}
+                                      label={topic.name}
+                                    />
+                                  );
+                                })}
                               </Input>
+                              ;
                               <ErrorMessage
                                 name={"topic_id"}
                                 component={FormFeedback}
@@ -209,4 +227,4 @@ const PostCreatrion = () => {
   );
 };
 
-export default PostCreatrion;
+export default PostCreation;
