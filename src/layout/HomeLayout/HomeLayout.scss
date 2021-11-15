@@ -1,8 +1,6 @@
 @import "../../assets/scss/app.scss";
 
 .home-layout {
-    overflow-x: auto;
-
     &__main {
         min-height: 100vh;
         padding-top: 80px;
@@ -10,8 +8,9 @@
         background-color: $bg_main;
 
         &-content {
-            display: flex;
-            justify-content: center;
+            width: 100%;
+            padding: 90px;
+            background-color: red;
         }
     }
 }

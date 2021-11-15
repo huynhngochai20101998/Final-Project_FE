@@ -6,10 +6,18 @@ import Logo from "../../../assets/images/logo.svg";
 import LogoName from "../../../assets/images/name-lodo.svg";
 import IconLang from "../../../assets/icons/icon-lang.svg";
 import avatar from "../../../assets/images/user-avatar.png";
+import { useDispatch } from "react-redux";
+import { logout } from "store/user";
+import Searching from "components/Searching/Searching";
 
 const HomeNabar = () => {
-  // const userInfo = localStorage.getItem("user");
-  const userInfo = true;
+  const userInfo = localStorage.getItem("user");
+  const dispatch = useDispatch();
+
+  const handelLogout = () => {
+    console.log("alo");
+    dispatch(logout());
+  };
 
   return (
     <div className="home-navbar">
@@ -17,33 +25,34 @@ const HomeNabar = () => {
         <div className="home-navbar-content__logo">
           <LogoIMG />
         </div>
-        <div className="home-navbar-content__btn-home">
+        <div>
+          <Searching />
+        </div>
+        <div className="home-navbar-content__user">
           <div className="">
             <img className="img" src={IconLang} alt="" />
-            <ul className="language-list">
-              <li className="language-item">EN</li>
-              <li className="language-item">VN</li>
-            </ul>
           </div>
-          {userInfo ? <UserNav /> : <ButtonAuth />}
+          {userInfo ? (
+            <div className="home-user">
+              <div className="home-user__content">
+                <div className="user-img">
+                  <img src={avatar} alt="" className="img" />
+                </div>
+                <div className="name">
+                  <p>Dung</p>
+                </div>
+              </div>
+              <ul className="control">
+                <li className="control-item" onClick={handelLogout}>
+                  logout
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <ButtonAuth />
+          )}
         </div>
       </div>
-    </div>
-  );
-};
-
-export const UserNav = () => {
-  return (
-    <div className="home-user">
-      <div className="home-user__content">
-        <div className="user-img">
-          <img src={avatar} alt="" className="img" />
-        </div>
-        <div className="name">
-          <p>Dung</p>
-        </div>
-      </div>
-      <div className="home-user__control"></div>
     </div>
   );
 };

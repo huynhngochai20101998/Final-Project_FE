@@ -6,11 +6,12 @@ import SignUp from "pages/Authentication/SignUp/SignUp";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
-import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
+import PostCreation from "pages/Post/PostCreation/PostCreation";
 import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
-import PostList from "pages/Post/PostList/PostList";
+import PostListSign from "pages/Post/PostListSigning/PostListSigning";
+import SearchFound from "components/Searching/SearchFound";
 
 export const routeConfig = [
   {
@@ -33,21 +34,15 @@ export const routeConfig = [
   },
   {
     path: "/reset-password",
-    isPrivate: true,
-    exact: true,
-    component: ResetPassword
-  },
-  {
-    path: "/post-list",
     isPrivate: false,
     exact: true,
-    component: PostList
+    component: ResetPassword
   },
   {
     path: "/post-creation",
     isPrivate: true,
     exact: true,
-    component: PostCreatrion
+    component: PostCreation
   },
   {
     path: "/post-details",
@@ -56,10 +51,22 @@ export const routeConfig = [
     component: PostDetail
   },
   {
+    path: "/post-list-sign",
+    isPrivate: false,
+    exact: true,
+    component: PostListSign
+  },
+  {
     path: "/home",
     isPrivate: false,
     exact: true,
     component: Home
+  },
+  {
+    path: "/home-search",
+    isPrivate: false,
+    exact: true,
+    component: SearchFound
   },
   { path: "*", component: Error }
 ];

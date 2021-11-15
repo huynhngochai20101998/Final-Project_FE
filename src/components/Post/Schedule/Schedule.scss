@@ -1,0 +1,14 @@
+@import "../../../assets/scss/app.scss";
+
+.schedule-wrapper {
+    .schedule {
+        display: flex;
+
+        &-collumn {
+            margin-right: 2px;
+
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

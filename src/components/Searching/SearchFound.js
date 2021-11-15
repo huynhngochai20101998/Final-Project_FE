@@ -1,31 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "reactstrap";
-import http from "core/services/httpService";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
-import "./Home.scss";
-import { Link } from "react-router-dom";
-import Loading from "components/Loading/Loading";
 import { useDispatch } from "react-redux";
+import { Button } from "reactstrap";
 import { postDetail } from "store/post";
+import "../../pages/Home/Home.scss";
+import NoResult from "./NoResult";
 
-const Home = () => {
-  const [postList, setPostList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+function SearchResult(props) {
+  const { state } = props.location;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    async function getDataList() {
-      try {
-        const response = await http.get("/api/posts");
-
-        setPostList(response.data.data);
-        setIsLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    getDataList();
-  }, []);
 
   return (
     <HomeLayout>
@@ -33,18 +15,10 @@ const Home = () => {
         <div className="row">
           <div className="col-sm-8 col-md-8 col-lg-8">
             <div className="PostList">
-              <div className="PostList__add">
-                <Link to="/post-creation">
-                  <button className="PostList__add-post">
-                    <i className="fas fa-plus" aria-hidden="true"></i> Tạo bài
-                    viết
-                  </button>
-                </Link>
-              </div>
-              {isLoading ? (
-                <Loading visible={isLoading} />
+              {!state || state.length <= 0 ? (
+                <NoResult></NoResult>
               ) : (
-                postList.map((post) => {
+                state.map((post) => {
                   const formatDate = post.created_at.slice(0, 10).split("-");
                   const datePost = `${formatDate[2]}-${formatDate[1]}-${formatDate[0]}`;
 
@@ -80,6 +54,6 @@ const Home = () => {
       </div>
     </HomeLayout>
   );
-};
+}
 
-export default Home;
+export default SearchResult;
