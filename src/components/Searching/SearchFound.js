@@ -11,15 +11,17 @@ function SearchResult(props) {
 
   return (
     <HomeLayout>
-      <div className="PostList ">
-        <div className="container d-flex justify-content-center">
-          <div className="row">
-            <div className="col-sm-1 col-md-1 col-lg-1"></div>
-            <div className="col-sm-8 col-md-8 col-lg-8">
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-8 col-md-8 col-lg-8">
+            <div className="PostList">
               {!state || state.length <= 0 ? (
                 <NoResult></NoResult>
               ) : (
                 state.map((post) => {
+                  const formatDate = post.created_at.slice(0, 10).split("-");
+                  const datePost = `${formatDate[2]}-${formatDate[1]}-${formatDate[0]}`;
+
                   const showPostDetail = () => {
                     dispatch(postDetail(post));
                   };
@@ -29,9 +31,9 @@ function SearchResult(props) {
                       <div className="PostList__form__info-user">
                         <div>
                           <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
-                          <p>Nguyễn Dũng</p>
+                          <span>Nguyễn Dũng</span>
                         </div>
-                        <div>20/10/2021</div>
+                        <div>{datePost}</div>
                       </div>
                       <div className="PostList__form__info-post">
                         <h5>{post.title}</h5>
@@ -46,8 +48,8 @@ function SearchResult(props) {
                 })
               )}
             </div>
-            <div className="col-sm-3 col-md-3 col-lg-3"></div>
           </div>
+          <div className="col-sm-4 col-md-4 col-lg-4 "></div>
         </div>
       </div>
     </HomeLayout>

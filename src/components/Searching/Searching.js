@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ShowHint from "./ShowHint";
 import { useHistory } from "react-router-dom";
 import "./Searching.scss";
+import Loading from "components/Loading/Loading";
+import http from "core/services/httpService";
 
 const Searching = () => {
-  const [postList, setPostList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [inputValues, setInputValues] = useState({
     value: "",
     checkEvent: false
@@ -23,19 +25,42 @@ const Searching = () => {
       };
     });
   };
-
   //khi submit chuyển đến trang kết quả tìm kiếm
+
+  async function getTopic() {
+    try {
+      const response = await http.get(`/api/search/${inputValues.value}`);
+      const newlistTitle = response.data.map((item) => {
+        return item;
+      });
+      if (newlistTitle.length > 0) {
+        history.push({ pathname: "/home-search", state: newlistTitle });
+        setIsLoading(false);
+      }
+    } catch (err) {
+      if (inputValues.value && err) {
+        history.push({ pathname: "/home-search", state: [] });
+        setIsLoading(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getTopic();
+    return () => {
+      setInputValues({
+        value: "",
+        checkEvent: false
+      });
+    };
+  }, []);
+
   const onSubmitSearch = (e) => {
     e.preventDefault();
-    if (inputValues.value && postList.length > 0) {
-      history.push({ pathname: "/home-search", state: postList });
-    } else if (inputValues.value && postList.length <= 0) {
-      history.push({ pathname: "/home-search", state: postList });
+    if (inputValues.value) {
+      setIsLoading(true);
+      getTopic();
     }
-  };
-
-  const preparesubmit = (data) => {
-    setPostList(data);
   };
 
   //khi click vào gợi ý khi gõ input, đổ dữ liệu vào input,gán checkEvent là true để kiểm tra sự kiện click vào gợi ý
@@ -51,6 +76,7 @@ const Searching = () => {
 
   return (
     <div className="search-component">
+      <Loading visible={isLoading} />
       <div className="container h-100">
         <div className="d-flex justify-content-center h-100">
           <form className="searchbar" onSubmit={onSubmitSearch}>
@@ -70,7 +96,6 @@ const Searching = () => {
         <ShowHint
           inputvalues={inputValues}
           onclicktext={onClickText}
-          preparesubmit={preparesubmit}
         ></ShowHint>
       </div>
     </div>
