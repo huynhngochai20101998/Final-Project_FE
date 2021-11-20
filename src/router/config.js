@@ -46,7 +46,7 @@ export const routeConfig = [
     component: PostCreation
   },
   {
-    path: "/post-details",
+    path: "/post-details/:slug.:id",
     isPrivate: false,
     exact: true,
     component: PostDetail

@@ -1,27 +1,33 @@
 @import "../../../assets/scss/app.scss";
 .Commenting {
-    img {
-        width: 54px;
-        height: 46px;
-        border-radius: 50%;
+    &__img-user {
+        width: 60px;
+        img {
+            width: 97%;
+            height: 46px;
+            border-radius: 50%;
+        }
     }
     &__input {
         display: flex;
-        margin: 50px 0;
-        input {
-            background: $search_bar;
-            border: 1px solid $search_bar;
-            box-sizing: border-box;
-            border-radius: 10px;
-            padding: 0px 20px;
-            margin: 0px 20px;
-            height: 46px;
-            color: $color_white;
-            &:focus {
+        margin: 100px 0 50px;
+        .form-group {
+            width: 100%;
+            margin: 0px 18px;
+            input {
                 background: $search_bar;
-                outline: none;
-                box-shadow: none !important;
+                border: none;
+                box-sizing: border-box;
+                border-radius: 10px;
+                padding: 0px 20px;
+                height: 46px;
                 color: $color_white;
+                &:focus {
+                    background: $search_bar;
+                    outline: none;
+                    box-shadow: none !important;
+                    color: $color_white;
+                }
             }
         }
         button {
@@ -34,6 +40,11 @@
             height: 46px;
             font-weight: 500;
             border: none;
+            &:active,
+            &:hover {
+                transform: scale(0.9);
+                transition: 0.4s all ease;
+            }
         }
     }
     &__list {
@@ -43,7 +54,7 @@
             background-color: $search_bar;
             padding: 20px;
             border-radius: 10px;
-            margin: 0 106px 0 20px;
+            margin: 0 100px 0 20px;
             width: 100%;
             span {
                 color: $color_text_blue;
