@@ -13,7 +13,7 @@ import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
 import SearchFound from "components/Searching/SearchFound";
 import Commenting from "components/Post/Commenting/Commenting";
-
+import CallVideo from "components/CallVideo/TableParticipants";
 export const routeConfig = [
   {
     path: "/signup",
@@ -74,6 +74,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: SearchFound
+  },
+  {
+    path: "/Call-video",
+    isPrivate: false,
+    exact: true,
+    component: CallVideo
   },
   { path: "*", component: Error }
 ];
