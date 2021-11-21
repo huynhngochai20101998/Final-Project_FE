@@ -71,3 +71,8 @@ export const createPost = () => (dispatch) => {
     window.location.href = "/home";
   }, 3000);
 };
+
+export const moveHome = () => () => {
+  localStorage.removeItem("postCurrent");
+  window.location.href = "/home";
+};

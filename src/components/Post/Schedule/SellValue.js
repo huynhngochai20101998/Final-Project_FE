@@ -23,7 +23,13 @@ const SellValue = (props) => {
 
   return (
     <div className="sell" style={props.style}>
-      <input type="checkbox" id="scheduleCheckbox" onClick={clickCheckBox} />
+      <input
+        type="checkbox"
+        id="scheduleCheckbox"
+        // disabled={props.disabled}
+        // checked={props.checked}
+        onClick={clickCheckBox}
+      />
     </div>
   );
 };

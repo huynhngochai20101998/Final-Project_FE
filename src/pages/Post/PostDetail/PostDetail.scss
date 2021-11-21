@@ -1,15 +1,18 @@
 @import "../../../assets/scss/app.scss";
 
 .post-detail-container {
-  width: 100%;
+  margin: 0px 160px;
+  width: max-content;
+  max-width: 100%;
   height: max-content;
-  padding: 100px 250px;
-  padding-top: 0px;
+
+  background-color: $bg_login_form;
+  border-radius: 10px;
+  padding: 35px 55px 70px 70px;
+  box-sizing: border-box;
 
   .post-detail {
-    background-color: $bg_login_form;
-    border-radius: 10px;
-    padding: 35px 55px 70px 70px;
+    box-sizing: border-box;
 
     &__header {
       &-start {

@@ -10,8 +10,8 @@ const HomeLayout = (props) => {
       <div>
         <HomeNavbar />
       </div>
-      <div className="home-layout__main ">
-        <div className=" auth-layout__main-content">{props.children}</div>
+      <div className="home-layout__main">
+        <div className=" home-layout__main-content">{props.children}</div>
       </div>
     </div>
   );

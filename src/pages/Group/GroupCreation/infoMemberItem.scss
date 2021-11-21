@@ -1,0 +1,59 @@
+@import "../../../assets/scss/app.scss";
+
+.content-item {
+    width: 100%;
+    height: max-content;
+    margin: 1px 0px;
+
+    justify-content: space-around;
+
+    display: grid;
+    grid-template-columns: 139.78px 87.9px 360px 176px 84px;
+
+    &-column {
+        margin: 0;
+        padding: 0;
+        background-color: $search_bar;
+        height: max-content;
+        height: 100%;
+        padding: 10px 5px;
+
+        margin-right: 0.5px;
+        box-sizing: border-box;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 14px;
+        color: $color_white;
+
+        .btn-delete {
+            background-color: $color_error;
+            height: 27px;
+            width: 27px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+    }
+
+    .item-name {
+    }
+
+    .item-age {
+    }
+
+    .item-intro {
+        word-wrap: break-word;
+    }
+
+    .item-schedule {
+    }
+
+    .item-delete {
+    }
+}

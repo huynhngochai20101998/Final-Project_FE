@@ -1,0 +1,113 @@
+@import "../../../assets/scss/app.scss";
+
+.group-wrapper {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+
+    .group-creation {
+        margin: 0px 0px;
+        width: 1100px;
+        max-width: 100%;
+        height: max-content;
+
+        background-color: $bg_login_form;
+        border-radius: 10px;
+        padding: 35px 55px 70px 70px;
+        box-sizing: border-box;
+
+        &__header {
+            &-start {
+                width: max-content;
+
+                .user {
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+
+                    &-avatar {
+                        width: 45px;
+                        height: 45px;
+                        overflow: hidden;
+                        border-radius: 50%;
+                        margin-right: 7px;
+
+                        .img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+
+                    &-name {
+                        text-transform: capitalize;
+
+                        font-size: 16px;
+
+                        .text {
+                            color: $color_white;
+                            font-weight: 700;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__body {
+            margin-top: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            &-content {
+                padding: 0px 60px;
+                width: 100%;
+                margin-bottom: 1px;
+
+                .content-table {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+
+                    &-column {
+                        background-color: $color_text_blue;
+                        height: 40px;
+                        flex-grow: 1;
+                        margin: 0.5px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 14px;
+                    }
+
+                    .column-intro {
+                        flex-grow: 5;
+                    }
+
+                    .column-name {
+                        flex-grow: 2;
+                    }
+
+                    .column-schedule {
+                        flex-grow: 2;
+                    }
+                }
+            }
+            .schedule {
+                margin: 0px auto;
+                margin-top: 30px;
+            }
+        }
+    }
+}

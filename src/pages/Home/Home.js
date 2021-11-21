@@ -31,6 +31,7 @@ const Home = () => {
     <HomeLayout>
       <div className="container">
         <div className="row">
+          <div className="col-sm-1 col-md-1 col-lg-1"></div>
           <div className="col-sm-8 col-md-8 col-lg-8">
             <div className="PostList">
               <div className="PostList__add">
@@ -75,7 +76,7 @@ const Home = () => {
               )}
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4 "></div>
+          <div className="col-sm-3 col-md-3 col-lg-3 "></div>
         </div>
       </div>
     </HomeLayout>
