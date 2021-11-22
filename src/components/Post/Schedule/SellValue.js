@@ -8,8 +8,10 @@ const SellValue = (props) => {
   const dispatch = useDispatch();
   const [valueSchedule, setValueSchedule] = useState(true);
 
+  const postCurrent = JSON.parse(localStorage.getItem("postCurrent"));
+
   const valueSell = {
-    post_id: 1,
+    post_id: postCurrent.id,
     day_id: parseInt(props.dayID),
     time_id: parseInt(props.timeID),
     value: valueSchedule

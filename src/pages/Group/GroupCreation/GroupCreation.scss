@@ -13,7 +13,7 @@
 
         background-color: $bg_login_form;
         border-radius: 10px;
-        padding: 35px 55px 70px 70px;
+        padding: 25px 35px 30px 40px;
         box-sizing: border-box;
 
         &__header {
@@ -59,14 +59,14 @@
         }
 
         &__body {
-            margin-top: 40px;
+            margin-top: 15px;
             width: 100%;
             display: flex;
             justify-content: center;
             flex-direction: column;
 
             &-content {
-                padding: 0px 60px;
+                padding: 0px 87px;
                 width: 100%;
                 margin-bottom: 1px;
 
@@ -106,7 +106,7 @@
             }
             .schedule {
                 margin: 0px auto;
-                margin-top: 30px;
+                margin-top: 20px;
             }
         }
     }

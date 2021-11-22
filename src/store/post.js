@@ -24,14 +24,14 @@ export const addSchedule = (value) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: true }));
 
-    await http.post("/api/schedules", value);
+    const res = await http.post("/api/schedules", value);
 
     dispatch(setLoading({ loading: false }));
+    pushToast("success", res.message);
   } catch (e) {
     dispatch(setLoading({ loading: false }));
 
     pushToast("error", e.message);
-    console.log("error:", e);
   }
 };
 
@@ -55,8 +55,6 @@ export const postDetail = (post) => async (dispatch) => {
   } catch (e) {
     dispatch(setLoading({ loading: false }));
     pushToast("error", e.message);
-
-    return console.log("error", e.message);
   }
 };
 

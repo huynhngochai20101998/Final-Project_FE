@@ -5,13 +5,11 @@ import HomeLayout from "layout/HomeLayout/HomeLayout";
 import "./Home.scss";
 import { Link } from "react-router-dom";
 import Loading from "components/Loading/Loading";
-import { useDispatch } from "react-redux";
-import { postDetail } from "store/post";
+import moment from "moment";
 
 const Home = () => {
   const [postList, setPostList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getDataList() {
@@ -46,12 +44,8 @@ const Home = () => {
                 <Loading visible={isLoading} />
               ) : (
                 postList.map((post) => {
-                  const formatDate = post.created_at.slice(0, 10).split("-");
-                  const datePost = `${formatDate[2]}-${formatDate[1]}-${formatDate[0]}`;
-
-                  const showPostDetail = () => {
-                    dispatch(postDetail(post));
-                  };
+                  const savePostCurrent = () =>
+                    localStorage.setItem("postCurrent", JSON.stringify(post));
 
                   return (
                     <div className="PostList__form" key={post.id}>
@@ -60,7 +54,9 @@ const Home = () => {
                           <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
                           <span>Nguyễn Dũng</span>
                         </div>
-                        <div>{datePost}</div>
+                        <div>
+                          {moment(post.created_at).format("DD/MM/YYYY")}
+                        </div>
                       </div>
                       <div className="PostList__form__info-post">
                         <h5>{post.title}</h5>
@@ -68,7 +64,9 @@ const Home = () => {
                         <p>{post.content}</p>
                       </div>
                       <div className="PostList__form__see-more">
-                        <Button onClick={showPostDetail}>Xem thêm</Button>
+                        <Link to={`/post-details/${post.slug}.${post.id}`}>
+                          <Button onClick={savePostCurrent}>Xem thêm</Button>
+                        </Link>
                       </div>
                     </div>
                   );

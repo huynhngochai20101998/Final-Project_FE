@@ -12,7 +12,6 @@ import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
 import SearchFound from "components/Searching/SearchFound";
-import Commenting from "components/Post/Commenting/Commenting";
 import GroupCreation from "pages/Group/GroupCreation/GroupCreation";
 
 export const routeConfig = [
@@ -47,7 +46,7 @@ export const routeConfig = [
     component: PostCreation
   },
   {
-    path: "/post-details",
+    path: "/post-details/:slug.:id",
     isPrivate: false,
     exact: true,
     component: PostDetail
@@ -63,12 +62,6 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: Home
-  },
-  {
-    path: "/comment",
-    isPrivate: false,
-    exact: true,
-    component: Commenting
   },
   {
     path: "/home-search",

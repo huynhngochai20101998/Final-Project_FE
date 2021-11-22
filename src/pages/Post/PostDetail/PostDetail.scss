@@ -1,14 +1,17 @@
 @import "../../../assets/scss/app.scss";
 
 .post-detail-container {
-  margin: 0px 160px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+
   width: max-content;
   max-width: 100%;
   height: max-content;
 
   background-color: $bg_login_form;
   border-radius: 10px;
-  padding: 35px 55px 70px 70px;
+  padding: 15px 35px 20px 40px;
   box-sizing: border-box;
 
   .post-detail {
@@ -138,6 +141,17 @@
       .schedule {
         padding: 15px 0px;
       }
+    }
+    &__finish {
+      background: #71c6dd;
+      border-radius: 10px;
+      font-size: 16px;
+      line-height: 16px;
+      color: #000;
+      width: 100px;
+      height: 46px;
+      font-weight: 500;
+      border: none;
     }
   }
 }
