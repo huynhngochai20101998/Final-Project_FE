@@ -23,11 +23,11 @@ const Commenting = () => {
     }
     getCommentList();
   }, [isLoading]);
-  console.log(isLoading);
 
   const validationSchema = Yup.object().shape({
     content: Yup.string().required("Bạn phải nhập nội dung comment")
   });
+
   return (
     <div className="Commenting">
       <Formik
@@ -37,7 +37,6 @@ const Commenting = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          console.log(values, actions);
           http.post(`/api/comments`, values).then(() => {
             actions.setSubmitting(false);
             actions.resetForm({
