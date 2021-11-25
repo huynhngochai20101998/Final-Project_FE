@@ -77,7 +77,8 @@ const PostCreation = () => {
                   topic_id: Number(values.topic_id)
                 };
                 http.post("/api/posts", formatValue).then((res) => {
-                  localStorage.setItem("postCreateId", res.data.id);
+                  // localStorage.setItem("postCreateId", res.data.id);
+                  console.log(res);
 
                   // pushToast("success", "Bạn đã đăng thành công");
                   actions.setSubmitting(false);
