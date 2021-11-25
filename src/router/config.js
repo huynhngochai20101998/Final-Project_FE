@@ -11,7 +11,6 @@ import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
-import SearchFound from "components/Searching/SearchFound";
 import RoomChat from "pages/Room/Room";
 
 export const routeConfig = [
@@ -62,12 +61,6 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: Home
-  },
-  {
-    path: "/home-search",
-    isPrivate: false,
-    exact: true,
-    component: SearchFound
   },
   {
     path: "/room-chat",

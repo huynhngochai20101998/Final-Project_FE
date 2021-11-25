@@ -1,6 +1,7 @@
 import React from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 import WhiteBoard from "../../components/Whiteboard";
+import TableParticipants from "../../components/CallVideo/TableParticipants";
 import "./Room.scss";
 export default function RoomChat() {
   return (
@@ -13,10 +14,12 @@ export default function RoomChat() {
                 <h6>JavaScript</h6>
                 <h6>Nguyễn Dũng</h6>
               </div>
-              <WhiteBoard group_id="2" />
+              <WhiteBoard />
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4" />
+          <div className="col-sm-4 col-md-4 col-lg-4">
+            <TableParticipants />
+          </div>
         </div>
       </div>
     </HomeLayout>
