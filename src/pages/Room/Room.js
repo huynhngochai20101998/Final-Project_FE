@@ -13,10 +13,10 @@ export default function RoomChat() {
                 <h6>JavaScript</h6>
                 <h6>Nguyễn Dũng</h6>
               </div>
-              <WhiteBoard />
+              <WhiteBoard group_id="2" />
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4"></div>
+          <div className="col-sm-4 col-md-4 col-lg-4" />
         </div>
       </div>
     </HomeLayout>
