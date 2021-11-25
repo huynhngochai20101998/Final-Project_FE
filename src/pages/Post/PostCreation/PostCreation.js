@@ -78,8 +78,6 @@ const PostCreation = () => {
                 };
                 http.post("/api/posts", formatValue).then((res) => {
                   localStorage.setItem("postCreateId", res.data.id);
-
-                  // pushToast("success", "Bạn đã đăng thành công");
                   actions.setSubmitting(false);
                   actions.resetForm({
                     values: {

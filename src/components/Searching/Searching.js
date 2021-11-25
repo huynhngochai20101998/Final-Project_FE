@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ShowHint from "./ShowHint";
 import { useHistory } from "react-router-dom";
 import "./Searching.scss";
-import Loading from "components/Loading/Loading";
-import http from "core/services/httpService";
 
+import { useDispatch } from "react-redux";
 const Searching = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const [inputValues, setInputValues] = useState({
     value: "",
     checkEvent: false
@@ -25,41 +24,22 @@ const Searching = () => {
       };
     });
   };
-  //khi submit chuyển đến trang kết quả tìm kiếm
-
-  async function getTopic() {
-    try {
-      const response = await http.get(`/api/search/${inputValues.value}`);
-      const newlistTitle = response.data.map((item) => {
-        return item;
-      });
-      if (newlistTitle.length > 0) {
-        history.push({ pathname: "/home-search", state: newlistTitle });
-        setIsLoading(false);
-      }
-    } catch (err) {
-      if (inputValues.value && err) {
-        history.push({ pathname: "/home-search", state: [] });
-        setIsLoading(false);
-      }
-    }
-  }
-
-  useEffect(() => {
-    getTopic();
-    return () => {
-      setInputValues({
-        value: "",
-        checkEvent: false
-      });
-    };
-  }, []);
 
   const onSubmitSearch = (e) => {
     e.preventDefault();
     if (inputValues.value) {
-      setIsLoading(true);
-      getTopic();
+      const action = {
+        type: "SET_INPUT",
+        payload: inputValues.value
+      };
+      dispatch(action);
+      history.push(`/home?q=${inputValues.value}`);
+      setInputValues((prev) => {
+        return {
+          ...prev,
+          value: ""
+        };
+      });
     }
   };
 
@@ -76,7 +56,6 @@ const Searching = () => {
 
   return (
     <div className="search-component">
-      <Loading visible={isLoading} />
       <div className="container h-100">
         <div className="d-flex justify-content-center h-100">
           <form className="searchbar" onSubmit={onSubmitSearch}>

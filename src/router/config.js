@@ -11,9 +11,8 @@ import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
-import SearchFound from "components/Searching/SearchFound";
-import Commenting from "components/Post/Commenting/Commenting";
-import CallVideo from "components/CallVideo/TableParticipants";
+import RoomChat from "pages/Room/Room";
+
 export const routeConfig = [
   {
     path: "/signup",
@@ -46,7 +45,7 @@ export const routeConfig = [
     component: PostCreation
   },
   {
-    path: "/post-details",
+    path: "/post-details/:slug.:id",
     isPrivate: false,
     exact: true,
     component: PostDetail
@@ -64,22 +63,10 @@ export const routeConfig = [
     component: Home
   },
   {
-    path: "/comment",
+    path: "/room-chat",
     isPrivate: false,
     exact: true,
-    component: Commenting
-  },
-  {
-    path: "/home-search",
-    isPrivate: false,
-    exact: true,
-    component: SearchFound
-  },
-  {
-    path: "/Call-video",
-    isPrivate: false,
-    exact: true,
-    component: CallVideo
+    component: RoomChat
   },
   { path: "*", component: Error }
 ];
