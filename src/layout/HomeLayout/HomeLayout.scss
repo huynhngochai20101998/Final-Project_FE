@@ -1,11 +1,11 @@
 @import "../../assets/scss/app.scss";
 
 .home-layout {
+    background-color: $bg_main;
     &__main {
         min-height: 100vh;
-        padding-top: 80px;
+        margin-top: 80px;
         height: max-content;
-        background-color: $bg_main;
 
         &-content {
             width: 100%;

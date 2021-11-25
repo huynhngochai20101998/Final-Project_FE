@@ -1,0 +1,13 @@
+@import "../../assets/scss/foundation/variable/variable";
+.white-board {
+    &__host {
+        height: 66px;
+        background: #696d97;
+        border-radius: 5px 5px 0px 0px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+    }
+}

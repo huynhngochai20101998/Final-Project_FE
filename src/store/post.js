@@ -65,9 +65,28 @@ export const createPost = () => (dispatch) => {
 
   dispatch(setLoading({ loading: true }));
   setTimeout(() => {
-    localStorage.removeItem("postCreateId");
+    localStorage.removeItem("postCreateSlug");
 
     dispatch(setLoading({ loading: false }));
     window.location.href = "/home";
   }, 3000);
+};
+
+export const deletePost = (value) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: true }));
+
+    const res = await http.delete(`/api/posts/${value.slug}`);
+    dispatch(setLoading({ loading: false }));
+
+    if (res.success) {
+      console.log(res);
+      window.location.href = "/home";
+    } else {
+      pushToast("error", res.message);
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
+    console.log(e);
+  }
 };
