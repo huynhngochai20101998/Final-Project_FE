@@ -16,7 +16,7 @@ const Home = (props) => {
   const [page, setPage] = useState(2);
   const [noResult, setNoResult] = useState(false);
   let getParameter = props.location.search;
-
+  console.log(getParameter);
   useEffect(() => {
     async function getDataList() {
       try {
