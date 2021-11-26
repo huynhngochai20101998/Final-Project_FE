@@ -11,7 +11,7 @@ const SellValue = (props) => {
   const postCurrent = JSON.parse(localStorage.getItem("postCurrent"));
 
   const valueSell = {
-    post_id: postCurrent.id,
+    post_id: postCurrent?.id,
     day_id: parseInt(props.dayID),
     time_id: parseInt(props.timeID),
     value: valueSchedule

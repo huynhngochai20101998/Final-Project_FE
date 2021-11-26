@@ -7,8 +7,18 @@ import IconVote from "../../../assets/icons/vote-star.svg";
 import moment from "moment";
 import InfoMemberItem from "./InfoMemberItem";
 import Schedule from "components/Post/Schedule/Schedule";
+import { useDispatch } from "react-redux";
+import { createGroup } from "store/group";
 
 const GroupCreation = () => {
+  const dispatch = useDispatch();
+
+  const value = 4;
+
+  const onCreateGroup = () => {
+    dispatch(createGroup(value));
+  };
+
   return (
     <HomeLayout>
       <div className="group-wrapper ">
@@ -57,6 +67,14 @@ const GroupCreation = () => {
             </div>
             <div className="schedule">
               <Schedule />
+            </div>
+            <div className="box-btn">
+              <div
+                className="btn btn-info btn-create-group"
+                onClick={onCreateGroup}
+              >
+                Tạo Phòng
+              </div>
             </div>
           </div>
         </div>
