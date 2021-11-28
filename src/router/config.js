@@ -69,7 +69,7 @@ export const routeConfig = [
     component: RoomChat
   },
   {
-    path: "/user-detail/:id",
+    path: "/user-profile/:id",
     isPrivate: false,
     exact: true,
     component: ManagementPost
