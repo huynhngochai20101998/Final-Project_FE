@@ -17,10 +17,9 @@ export default function RoomChat() {
               <WhiteBoard />
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4">
-            <TableParticipants />
-          </div>
+          <div className="col-sm-4 col-md-4 col-lg-4"></div>
         </div>
+        <TableParticipants></TableParticipants>
       </div>
     </HomeLayout>
   );

@@ -1,7 +1,7 @@
 @import "../../assets/scss/app.scss";
 
 .container-account-user{
-    background-color: $bg_login_form;
+    background-color: $bg_main;
     .container{
         .info-user{
             border-bottom: 1px solid $color_gray;
@@ -54,7 +54,8 @@
                .tabs-item{
                     margin-left: 10px;
                     border-radius: 10px;
-
+                    cursor: pointer;
+                    
                  .active{
                      background-color: transparent;
                      border: none;
@@ -86,6 +87,7 @@
                  }
                }
             }
+
         }
 
     }
