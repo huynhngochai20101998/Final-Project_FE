@@ -1,6 +1,7 @@
 import React from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 import WhiteBoard from "../../components/Whiteboard";
+import TableParticipants from "../../components/CallVideo/TableParticipants";
 import "./Room.scss";
 export default function RoomChat() {
   return (
@@ -18,6 +19,7 @@ export default function RoomChat() {
           </div>
           <div className="col-sm-4 col-md-4 col-lg-4"></div>
         </div>
+        <TableParticipants></TableParticipants>
       </div>
     </HomeLayout>
   );
