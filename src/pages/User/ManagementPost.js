@@ -114,18 +114,9 @@ function ManagementInfo() {
   });
 
   const postsRegisters = userInfo.post_registered.map((postsRegister) => {
-    let fullName =
-      postsRegister.profile_owner.first_name +
-      " " +
-      postsRegister.profile_owner.last_name;
-    console.log(fullName);
     return (
       <div className="test" key={postsRegister.id}>
-        <PostList
-          post={postsRegister}
-          nameuser={fullName}
-          image_avatar={postsRegister.profile_owner.profile_image_url}
-        ></PostList>
+        <PostList post={postsRegister}></PostList>
       </div>
     );
   });
