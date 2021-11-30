@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import "./WhiteBoard.scss";
-import http from "../../core/services/httpService";
-export default function WhiteBoard(props) {
+// import http from "../../core/services/httpService";
+// export default function WhiteBoard(props) {
+export default function WhiteBoard() {
   useEffect(async () => {
     //get group info by group_id
-    let wbId = null;
+    // let wbId = null;
     try {
-      const response = await http.get(`/api/groups/${props.group_id}`);
-      wbId = response.data.group.wb_id;
+      // const response = await http.get(`/api/groups/${props.group_id}`);
+      // wbId = response.data.group.wb_id;
     } catch (e) {
       console.log(e);
     }
@@ -19,7 +20,7 @@ export default function WhiteBoard(props) {
     script.onload = function () {
       new window.api.WhiteboardTeam("#wt-container", {
         clientId: "8203320339f92298c2afceead3101df9",
-        boardCode: wbId
+        boardCode: "b3b8728f-96c1-4829-a4c7-5c4e2948f4b4"
       });
     };
   }, []);

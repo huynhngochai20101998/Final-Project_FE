@@ -16,7 +16,9 @@ import http from "core/services/httpService";
 import Schedule from "../../../components/Post/Schedule/Schedule";
 import { useDispatch } from "react-redux";
 import { createPost, deletePost } from "store/post";
+import { pushToast } from "components/Toast";
 // import { pushToast } from "components/Toast";
+
 const PostCreation = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [topicList, setTopicList] = useState([]);
@@ -26,13 +28,15 @@ const PostCreation = () => {
     async function getDataList() {
       try {
         const response = await http.get("/api/topics");
-        setTopicList(response.data);
+        setTopicList(response.data.data);
       } catch (err) {
         console.log(err);
       }
     }
     getDataList();
   }, []);
+
+  // const postInfo = JSON.parse(localStorage.getItem("postInfo")) || {};
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
@@ -74,26 +78,29 @@ const PostCreation = () => {
                   ...values,
                   topic_id: Number(values.topic_id)
                 };
-                http.post("/api/posts", formatValue).then((res) => {
-                  localStorage.setItem(
-                    "postCreateSlug",
-                    JSON.stringify(res.data.slug)
-                  );
+                http
+                  .post("/api/posts", formatValue)
+                  .then((res) => {
+                    // localStorage.setItem("postInfo", JSON.stringify(res.data));
+                    console.log("log: ", res);
 
-                  actions.setSubmitting(false);
-                  actions.resetForm({
-                    values: {
-                      title: "",
-                      topic_id: "",
-                      number_of_lessons: 1,
-                      members: 3,
-                      number_of_weeks: 1,
-                      content: ""
-                    }
+                    actions.setSubmitting(false);
+                    actions.resetForm({
+                      values: {
+                        title: formatValue.title,
+                        topic_id: formatValue.topic_id,
+                        number_of_lessons: formatValue.number_of_lessons,
+                        members: formatValue.members,
+                        number_of_weeks: formatValue.number_of_weeks,
+                        content: formatValue.content
+                      }
+                    });
+
+                    setIsLoading(!isLoading);
+                  })
+                  .catch((e) => {
+                    pushToast("error", e.data.title);
                   });
-
-                  setIsLoading(!isLoading);
-                });
               }}
             >
               {(formikProps) => {
