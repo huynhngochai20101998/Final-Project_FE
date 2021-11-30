@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import "./Filter.scss";
 const Filter = () => {
   const [listTopic, setListTopic] = useState([]);
-  // const [active, setActive] = useState("");
-  console.log(listTopic);
+
   useEffect(() => {
     async function getTopic() {
       try {
