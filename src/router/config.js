@@ -12,8 +12,8 @@ import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
 import RoomChat from "pages/Room/Room";
-import ManagementPost from "pages/User/ManagementPost";
-import MyProfile from "components/User/MyProfile/MyProfile";
+import ManagementPost from "pages/User/ManagementPost/ManagementPost";
+import MyProfile from "pages/User/MyProfile/MyProfile";
 export const routeConfig = [
   {
     path: "/signup",
@@ -76,7 +76,7 @@ export const routeConfig = [
     component: ManagementPost
   },
   {
-    path: "/user-profile",
+    path: "/user-my-profile",
     isPrivate: false,
     exact: true,
     component: MyProfile

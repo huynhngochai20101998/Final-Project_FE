@@ -1,0 +1,80 @@
+@import "../../../assets/scss/app.scss";
+
+.profile-wrapper {
+    min-width: 870px;
+    min-height: 730px;
+    background-color: $bg_login_form;
+    margin-bottom: 50px;
+    border-radius: 10px;
+
+    .profile {
+        &-header {
+            height: 55px;
+            width: 100%;
+            border-radius: 10px 10px 0px 0px;
+
+            background-color: $bg_login_title;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &-title {
+                padding: 0px;
+                margin: 0px;
+                font-weight: 700;
+                font-size: 24px;
+                color: $color_white;
+                text-transform: uppercase;
+            }
+        }
+
+        &-body {
+            padding: 15px 40px;
+
+            &-top {
+                width: 100%;
+
+                .avatar {
+                    padding-top: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 15px 0px;
+
+                    .avatar-img {
+                        height: 200px;
+                        width: 200px;
+                        border-radius: 50%;
+
+                        background-color: saddlebrown;
+                    }
+                }
+
+                .form {
+                    height: 50px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: $color_white;
+                    background-color: $bg_login_form;
+
+                    &-profile {
+                        .lastname {
+                            width: 142px;
+
+                            &-lable {
+                                margin-bottom: 10px;
+                            }
+
+                            &-input {
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        input[ type="text"] ::-ms-reveal {
+            
+        }
+    }
+}
