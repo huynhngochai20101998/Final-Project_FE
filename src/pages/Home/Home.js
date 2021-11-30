@@ -7,6 +7,7 @@ import Loading from "components/Loading/Loading";
 import InfinitScroll from "react-infinite-scroll-component";
 import NoResult from "../../components/Searching/NoResult";
 import PostList from "./PostList";
+import Filter from "../../components/Filter/Filter";
 // import { useSelector } from "react-redux";
 const Home = (props) => {
   const [postList, setPostList] = useState([]);
@@ -20,7 +21,7 @@ const Home = (props) => {
     async function getDataList() {
       try {
         const response = await http.get(
-          `/api/post/search${getParameter ? getParameter : "?q="}&page=1`
+          `/api/post/search${getParameter ? getParameter : "?"}&page=1`
         );
         setPostList(response.data.data);
         setIsLoading(false);
@@ -58,7 +59,10 @@ const Home = (props) => {
     <HomeLayout>
       <div className="container">
         <div className="row">
-          <div className="col-sm-8 col-md-8 col-lg-8">
+          <div className="col-sm-3 col-md-3 col-lg-3 ">
+            <Filter />
+          </div>
+          <div className="col-sm-6 col-md-6 col-lg-6">
             <div className="PostList">
               <div className="PostList__add">
                 <Link to="/post-creation">
@@ -104,7 +108,7 @@ const Home = (props) => {
               )}
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4 "></div>
+          <div className="col-sm-3 col-md-3 col-lg-3 "></div>
         </div>
       </div>
     </HomeLayout>

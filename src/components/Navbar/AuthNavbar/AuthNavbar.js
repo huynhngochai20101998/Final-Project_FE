@@ -5,8 +5,11 @@ import Logo from "../../../assets/images/logo.svg";
 import LogoName from "../../../assets/images/name-lodo.svg";
 import IconLang from "../../../assets/icons/icon-lang.svg";
 import { Link } from "react-router-dom";
+import User from "../HomeNavbar/User/User";
 
 const AuthNavbar = () => {
+  const userInfo = localStorage.getItem("user");
+
   return (
     <div className="auth-navbar">
       <div className="auth-navbar-content">
@@ -15,7 +18,7 @@ const AuthNavbar = () => {
         </div>
         <div className="auth-navbar-content__btn-authen">
           <MultiLang />
-          <ButtonAuth />
+          {userInfo ? <User /> : <ButtonAuth />}
         </div>
       </div>
     </div>

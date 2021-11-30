@@ -7,7 +7,7 @@ function NoResult() {
     <div id="noResult">
       <img src={noresult}></img>
       <div className="noResult">
-        <h2>Không tìm thấy kết quả</h2>
+        <h2>Không tìm thấy kết quả hãy thử tạo bài viết</h2>
       </div>
     </div>
   );

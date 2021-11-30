@@ -3,7 +3,9 @@ import http from "core/services/httpService";
 // import Home from "../Home/Home";
 import { useParams } from "react-router";
 import deFaultAvatar from "../../../assets/images/default-avatar.jpg";
+import PostList from "../../../pages/Home/PostList";
 import "./ManagementPost.scss";
+import Loading from "components/Loading/Loading";
 import {
   Nav,
   NavItem,
@@ -11,14 +13,11 @@ import {
   TabContent,
   TabPane,
   Row,
-  Col,
-  Card,
-  CardTitle,
-  CardText,
-  Button
+  Col
 } from "reactstrap";
 
 function ManagementInfo() {
+  const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({
     profile_image_url: "",
     first_name: "",
@@ -28,6 +27,7 @@ function ManagementInfo() {
     school: "",
     description: "",
     posts: [],
+    post_registered: [],
     schedules: [],
     fullName: function () {
       let fullName = this.first_name + " " + this.last_name;
@@ -39,7 +39,9 @@ function ManagementInfo() {
     }
   });
   const path = useParams();
-  const localUserID = JSON.parse(localStorage.getItem("user")).id;
+  const localUserID = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).id
+    : "";
 
   useEffect(() => {
     async function getUserInfo() {
@@ -47,7 +49,7 @@ function ManagementInfo() {
         const response = await http.get(
           `/api/profile/user/${path.id === localUserID ? localUserID : path.id}`
         );
-        let newUserInfo = response.data[0];
+        let newUserInfo = response.data;
         setUserInfo((prev) => {
           return {
             ...prev,
@@ -59,10 +61,12 @@ function ManagementInfo() {
             school: newUserInfo.school,
             description: newUserInfo.description,
             posts: newUserInfo.posts,
+            post_registered: newUserInfo.post_registered,
             schedules: newUserInfo.schedules
           };
         });
         testImage(newUserInfo.profile_image_url);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -96,8 +100,33 @@ function ManagementInfo() {
     });
   }
 
+  console.log(userInfo.fullName());
+
+  const posts = userInfo.posts.map((post) => {
+    return (
+      <div className="test" key={post.id}>
+        <PostList
+          post={post}
+          nameuser={userInfo.fullName()}
+          image_avatar={userInfo.profile_image_url}
+        ></PostList>
+      </div>
+    );
+  });
+
+  const postsRegisters = userInfo.post_registered.map((postsRegister) => {
+    return (
+      <div className="test" key={postsRegister.id}>
+        <PostList post={postsRegister}></PostList>
+      </div>
+    );
+  });
+
+  console.log(postsRegisters);
+
   return (
     <div className="container-account-user">
+      <Loading visible={isLoading} />
       <div className="container">
         <div className="row info-user">
           <div className="col col-md-3">
@@ -138,7 +167,7 @@ function ManagementInfo() {
                 onClick={() => toggleTab("1")}
               >
                 <i className="fas fa-user-edit">
-                  <span>Bài viết</span>
+                  <span>Bài viết của tôi</span>
                 </i>
               </NavLink>
             </NavItem>
@@ -150,7 +179,7 @@ function ManagementInfo() {
                 onClick={() => toggleTab("2")}
               >
                 <i className="fas fa-eye">
-                  <span>Theo dõi</span>
+                  <span>Bài viết đăng ký</span>
                 </i>
               </NavLink>
             </NavItem>
@@ -158,31 +187,12 @@ function ManagementInfo() {
           <TabContent activeTab={toggleIndex} className="tab-content">
             <TabPane tabId="1" id="TabPane-1">
               <Row>
-                <Col sm="12"></Col>
+                <Col sm="12">{posts}</Col>
               </Row>
             </TabPane>
             <TabPane tabId="2" id="TabPane-2">
               <Row>
-                <Col sm="6">
-                  <Card body>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>
-                      With supporting text below as a natural lead-in to
-                      additional content.
-                    </CardText>
-                    <Button>Go somewhere</Button>
-                  </Card>
-                </Col>
-                <Col sm="6">
-                  <Card body>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>
-                      With supporting text below as a natural lead-in to
-                      additional content.
-                    </CardText>
-                    <Button>Go somewhere</Button>
-                  </Card>
-                </Col>
+                <Col sm="12">{postsRegisters}</Col>
               </Row>
             </TabPane>
           </TabContent>
