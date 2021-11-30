@@ -13,6 +13,7 @@ import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
 import RoomChat from "pages/Room/Room";
 import ManagementPost from "pages/User/ManagementPost";
+import Filter from "components/Filter/Filter";
 export const routeConfig = [
   {
     path: "/signup",
@@ -73,6 +74,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: ManagementPost
+  },
+  {
+    path: "/filter",
+    isPrivate: false,
+    exact: true,
+    component: Filter
   },
   { path: "*", component: Error }
 ];

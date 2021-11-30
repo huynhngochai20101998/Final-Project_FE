@@ -31,16 +31,17 @@ function ManagementInfo() {
     schedules: [],
     fullName: function () {
       let fullName = this.first_name + " " + this.last_name;
-      return fullName;
-      // let convertToArray = fullName.toLowerCase().split(" ");
-      // var result = convertToArray.map(function (val) {
-      //   return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
-      // });
-      // return result.join(" ");
+      let convertToArray = fullName.toLowerCase().split(" ");
+      var result = convertToArray.map(function (val) {
+        return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+      });
+      return result.join(" ");
     }
   });
   const path = useParams();
-  const localUserID = JSON.parse(localStorage.getItem("user")).id;
+  const localUserID = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).id
+    : "";
 
   useEffect(() => {
     async function getUserInfo() {
