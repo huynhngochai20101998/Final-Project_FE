@@ -3,7 +3,7 @@ import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import moment from "moment";
 function PostList(props) {
-  const { created_at, title, slug, id, content } = props.post;
+  const { created_at, title, slug, id, content, members } = props.post;
 
   return (
     <div className="PostList__form">
@@ -16,7 +16,7 @@ function PostList(props) {
       </div>
       <div className="PostList__form__info-post">
         <h5>{title}</h5>
-        <p>Số lượng thành viên người</p>
+        <p>Số lượng thành viên {members} người</p>
         <p>{content}</p>
       </div>
       <div className="PostList__form__see-more">

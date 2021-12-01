@@ -63,7 +63,7 @@ export const routeConfig = [
     component: Home
   },
   {
-    path: "/room-chat",
+    path: "/room-chat/:id",
     isPrivate: false,
     exact: true,
     component: RoomChat

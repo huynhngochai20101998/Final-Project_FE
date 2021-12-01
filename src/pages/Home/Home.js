@@ -10,6 +10,7 @@ import PostList from "./PostList";
 // import { useSelector } from "react-redux";
 const Home = (props) => {
   const [postList, setPostList] = useState([]);
+  const [groupList, setGroupList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [noMore, setNoMore] = useState(true);
   const [page, setPage] = useState(2);
@@ -34,6 +35,18 @@ const Home = (props) => {
     }
     getDataList();
   }, [getParameter, noResult]);
+
+  useEffect(() => {
+    async function getGroupList() {
+      try {
+        const response = await http.get(`/api/groups`);
+        setGroupList(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getGroupList();
+  }, []);
 
   const fetchPosts = async () => {
     const res = await http.get(
@@ -104,7 +117,23 @@ const Home = (props) => {
               )}
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4 "></div>
+          <div className="col-sm-4 col-md-4 col-lg-4 ">
+            <div className="GroupList">
+              <div className="GroupList__title">Danh sách nhóm</div>
+              <div className="GroupList__list">
+                {groupList.map((group) => {
+                  return (
+                    <Link to={`/room-chat/` + group.id} key={group.id}>
+                      <div className="GroupList__list__team">
+                        <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
+                        <span>{group.name}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </HomeLayout>

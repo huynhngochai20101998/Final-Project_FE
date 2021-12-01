@@ -28,7 +28,7 @@ const PostCreation = () => {
     async function getDataList() {
       try {
         const response = await http.get("/api/topics");
-        setTopicList(response.data);
+        setTopicList(response.data.data);
       } catch (err) {
         console.log(err);
       }
@@ -138,7 +138,6 @@ const PostCreation = () => {
                                   );
                                 })}
                               </Input>
-                              ;
                               <ErrorMessage
                                 name={"topic_id"}
                                 component={FormFeedback}
