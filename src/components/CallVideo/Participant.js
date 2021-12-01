@@ -7,7 +7,9 @@ const Participant = ({ participant, userName }) => {
   const audioRef = useRef();
 
   const trackpubsToTracks = (trackMap) =>
-    Array.from(trackMap.values()).map((publication) => publication.track);
+    Array.from(trackMap.values())
+      .map((publication) => publication.track)
+      .filter((track) => track !== null);
 
   useEffect(() => {
     const trackSubscribed = (track) => {
@@ -20,9 +22,9 @@ const Participant = ({ participant, userName }) => {
 
     const trackUnsubscribed = (track) => {
       if (track.kind === "video") {
-        setVideoTracks([]);
+        setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track));
       } else if (track.kind === "audio") {
-        setAudioTracks([]);
+        setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track));
       }
     };
 
@@ -43,6 +45,9 @@ const Participant = ({ participant, userName }) => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
       videoTrack.attach(videoRef.current);
+      return () => {
+        videoTrack.detach();
+      };
     }
   }, [videoTracks]);
 
@@ -50,12 +55,15 @@ const Participant = ({ participant, userName }) => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
       audioTrack.attach(audioRef.current);
+      return () => {
+        audioTrack.detach();
+      };
     }
   }, [audioTracks]);
 
   return (
     <div className="participant">
-      <span>{userName}</span>
+      <span>{participant.identity}</span>
       <video ref={videoRef} autoPlay={true}></video>
       <audio ref={audioRef} autoPlay={true} />
     </div>

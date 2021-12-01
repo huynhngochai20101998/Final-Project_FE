@@ -19,7 +19,7 @@ function TableScreen() {
   useEffect(() => {
     async function getDataList() {
       try {
-        const response = await http.get("/api/groups/6");
+        const response = await http.get("/api/groups/8");
         setUserName(response.data.user_name);
         setRoomName(response.data.group_name);
         handleConnectRoom(response.data.token);
