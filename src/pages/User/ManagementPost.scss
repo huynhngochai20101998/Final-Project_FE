@@ -2,7 +2,6 @@
 
 .container-account-user{
     background-color: $bg_main;
-    .container{
         .info-user{
             border-bottom: 1px solid $color_gray;
             margin-bottom: 20px;
@@ -88,7 +87,9 @@
                }
             }
 
+            .tab-content{
+                margin: 0 auto;
+                width: 740px;
+            }
         }
-
-    }
 }

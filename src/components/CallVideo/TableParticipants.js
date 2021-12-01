@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useCallback } from "react";
+import { React, useState, useEffect } from "react";
 import http from "core/services/httpService";
 import Video from "twilio-video";
 import { useHistory } from "react-router-dom";
@@ -19,12 +19,13 @@ function TableScreen() {
   useEffect(() => {
     async function getDataList() {
       try {
-        const response = await http.get("/api/access_token/1");
+        const response = await http.get("/api/groups/6");
         setUserName(response.data.user_name);
-        setRoomName(response.data.room_name);
+        setRoomName(response.data.group_name);
         handleConnectRoom(response.data.token);
       } catch (err) {
-        history.push("/login");
+        // history.push("/login");
+        console.log(err);
       }
     }
     getDataList();
@@ -107,7 +108,7 @@ function TableScreen() {
     }
   };
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     setRoom((prevRoom) => {
       if (prevRoom) {
         prevRoom.localParticipant.tracks.forEach((trackPub) => {
@@ -118,26 +119,7 @@ function TableScreen() {
       }
       return null;
     });
-  }, []);
-
-  useEffect(() => {
-    if (room) {
-      const tidyUp = (event) => {
-        if (event.persisted) {
-          return;
-        }
-        if (room) {
-          handleLogout();
-        }
-      };
-      window.addEventListener("pagehide", tidyUp);
-      window.addEventListener("beforeunload", tidyUp);
-      return () => {
-        window.removeEventListener("pagehide", tidyUp);
-        window.removeEventListener("beforeunload", tidyUp);
-      };
-    }
-  }, [room, handleLogout]);
+  };
 
   return (
     <div className="container-screen">

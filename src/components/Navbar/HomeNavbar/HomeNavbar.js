@@ -9,14 +9,23 @@ import avatar from "../../../assets/images/user-avatar.png";
 import { useDispatch } from "react-redux";
 import { logout } from "store/user";
 import Searching from "components/Searching/Searching";
-
+import { useHistory } from "react-router-dom";
 const HomeNabar = () => {
   const userInfo = localStorage.getItem("user");
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const handelLogout = () => {
     console.log("alo");
     dispatch(logout());
+  };
+
+  const handleToPersonalUser = () => {
+    const localUserID = JSON.parse(localStorage.getItem("user")).id;
+    history.push(`/personal-info-user/${localUserID}`);
+  };
+
+  const handleToChangePassword = () => {
+    history.push(`/reset-password`);
   };
 
   return (
@@ -43,6 +52,12 @@ const HomeNabar = () => {
                 </div>
               </div>
               <ul className="control">
+                <li className="control-item" onClick={handleToPersonalUser}>
+                  Trang cá nhân
+                </li>
+                <li className="control-item" onClick={handleToChangePassword}>
+                  Đổi mật khẩu
+                </li>
                 <li className="control-item" onClick={handelLogout}>
                   logout
                 </li>
