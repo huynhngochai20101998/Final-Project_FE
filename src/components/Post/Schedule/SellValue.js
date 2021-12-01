@@ -9,7 +9,7 @@ const SellValue = (props) => {
   const [valueSchedule, setValueSchedule] = useState(true);
 
   const valueSell = {
-    post_id: 1,
+    post_id: JSON.parse(localStorage.getItem("postCreationId")),
     day_id: parseInt(props.dayID),
     time_id: parseInt(props.timeID),
     value: valueSchedule

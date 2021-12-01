@@ -6,7 +6,7 @@ import IconVote from "../../../assets/icons/vote-star.svg";
 
 import "./PostDetail.scss";
 import Schedule from "../../../components/Post/Schedule/Schedule";
-import { createPost } from "store/post";
+import { createCompletionPost } from "store/post";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useParams } from "react-router";
@@ -98,7 +98,7 @@ const PostDetail = () => {
             <button
               className="float-end post-detail__finish"
               onClick={() => {
-                dispatch(createPost());
+                dispatch(createCompletionPost());
               }}
             >
               Hoàn Tất

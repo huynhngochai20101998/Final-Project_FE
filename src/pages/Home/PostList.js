@@ -14,7 +14,9 @@ function PostList(props) {
     last_name,
     profile_image_url
   } = props.post;
+
   const fullName = first_name + " " + last_name;
+
   return (
     <div className="PostList__form">
       <div className="PostList__form__info-user">
@@ -31,7 +33,16 @@ function PostList(props) {
       </div>
       <div className="PostList__form__see-more">
         <Link to={`/post-details/${slug}.${id}`}>
-          <Button>Xem thêm</Button>
+          <Button
+            onClick={() => {
+              localStorage.setItem(
+                "postCreationId",
+                JSON.stringify(props.post.id)
+              );
+            }}
+          >
+            Xem thêm
+          </Button>
         </Link>
       </div>
     </div>
