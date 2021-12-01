@@ -7,8 +7,7 @@ const Participant = ({ participant, userName }) => {
   const audioRef = useRef();
 
   const trackpubsToTracks = (trackMap) =>
-    Array.from(trackMap.values())
-      .map((publication) => publication.track)
+    Array.from(trackMap.values()).map((publication) => publication.track);
 
   useEffect(() => {
     const trackSubscribed = (track) => {
