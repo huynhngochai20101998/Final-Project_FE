@@ -2,8 +2,8 @@ import { React, useState, useEffect } from "react";
 import http from "core/services/httpService";
 // import Home from "../Home/Home";
 import { useParams } from "react-router";
-import deFaultAvatar from "../../assets/images/default-avatar.jpg";
-import PostList from "../../pages/Home/PostList";
+import deFaultAvatar from "../../../assets/images/default-avatar.jpg";
+import PostList from "../../../pages/Home/PostList";
 import "./ManagementPost.scss";
 import Loading from "components/Loading/Loading";
 import {
