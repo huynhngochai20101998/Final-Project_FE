@@ -24,9 +24,15 @@ export const addSchedule = (value) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: true }));
 
-    await http.post("/api/schedules", value);
+    const res = await http.post("/api/schedules", value);
 
     dispatch(setLoading({ loading: false }));
+
+    if (res.success) {
+      pushToast("success", res.message);
+    } else {
+      pushToast("error", "Trùng thời gian!");
+    }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
 
@@ -60,33 +66,18 @@ export const postDetail = (post) => async (dispatch) => {
   }
 };
 
-export const createPost = () => (dispatch) => {
-  pushToast("success", "Hoàn tất tạo bài tìm người lập nhóm");
+export const createCompletionPost = () => (dispatch) => {
+  pushToast("success", "Hoàn tất");
 
   dispatch(setLoading({ loading: true }));
   setTimeout(() => {
-    localStorage.removeItem("postCreateSlug");
+    localStorage.removeItem("postCreationId");
 
     dispatch(setLoading({ loading: false }));
     window.location.href = "/home";
   }, 3000);
 };
 
-export const deletePost = (value) => async (dispatch) => {
-  try {
-    dispatch(setLoading({ loading: true }));
-
-    const res = await http.delete(`/api/posts/${value.slug}`);
-    dispatch(setLoading({ loading: false }));
-
-    if (res.success) {
-      console.log(res);
-      window.location.href = "/home";
-    } else {
-      pushToast("error", res.message);
-    }
-  } catch (e) {
-    dispatch(setLoading({ loading: false }));
-    console.log(e);
-  }
+export const cancelCreatePost = () => () => {
+  window.location.href = "/home";
 };

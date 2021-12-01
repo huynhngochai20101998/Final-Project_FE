@@ -15,7 +15,7 @@ import InputField from "../custom-field/inputField";
 import http from "core/services/httpService";
 import Schedule from "../../../components/Post/Schedule/Schedule";
 import { useDispatch } from "react-redux";
-import { createPost, deletePost } from "store/post";
+import { cancelCreatePost, createCompletionPost } from "store/post";
 import { pushToast } from "components/Toast";
 // import { pushToast } from "components/Toast";
 
@@ -81,8 +81,11 @@ const PostCreation = () => {
                 http
                   .post("/api/posts", formatValue)
                   .then((res) => {
-                    // localStorage.setItem("postInfo", JSON.stringify(res.data));
-                    console.log("log: ", res);
+                    localStorage.setItem(
+                      "postCreationId",
+                      JSON.stringify(res.data.id)
+                    );
+                    console.log("log: ", res.data.id);
 
                     actions.setSubmitting(false);
                     actions.resetForm({
@@ -99,7 +102,8 @@ const PostCreation = () => {
                     setIsLoading(!isLoading);
                   })
                   .catch((e) => {
-                    pushToast("error", e.data.title);
+                    console.log(e);
+                    pushToast("error", "Đăng bài không thành công");
                   });
               }}
             >
@@ -188,19 +192,11 @@ const PostCreation = () => {
                         <div className="PostCreate__form__button">
                           <Button
                             type="reset"
-                            onClick={() =>
-                              dispatch(
-                                deletePost(
-                                  JSON.parse(
-                                    localStorage.getItem("postCreateSlug")
-                                  )
-                                )
-                              )
-                            }
+                            onClick={() => dispatch(cancelCreatePost())}
                           >
                             Hủy
                           </Button>
-                          <Button type="submit">Tiếp tục</Button>
+                          <Button type="submit">Đăng Bài</Button>
                         </div>
                       </>
                     ) : (
@@ -211,15 +207,15 @@ const PostCreation = () => {
                             <Schedule />
                           </div>
                           <div className="PostCreate__form__button">
-                            <Button
+                            {/* <Button
                               type="reset"
                               onClick={() => setIsLoading(!isLoading)}
                             >
                               Quay lại
-                            </Button>
+                            </Button> */}
                             <Button
                               onClick={() => {
-                                dispatch(createPost());
+                                dispatch(createCompletionPost());
                               }}
                             >
                               {isSubmitting && (
