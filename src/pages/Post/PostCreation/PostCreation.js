@@ -151,7 +151,6 @@ const PostCreation = () => {
                                   );
                                 })}
                               </Input>
-                              ;
                               <ErrorMessage
                                 name={"topic_id"}
                                 component={FormFeedback}
