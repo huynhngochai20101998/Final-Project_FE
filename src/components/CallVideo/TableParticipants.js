@@ -24,7 +24,8 @@ function TableScreen() {
         setRoomName(response.data.room_name);
         handleConnectRoom(response.data.token);
       } catch (err) {
-        history.push("/login");
+        // history.push("/login");
+        console.log(err);
       }
     }
     getDataList();
@@ -44,6 +45,7 @@ function TableScreen() {
         setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.error(err);
       });
   };

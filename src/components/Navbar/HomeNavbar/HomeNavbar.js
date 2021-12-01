@@ -5,19 +5,12 @@ import "./HomeNavbar.scss";
 import Logo from "../../../assets/images/logo.svg";
 import LogoName from "../../../assets/images/name-lodo.svg";
 import IconLang from "../../../assets/icons/icon-lang.svg";
-import avatar from "../../../assets/images/user-avatar.png";
-import { useDispatch } from "react-redux";
-import { logout } from "store/user";
+
 import Searching from "components/Searching/Searching";
+import User from "./User/User";
 
 const HomeNabar = () => {
   const userInfo = localStorage.getItem("user");
-  const dispatch = useDispatch();
-
-  const handelLogout = () => {
-    console.log("alo");
-    dispatch(logout());
-  };
 
   return (
     <div className="home-navbar">
@@ -32,25 +25,7 @@ const HomeNabar = () => {
           <div className="">
             <img className="img" src={IconLang} alt="" />
           </div>
-          {userInfo ? (
-            <div className="home-user">
-              <div className="home-user__content">
-                <div className="user-img">
-                  <img src={avatar} alt="" className="img" />
-                </div>
-                <div className="name">
-                  <p>Dung</p>
-                </div>
-              </div>
-              <ul className="control">
-                <li className="control-item" onClick={handelLogout}>
-                  logout
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <ButtonAuth />
-          )}
+          {userInfo ? <User /> : <ButtonAuth />}
         </div>
       </div>
     </div>
