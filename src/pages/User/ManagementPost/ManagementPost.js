@@ -6,6 +6,7 @@ import deFaultAvatar from "../../../assets/images/default-avatar.jpg";
 import PostList from "../../../pages/Home/PostList";
 import "./ManagementPost.scss";
 import Loading from "components/Loading/Loading";
+import HomeLayout from "layout/HomeLayout/HomeLayout";
 import {
   Nav,
   NavItem,
@@ -100,8 +101,6 @@ function ManagementInfo() {
     });
   }
 
-  console.log(userInfo.fullName());
-
   const posts = userInfo.posts.map((post) => {
     return (
       <div className="test" key={post.id}>
@@ -122,12 +121,10 @@ function ManagementInfo() {
     );
   });
 
-  console.log(postsRegisters);
-
   return (
-    <div className="container-account-user">
+    <HomeLayout>
       <Loading visible={isLoading} />
-      <div className="container">
+      <div className="container container-account-user">
         <div className="row info-user">
           <div className="col col-md-3">
             <div className="user-avatar">
@@ -198,7 +195,7 @@ function ManagementInfo() {
           </TabContent>
         </div>
       </div>
-    </div>
+    </HomeLayout>
   );
 }
 

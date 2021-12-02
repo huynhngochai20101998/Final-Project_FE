@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Participant = ({ participant, userName }) => {
+const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const videoRef = useRef();
@@ -12,9 +12,6 @@ const Participant = ({ participant, userName }) => {
       .filter((track) => track !== null);
 
   useEffect(() => {
-    setVideoTracks(trackpubsToTracks(participant.videoTracks));
-    setAudioTracks(trackpubsToTracks(participant.audioTracks));
-
     const trackSubscribed = (track) => {
       if (track.kind === "video") {
         setVideoTracks((videoTracks) => [...videoTracks, track]);
@@ -25,11 +22,14 @@ const Participant = ({ participant, userName }) => {
 
     const trackUnsubscribed = (track) => {
       if (track.kind === "video") {
-        setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track));
+        setVideoTracks([]);
       } else if (track.kind === "audio") {
-        setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track));
+        setAudioTracks([]);
       }
     };
+
+    setVideoTracks(trackpubsToTracks(participant.videoTracks));
+    setAudioTracks(trackpubsToTracks(participant.audioTracks));
 
     participant.on("trackSubscribed", trackSubscribed);
     participant.on("trackUnsubscribed", trackUnsubscribed);
@@ -45,9 +45,6 @@ const Participant = ({ participant, userName }) => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
       videoTrack.attach(videoRef.current);
-      return () => {
-        videoTrack.detach();
-      };
     }
   }, [videoTracks]);
 
@@ -55,15 +52,12 @@ const Participant = ({ participant, userName }) => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
       audioTrack.attach(audioRef.current);
-      return () => {
-        audioTrack.detach();
-      };
     }
   }, [audioTracks]);
 
   return (
     <div className="participant">
-      <span>{userName}</span>
+      <span>{participant.identity}</span>
       <video ref={videoRef} autoPlay={true}></video>
       <audio ref={audioRef} autoPlay={true} />
     </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import { Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
+
 function PostList(props) {
   const {
     created_at,
@@ -12,16 +13,19 @@ function PostList(props) {
     content,
     first_name,
     last_name,
-    profile_image_url
+    profile_image_url,
+    user_id
   } = props.post;
-
+  const history = useHistory();
   const fullName = first_name + " " + last_name;
-
+  const handleToPersonalPage = () => {
+    history.push(`/personal-info-user/${user_id}`);
+  };
   return (
     <div className="PostList__form">
       <div className="PostList__form__info-user">
         <div>
-          <img src={profile_image_url} />
+          <img src={profile_image_url} onClick={handleToPersonalPage} />
           <span>{fullName}</span>
         </div>
         <div>{moment(created_at).format("DD/MM/YYYY")}</div>
