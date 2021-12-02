@@ -49,7 +49,7 @@ export const routeConfig = [
   },
   {
     path: "/post-details/:slug.:id",
-    isPrivate: false,
+    isPrivate: true,
     exact: true,
     component: PostDetail
   },
@@ -67,19 +67,19 @@ export const routeConfig = [
   },
   {
     path: "/room-chat/:id",
-    isPrivate: false,
+    isPrivate: true,
     exact: true,
     component: RoomChat
   },
   {
     path: "/personal-info-user/:id",
-    isPrivate: false,
+    isPrivate: true,
     exact: true,
     component: ManagementPost
   },
   {
     path: "/user-my-profile",
-    isPrivate: false,
+    isPrivate: true,
     exact: true,
     component: MyProfile
   },
