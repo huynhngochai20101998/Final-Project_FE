@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useCallback } from "react";
+import { React, useState, useEffect } from "react";
 import http from "core/services/httpService";
 import Video from "twilio-video";
 import { useHistory } from "react-router-dom";
@@ -6,7 +6,7 @@ import Participant from "./Participant";
 import "./TableParticipants.scss";
 import Loading from "components/Loading/Loading";
 
-function TableScreen() {
+function TableScreen({ id }) {
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useState("");
   const [roomName, setRoomName] = useState("");
@@ -19,9 +19,9 @@ function TableScreen() {
   useEffect(() => {
     async function getDataList() {
       try {
-        const response = await http.get("/api/access_token/1");
+        const response = await http.get(`/api/groups/${id}`);
         setUserName(response.data.user_name);
-        setRoomName(response.data.room_name);
+        setRoomName(response.data.group_name);
         handleConnectRoom(response.data.token);
       } catch (err) {
         // history.push("/login");
@@ -76,7 +76,7 @@ function TableScreen() {
   }, [room]);
 
   const remoteParticipants = participants.map((participant) => (
-    <li key={participant.sid} className="remote-participants ">
+    <li key={participant.sid}>
       <Participant participant={participant} userName={userName} />
     </li>
   ));
@@ -109,7 +109,7 @@ function TableScreen() {
     }
   };
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     setRoom((prevRoom) => {
       if (prevRoom) {
         prevRoom.localParticipant.tracks.forEach((trackPub) => {
@@ -120,33 +120,13 @@ function TableScreen() {
       }
       return null;
     });
-  }, []);
-
-  useEffect(() => {
-    if (room) {
-      const tidyUp = (event) => {
-        if (event.persisted) {
-          return;
-        }
-        if (room) {
-          handleLogout();
-        }
-      };
-      window.addEventListener("pagehide", tidyUp);
-      window.addEventListener("beforeunload", tidyUp);
-      return () => {
-        window.removeEventListener("pagehide", tidyUp);
-        window.removeEventListener("beforeunload", tidyUp);
-      };
-    }
-  }, [room, handleLogout]);
+  };
 
   return (
     <div className="container-screen">
       {room ? (
         <ul className="local-participant">
           <li>
-            <h4>Màn hình của Bạn</h4>
             <Participant
               key={room.localParticipant.sid}
               participant={room.localParticipant}
@@ -174,8 +154,8 @@ function TableScreen() {
                 onClick={handleLogout}
               ></i>
             </div>
-            {remoteParticipants}
           </li>
+          {remoteParticipants}
         </ul>
       ) : (
         <Loading visible={isLoading} />

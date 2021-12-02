@@ -7,7 +7,7 @@ import "./HomeLayout.scss";
 const HomeLayout = (props) => {
   return (
     <div className="home-layout overflow-auto">
-      <div>
+      <div className="fixed-top">
         <HomeNavbar />
       </div>
       <div className="home-layout__main ">

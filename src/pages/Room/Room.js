@@ -34,7 +34,7 @@ export default function RoomChat() {
           </div>
           <div className="col-sm-4 col-md-4 col-lg-4"></div>
         </div>
-        <TableParticipants></TableParticipants>
+        <TableParticipants id={path.id}></TableParticipants>
       </div>
     </HomeLayout>
   );

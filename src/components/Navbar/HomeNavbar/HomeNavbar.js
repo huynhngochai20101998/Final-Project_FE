@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./HomeNavbar.scss";
-
 import Logo from "../../../assets/images/logo.svg";
 import LogoName from "../../../assets/images/name-lodo.svg";
 import IconLang from "../../../assets/icons/icon-lang.svg";
-
 import Searching from "components/Searching/Searching";
 import User from "./User/User";
 
