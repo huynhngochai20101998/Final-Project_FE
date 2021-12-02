@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Participant = ({ participant, userName }) => {
+const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const videoRef = useRef();
@@ -22,9 +22,9 @@ const Participant = ({ participant, userName }) => {
 
     const trackUnsubscribed = (track) => {
       if (track.kind === "video") {
-        setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track));
+        setVideoTracks([]);
       } else if (track.kind === "audio") {
-        setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track));
+        setAudioTracks([]);
       }
     };
 
@@ -45,9 +45,6 @@ const Participant = ({ participant, userName }) => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
       videoTrack.attach(videoRef.current);
-      return () => {
-        videoTrack.detach();
-      };
     }
   }, [videoTracks]);
 
@@ -55,9 +52,6 @@ const Participant = ({ participant, userName }) => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
       audioTrack.attach(audioRef.current);
-      return () => {
-        audioTrack.detach();
-      };
     }
   }, [audioTracks]);
 

@@ -6,7 +6,7 @@ import Participant from "./Participant";
 import "./TableParticipants.scss";
 import Loading from "components/Loading/Loading";
 
-function TableScreen() {
+function TableScreen({ id }) {
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useState("");
   const [roomName, setRoomName] = useState("");
@@ -19,7 +19,7 @@ function TableScreen() {
   useEffect(() => {
     async function getDataList() {
       try {
-        const response = await http.get("/api/groups/8");
+        const response = await http.get(`/api/groups/${id}`);
         setUserName(response.data.user_name);
         setRoomName(response.data.group_name);
         handleConnectRoom(response.data.token);
@@ -45,6 +45,7 @@ function TableScreen() {
         setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.error(err);
       });
   };
@@ -75,7 +76,7 @@ function TableScreen() {
   }, [room]);
 
   const remoteParticipants = participants.map((participant) => (
-    <li key={participant.sid} className="remote-participants ">
+    <li key={participant.sid}>
       <Participant participant={participant} userName={userName} />
     </li>
   ));
@@ -126,7 +127,6 @@ function TableScreen() {
       {room ? (
         <ul className="local-participant">
           <li>
-            <h4>Màn hình của Bạn</h4>
             <Participant
               key={room.localParticipant.sid}
               participant={room.localParticipant}
@@ -154,8 +154,8 @@ function TableScreen() {
                 onClick={handleLogout}
               ></i>
             </div>
-            {remoteParticipants}
           </li>
+          {remoteParticipants}
         </ul>
       ) : (
         <Loading visible={isLoading} />

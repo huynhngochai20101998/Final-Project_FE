@@ -37,7 +37,16 @@ function PostList(props) {
       </div>
       <div className="PostList__form__see-more">
         <Link to={`/post-details/${slug}.${id}`}>
-          <Button>Xem thêm</Button>
+          <Button
+            onClick={() => {
+              localStorage.setItem(
+                "postCreationId",
+                JSON.stringify(props.post.id)
+              );
+            }}
+          >
+            Xem thêm
+          </Button>
         </Link>
       </div>
     </div>
