@@ -5,7 +5,7 @@ import "./Home.scss";
 import { Link } from "react-router-dom";
 import Loading from "components/Loading/Loading";
 import InfinitScroll from "react-infinite-scroll-component";
-import NoResult from "../../components/Searching/NoResult";
+// import NoResult from "../../components/Searching/NoResult";
 import PostList from "./PostList";
 import Filter from "../../components/Filter/Filter";
 // import { useSelector } from "react-redux";
@@ -116,7 +116,7 @@ const Home = (props) => {
                   }
                   endMessage=""
                 >
-                  {noResult ? <NoResult /> : posts}
+                  {posts}
                 </InfinitScroll>
               )}
             </div>
