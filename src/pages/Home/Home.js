@@ -68,6 +68,7 @@ const Home = (props) => {
   const posts = postList.map((post) => {
     return <PostList key={post.id} post={post}></PostList>;
   });
+
   return (
     <HomeLayout>
       <div className="container">

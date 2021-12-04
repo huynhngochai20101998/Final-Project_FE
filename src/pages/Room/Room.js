@@ -7,15 +7,12 @@ import { useParams } from "react-router";
 import http from "core/services/httpService";
 import { Form, Formik } from "formik";
 import { FormGroup, Input } from "reactstrap";
-import axios from "axios";
 export default function RoomChat() {
   const path = useParams();
   const [groupData, setGroupData] = useState({});
   const [messageList, setMessageList] = useState([]);
-  const api = axios.create({
-    baseURL: `https://fathomless-depths-07369.herokuapp.com`
-  });
-  // console.log(groupData);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     async function getGroupData() {
       try {
@@ -27,19 +24,18 @@ export default function RoomChat() {
     }
     getGroupData();
   }, []);
+
   useEffect(() => {
     async function getMessageData() {
       try {
-        const response = await api.get(`/api/messages?group_id=${path.id}`);
+        const response = await http.get(`/api/messages?group_id=${path.id}`);
         setMessageList(response.data);
       } catch (e) {
         console.log(e);
       }
     }
     getMessageData();
-  }, []);
-  console.log(messageList);
-  console.log(groupData);
+  }, [isLoading]);
   return (
     <HomeLayout>
       <div className="container-fluid">
@@ -59,24 +55,26 @@ export default function RoomChat() {
                 <h4>Tin nhắn</h4>
                 <div>
                   <i className="far fa-user-circle"></i>
-                  <span>5</span>
+                  <span>{groupData.count_members}</span>
                 </div>
               </div>
               <div className="Message__body">
-                <div className="Message__body__title">
-                  <div className="Message__body__title__user">
-                    <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
-                    <span>Nguyen Dung22</span>
-                  </div>
-                  <div className="Message__body__title__mess">
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Magni, facilis! Consequuntur pariatur recusandae
-                      cupiditate ea autem illo expedita dolorum porro alias
-                      sapiente facere, iste sed optio eum nisi minus nam?
-                    </p>
-                  </div>
-                </div>
+                {messageList.map((mess) => {
+                  return (
+                    <div className="Message__body__title" key={mess.message.id}>
+                      <div className="Message__body__title__user">
+                        <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
+                        <span>
+                          {mess.message.user.last_name}{" "}
+                          {mess.message.user.first_name}
+                        </span>
+                      </div>
+                      <div className="Message__body__title__mess">
+                        <p>{mess.message.content}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
               <div className="Message__chat">
                 <Formik
@@ -84,9 +82,8 @@ export default function RoomChat() {
                     group_id: Number(path.id),
                     content: ""
                   }}
-                  // validationSchema={validationSchema}
                   onSubmit={(values, actions) => {
-                    api.post(`/api/messages`, values).then(() => {
+                    http.post(`/api/messages`, values).then(() => {
                       actions.setSubmitting(false);
                       actions.resetForm({
                         values: {
@@ -94,7 +91,7 @@ export default function RoomChat() {
                           content: ""
                         }
                       });
-                      // setIsLoading(!isLoading);
+                      setIsLoading(!isLoading);
                     });
                   }}
                 >
