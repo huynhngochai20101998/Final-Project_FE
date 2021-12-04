@@ -15,7 +15,6 @@ const Home = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [noMore, setNoMore] = useState(true);
   const [page, setPage] = useState(2);
-  const [noResult, setNoResult] = useState(false);
   let getParameter = props.location.search;
 
   useEffect(() => {
@@ -26,16 +25,14 @@ const Home = (props) => {
         );
         setPostList(response.data.data);
         setIsLoading(false);
-        setNoResult(false);
       } catch (err) {
         if (getParameter) {
-          setNoResult(true);
           setIsLoading(false);
         }
       }
     }
     getDataList();
-  }, [getParameter, noResult]);
+  }, [getParameter]);
 
   useEffect(() => {
     async function getGroupList() {
@@ -55,7 +52,6 @@ const Home = (props) => {
     );
     return res.data.data;
   };
-
   const fetchData = async () => {
     const postServer = await fetchPosts();
     setPostList([...postList, ...postServer]);
@@ -116,7 +112,7 @@ const Home = (props) => {
                   }
                   endMessage=""
                 >
-                  {noResult ? <NoResult /> : posts}
+                  {postList.length === 0 ? <NoResult /> : posts}
                 </InfinitScroll>
               )}
             </div>
