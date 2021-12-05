@@ -6,25 +6,36 @@ import { setLoading } from "store/post";
 
 import "./Sell.scss";
 
+const styleCheckbox = {
+  outline: "2px solid #0066cc"
+};
+
 const SellValue = (props) => {
   const dispatch = useDispatch();
   const [valueSchedule, setValueSchedule] = useState(true);
   const [checkSuccess, setCheckSuccess] = useState(false);
   const [idSchedule, setIdSchedule] = useState();
-  const mySchedule = props.mySchedule;
+  const myPost = props?.myPost;
 
-  console.log("mySchedule", mySchedule);
+  let checkCreator = false;
 
-  // const setCheckOfCreator = () => {
-  //   mySchedule.map((item, index) => {
-  //     console.log("item, index", item, index);
-  //   });
-  // };
+  const dayID = props.dayID;
+  const timeID = props.timeID;
+
+  const checkedCreator = props?.mySchedule;
+  // const userPostID = props.userId;
+  // const myInfoId = JSON.parse(localStorage.getItem("user")).id;
+
+  checkedCreator?.map((item) => {
+    if (item?.day_id == dayID && item?.time_id == timeID) {
+      checkCreator = true;
+    }
+  });
 
   const valueSell = {
     post_id: JSON.parse(localStorage.getItem("postCreationId")),
-    day_id: parseInt(props.dayID),
-    time_id: parseInt(props.timeID),
+    day_id: props.dayID,
+    time_id: props.timeID,
     value: valueSchedule
   };
 
@@ -33,6 +44,7 @@ const SellValue = (props) => {
 
     try {
       dispatch(setLoading({ loading: true }));
+      console.log(valueSell);
 
       const res = await http.post("/api/schedules", valueSell);
       dispatch(setLoading({ loading: false }));
@@ -40,10 +52,10 @@ const SellValue = (props) => {
       if (res.success) {
         setCheckSuccess(true);
         setIdSchedule(res.data.id);
-        pushToast("success", res.message);
+        pushToast("success", "Thêm lịch thành công");
       } else {
         setCheckSuccess(false);
-        pushToast("error", "Trùng thời gian!");
+        pushToast("error", "Vượt Quá Số khung giờ!");
       }
     } catch (e) {
       setCheckSuccess(false);
@@ -70,10 +82,12 @@ const SellValue = (props) => {
   return (
     <div className="sell" style={props.style}>
       <input
+        style={checkCreator ? styleCheckbox : {}}
+        className="sell-checkbox"
         type="checkbox"
         id="scheduleCheckbox"
-        disabled={props.disabled}
-        checked={checkSuccess}
+        disabled={myPost && props.disabled}
+        checked={checkCreator ? checkSuccess : false}
         onClick={checkSuccess ? deleteCheck : clickCheckBox}
       />
     </div>

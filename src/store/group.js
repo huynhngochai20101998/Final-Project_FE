@@ -35,13 +35,13 @@ export const createGroup = (values) => async (dispatch) => {
       pushToast("success", res.message);
       window.location.href = `/room-chat/${res.data.id}`;
     } else {
-      pushToast("error", res.message);
+      pushToast("error", "Thất bại");
       // window.location.href = "/home";
     }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
 
-    pushToast("error", e.message);
+    pushToast("error", "Thất bại");
     window.location.href = "/home";
   }
 };
@@ -61,7 +61,7 @@ export const removeMember = (values) => async (dispatch) => {
     // if (res.success) {
     //   window.location.reload();
     // } else {
-    //   pushToast("error", res.message);
+    //   pushToast("error", "Thất bại");
     // }
   } catch (e) {
     return e;
