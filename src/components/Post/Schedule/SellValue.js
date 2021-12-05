@@ -11,6 +11,15 @@ const SellValue = (props) => {
   const [valueSchedule, setValueSchedule] = useState(true);
   const [checkSuccess, setCheckSuccess] = useState(false);
   const [idSchedule, setIdSchedule] = useState();
+  const mySchedule = props.mySchedule;
+
+  console.log("mySchedule", mySchedule);
+
+  // const setCheckOfCreator = () => {
+  //   mySchedule.map((item, index) => {
+  //     console.log("item, index", item, index);
+  //   });
+  // };
 
   const valueSell = {
     post_id: JSON.parse(localStorage.getItem("postCreationId")),

@@ -33,7 +33,7 @@ export const createGroup = (values) => async (dispatch) => {
 
     if (res.success) {
       pushToast("success", res.message);
-      window.location.href = `/room-chat/:id${res.data.id}`;
+      window.location.href = `/room-chat/${res.data.id}`;
     } else {
       pushToast("error", res.message);
       // window.location.href = "/home";

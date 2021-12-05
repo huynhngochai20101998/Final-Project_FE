@@ -11,3 +11,86 @@
         padding: 20px;
     }
 }
+.Message {
+    &__title {
+        background: #696d97;
+        color: white;
+        height: 66px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        justify-content: center;
+        border-radius: 5px 5px 0px 0px;
+        div {
+            display: flex;
+            align-items: center;
+        }
+        h4 {
+            width: 100%;
+            text-align: center;
+        }
+        i {
+            color: #71c6dd;
+            margin-right: 10px;
+        }
+    }
+    &__body {
+        background-color: $bg_login_form;
+        height: 500px;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column-reverse;
+        &__title {
+            padding: 20px 0 10px 16px;
+            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+            &__user {
+                img {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                }
+                span {
+                    color: #71c6dd;
+                    margin: 0 10px;
+                    font-weight: 500;
+                }
+            }
+            &__mess {
+                padding: 10px 0px 0px 0px;
+                p {
+                    color: white;
+                }
+            }
+        }
+    }
+    &__chat {
+        position: relative;
+        input {
+            background: $search_bar;
+            border: none;
+            box-sizing: border-box;
+            border-radius: 0 0 5px 5px;
+            padding: 0px 38px 0 15px;
+            height: 55px;
+            color: $color_white;
+            &:focus {
+                background: $search_bar;
+                outline: none;
+                box-shadow: none !important;
+                color: $color_white;
+            }
+        }
+        button {
+            position: absolute;
+            top: 12px;
+            right: 5px;
+            background: transparent;
+            border: none;
+            font-size: 22px;
+            margin: 0 5px;
+        }
+        i {
+            color: #71c6dd;
+        }
+    }
+}

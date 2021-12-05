@@ -18,6 +18,7 @@ const PostDetail = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [userPost, setUserPost] = useState({});
+  const [topic, setTopic] = useState();
   // const myInfor = JSON.parse(localStorage.getItem("user"));
   const [postCurrent, setPostCurrent] = useState({});
   const path = useParams();
@@ -29,8 +30,15 @@ const PostDetail = () => {
       setPostCurrent(res.data);
 
       if (res.success) {
-        http.get(`/api/profile/user/${res?.data?.user_id}`).then((res) => {
-          setUserPost(res?.data);
+        http.get(`/api/profile/user/${res?.data?.user_id}`).then((resB) => {
+          setUserPost(resB?.data);
+          console.log("object", resB.data);
+        });
+
+        http.get(`/api/topics/${res.data.topic_id}`).then((resC) => {
+          if (resC.success) {
+            setTopic(resC.data);
+          }
         });
       }
       setIsLoading(!isLoading);
@@ -93,7 +101,7 @@ const PostDetail = () => {
                   <h4 className="content__title no-gutters">
                     <p>{postCurrent.title}</p>
                   </h4>
-                  <p className="content__topic">{`#${postCurrent.topic_id}`}</p>
+                  <p className="content__topic">{`#${topic?.name}`}</p>
                   <span className="content__require-member">
                     <p className="content__require-member-label">
                       {`Yêu cầu thành viên :  ${postCurrent.members} Nguời`}
