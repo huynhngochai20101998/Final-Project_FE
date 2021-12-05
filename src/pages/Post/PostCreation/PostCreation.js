@@ -85,7 +85,6 @@ const PostCreation = () => {
                       "postCreationId",
                       JSON.stringify(res.data.id)
                     );
-                    console.log("log: ", res.data.id);
 
                     actions.setSubmitting(false);
                     actions.resetForm({

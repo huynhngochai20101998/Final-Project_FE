@@ -1,4 +1,8 @@
-import React from "react";
+import http from "core/services/httpService";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router";
+import { setLoading } from "store/post";
 import "./Schedule.scss";
 import SellTimeName from "./SellTimeName";
 import SellValue from "./SellValue";
@@ -13,9 +17,13 @@ const styleSell = (bgColor, textColor) => {
 };
 
 const Schedule = (props) => {
+  const path = useParams();
+  const dispatch = useDispatch();
+  const [mySchedulePost, setMySchedulePost] = useState();
+
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
   const userIdPost = props.userIdPost;
-  const mySchedule = props.mySchedule;
+  const myPost = props?.myPost;
 
   let ondisabled = false;
 
@@ -24,6 +32,21 @@ const Schedule = (props) => {
   } else {
     ondisabled = false;
   }
+
+  useEffect(async () => {
+    try {
+      dispatch(setLoading({ loading: true }));
+
+      const res = await http.get(`/api/posts/${path.id}`);
+      dispatch(setLoading({ loading: false }));
+
+      if (res.success) {
+        setMySchedulePost(res.data.schedules);
+      }
+    } catch (err) {
+      return null;
+    }
+  }, []);
 
   return (
     <div className="schedule-wrapper">
@@ -64,35 +87,45 @@ const Schedule = (props) => {
             dayID="1"
             timeID="1"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="1"
             timeID="2"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="1"
             timeID="3"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="1"
             timeID="4"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="1"
             timeID="5"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
         </div>
         <div className="schedule-collumn">
@@ -105,35 +138,45 @@ const Schedule = (props) => {
             dayID="2"
             timeID="1"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="2"
             timeID="2"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="2"
             timeID="3"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="2"
             timeID="4"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="2"
             timeID="5"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
         </div>
         <div className="schedule-collumn">
@@ -146,35 +189,45 @@ const Schedule = (props) => {
             dayID="3"
             timeID="1"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="3"
             timeID="2"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="3"
             timeID="3"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="3"
             timeID="4"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="3"
             timeID="5"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
         </div>
         <div className="schedule-collumn">
@@ -187,35 +240,45 @@ const Schedule = (props) => {
             dayID="4"
             timeID="1"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="4"
             timeID="2"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="4"
             timeID="3"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="4"
             timeID="4"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="4"
             timeID="5"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
         </div>
         <div className="schedule-collumn">
@@ -228,35 +291,45 @@ const Schedule = (props) => {
             dayID="5"
             timeID="1"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="5"
             timeID="2"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="5"
             timeID="3"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="5"
             timeID="4"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="5"
             timeID="5"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
         </div>
         <div className="schedule-collumn">
@@ -269,35 +342,45 @@ const Schedule = (props) => {
             dayID="6"
             timeID="1"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="6"
             timeID="2"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="6"
             timeID="3"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="6"
             timeID="4"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="6"
             timeID="5"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
         </div>
         <div className="schedule-collumn">
@@ -310,35 +393,45 @@ const Schedule = (props) => {
             dayID="7"
             timeID="1"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="7"
             timeID="2"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="7"
             timeID="3"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#696D97", "#ffffff")}
             dayID="7"
             timeID="4"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
           <SellValue
             style={styleSell("#51546E", "#ffffff")}
             dayID="7"
             timeID="5"
             disabled={ondisabled}
-            mySchedule={mySchedule}
+            mySchedule={mySchedulePost}
+            userId={userIdPost}
+            myPost={myPost}
           />
         </div>
       </div>
