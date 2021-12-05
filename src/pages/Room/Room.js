@@ -9,6 +9,7 @@ export default function RoomChat() {
   const [room, setroom] = useState(null);
   const path = useParams();
   const [groupData, setGroupData] = useState({});
+
   useEffect(() => {
     async function getGroupData() {
       try {
