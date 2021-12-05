@@ -11,6 +11,7 @@ import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
+import GroupCreation from "pages/Group/GroupCreation/GroupCreation";
 import RoomChat from "pages/Room/Room";
 import Filter from "components/Filter/Filter";
 import MyProfile from "pages/User/MyProfile/MyProfile";
@@ -52,6 +53,12 @@ export const routeConfig = [
     isPrivate: true,
     exact: true,
     component: PostDetail
+  },
+  {
+    path: "/post-details/create-groups/:slug.:id",
+    isPrivate: true,
+    exact: true,
+    component: GroupCreation
   },
   {
     path: "/post-list-sign",

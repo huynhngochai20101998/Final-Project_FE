@@ -11,15 +11,15 @@
     cursor: pointer;
 
     .control {
-        width: 130px;
+        width: 160px;
         height: max-content;
         border-radius: 10px;
         padding: 10px 0px;
 
         background-color: $bg_hover_avatar;
         position: absolute;
-        top: 90%;
-        left: 33%;
+        top: 120%;
+        left: 10%;
 
         opacity: 0;
         visibility: hidden;
@@ -32,7 +32,7 @@
             text-align: center;
 
             color: $color_white;
-            text-transform: uppercase;
+            text-transform: capitalize;
 
             padding: 5px 15px;
             transition: 0.3s;
@@ -49,7 +49,7 @@
         background-color: $bg_hover_avatar;
 
         .control {
-            bottom: -58px;
+            top: 90%;
             transform: 0.3s;
             opacity: 1;
             visibility: visible;

@@ -1,0 +1,74 @@
+@import "../../../assets/scss/app.scss";
+
+.content-item {
+    width: 100%;
+    height: max-content;
+    margin: 1px 0px;
+
+    justify-content: space-around;
+
+    display: grid;
+    grid-template-columns: 189.06px 112.63px 483.73px 109.6px;
+
+    &-column {
+        margin: 0;
+        padding: 0;
+        background-color: $search_bar;
+        height: max-content;
+        height: 100%;
+        padding: 10px 5px;
+
+        margin-right: 0.5px;
+        box-sizing: border-box;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 14px;
+        color: $color_white;
+
+        .btn-delete {
+            background-color: $color_active;
+            height: 27px;
+            width: 27px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: 0.1s;
+
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0px 0px 7px $bg_login_title;
+                background-color: $color_error;
+                transition: 0.3s;
+            }
+        }
+    }
+
+    .item-name {
+        .link-user {
+            text-decoration: none;
+            color: $color_post_topic;
+            font-weight: 600;
+
+            &:hover {
+                text-shadow: 0px 0px 1px $color_post_topic;
+                opacity: 1;
+            }
+        }
+    }
+
+    .item-age {
+    }
+
+    .item-intro {
+        word-wrap: break-word;
+    }
+
+    .item-delete {
+    }
+}

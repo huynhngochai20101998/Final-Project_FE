@@ -4,13 +4,13 @@
     background-color: $bg_main;
     &__main {
         min-height: 100vh;
-        margin-top: 100px;
+        padding-top: 100px;
         height: max-content;
 
         &-content {
+            padding: 100px 90px;
+            padding-top: 0px;
             width: 100%;
-            padding: 90px;
-            background-color: red;
         }
     }
 }

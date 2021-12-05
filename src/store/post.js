@@ -18,7 +18,7 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-const { setLoading } = slice.actions;
+export const { setLoading } = slice.actions;
 
 export const addSchedule = (value) => async (dispatch) => {
   try {
@@ -37,7 +37,6 @@ export const addSchedule = (value) => async (dispatch) => {
     dispatch(setLoading({ loading: false }));
 
     pushToast("error", e.message);
-    console.log("error:", e);
   }
 };
 
@@ -61,8 +60,6 @@ export const postDetail = (post) => async (dispatch) => {
   } catch (e) {
     dispatch(setLoading({ loading: false }));
     pushToast("error", e.message);
-
-    return console.log("error", e.message);
   }
 };
 
@@ -75,9 +72,15 @@ export const createCompletionPost = () => (dispatch) => {
 
     dispatch(setLoading({ loading: false }));
     window.location.href = "/home";
-  }, 3000);
+  }, 1500);
 };
 
 export const cancelCreatePost = () => () => {
   window.location.href = "/home";
+};
+
+export const forwardPostDetail = (value) => () => {
+  const { slug, id } = value;
+
+  window.location.href = `/post-details/create-groups/${slug}.${id}`;
 };
