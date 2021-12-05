@@ -62,7 +62,9 @@ const Home = (props) => {
   };
 
   const posts = postList.map((post) => {
-    return <PostList key={post.id} post={post}></PostList>;
+    if (post.active === true) {
+      return <PostList key={post.id} post={post}></PostList>;
+    }
   });
   return (
     <HomeLayout>
@@ -125,7 +127,7 @@ const Home = (props) => {
                   return (
                     <Link to={`/room-chat/` + group.id} key={group.id}>
                       <div className="GroupList__list__team">
-                        <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
+                        <img src="https://img.timviec.com.vn/2020/04/team-la-gi-2.jpg" />
                         <span>{group.name}</span>
                       </div>
                     </Link>

@@ -15,6 +15,7 @@ function PostList(props) {
     last_name,
     profile_image_url,
     user_id
+    // active
   } = props.post;
   const history = useHistory();
   const fullName = first_name + " " + last_name;
