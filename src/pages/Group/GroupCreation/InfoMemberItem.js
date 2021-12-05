@@ -1,93 +1,61 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./infoMemberItem.scss";
+import { setLoading } from "store/post";
+import { useDispatch } from "react-redux";
+import http from "core/services/httpService";
+import moment from "moment";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router";
+import { removeMember } from "store/group";
 
-const InfoMemberItem = () => {
-  const listMember = [
-    {
-      name: "Huỳnh Ngọc Hải",
-      age: "22",
-      intro:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aceros feugiat turpis cursus vestibulum. Vivamus id auctor lectus. Nullam cursus interdum dolor, sed aliquam nibh luctus at. Aliquam erat volutpat. Suspendisse in sapien vitae nisl accumsan lobortis. Nulla sediaculis turpis, a egestas nibh.",
-      listTime: [
-        "T2 : (7:00-21:00)",
-        "T3 : (7:00-21:00)",
-        "T4 : (7:00-21:00)",
-        "T7 : (7:00-21:00)"
-      ]
-    },
-    {
-      name: "Huỳnh Ngọc Hải",
-      age: "22",
-      intro:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aceros feugiat turpis cursus vestibulum. Vivamus id auctor lectus. Nullam cursus interdum dolor, sed aliquam nibh luctus at. Aliquam erat volutpat. Suspendisse in sapien vitae nisl accumsan lobortis. Nulla sediaculis turpis, a egestas nibh.",
-      listTime: [
-        "T2 : (7:00-21:00)",
-        "T3 : (7:00-21:00)",
-        "T4 : (7:00-21:00)",
-        "T7 : (7:00-21:00)"
-      ]
-    },
-    {
-      name: "Huỳnh Ngọc Hải",
-      age: "22",
-      intro:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aceros feugiat turpis cursus vestibulum. Vivamus id auctor lectus. Nullam cursus interdum dolor, sed aliquam nibh luctus at. Aliquam erat volutpat. Suspendisse in sapien vitae nisl accumsan lobortis. Nulla sediaculis turpis, a egestas nibh.",
-      listTime: [
-        "T2 : (7:00-21:00)",
-        "T3 : (7:00-21:00)",
-        "T4 : (7:00-21:00)",
-        "T7 : (7:00-21:00)"
-      ]
-    },
-    {
-      name: "Huỳnh Ngọc Hải",
-      age: "22",
-      intro:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aceros feugiat turpis cursus vestibulum. Vivamus id auctor lectus. Nullam cursus interdum dolor, sed aliquam nibh luctus at. Aliquam erat volutpat. Suspendisse in sapien vitae nisl accumsan lobortis. Nulla sediaculis turpis, a egestas nibh.",
-      listTime: [
-        "T2 : (7:00-21:00)",
-        "T3 : (7:00-21:00)",
-        "T4 : (7:00-21:00)",
-        "T7 : (7:00-21:00)"
-      ]
-    },
-    {
-      name: "Huỳnh Ngọc Hải",
-      age: "22",
-      intro:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aceros feugiat turpis cursus vestibulum. Vivamus id auctor lectus. Nullam cursus interdum dolor, sed aliquam nibh luctus at. Aliquam erat volutpat. Suspendisse in sapien vitae nisl accumsan lobortis. Nulla sediaculis turpis, a egestas nibh.",
-      listTime: [
-        "T2 : (7:00-21:00)",
-        "T3 : (7:00-21:00)",
-        "T4 : (7:00-21:00)",
-        "T7 : (7:00-21:00)"
-      ]
+const InfoMemberItem = (props) => {
+  const memberID = props.member;
+  const [member, setMember] = useState();
+  const dispatch = useDispatch();
+  const path = useParams();
+
+  useEffect(() => {
+    async function getMember() {
+      dispatch(setLoading({ loading: true }));
+
+      const res = await http.get(`/api/profile/user/${memberID}`);
+
+      dispatch(setLoading({ loading: false }));
+
+      if (res.success) {
+        setMember(res.data);
+      }
     }
-  ];
 
-  const memberItem = listMember.map((item, index) => {
-    return (
-      <div key={index} className="content-item grid-container">
-        <div className="content-item-column item-name">{item.name}</div>
-        <div className="content-item-column item-age">{`${item.age} Tuổi`}</div>
-        <div className="content-item-column item-intro">{item.intro}</div>
-        <div className="content-item-column item-schedule">
-          <ol>
-            {item.listTime.map((time, index2) => {
-              return <li key={index2}>{time}</li>;
-            })}
-          </ol>
-        </div>
-        <div className="content-item-column item-delete">
-          <div className="btn-delete">
-            <i className="fas fa-times" />
-          </div>
+    getMember();
+  }, []);
+
+  const removeMemberPost = () => {
+    const postId = path.id;
+
+    dispatch(removeMember({ memberID, postId }));
+  };
+
+  return (
+    <div className="content-item grid-container">
+      <div className="content-item-column item-name">
+        <Link to={`/personal-info-user/${member?.id}`} className="link-user">
+          {`${member?.first_name} ${member?.last_name}`}
+        </Link>
+      </div>{" "}
+      <div className="content-item-column item-age">
+        {moment(member?.birthday, "MM/DD/YYYY").fromNow()}
+      </div>
+      <div className="content-item-column item-intro">
+        {member?.description}
+      </div>
+      <div className="content-item-column item-delete">
+        <div className="btn-delete" onClick={removeMemberPost}>
+          <i className="fas fa-times" />
         </div>
       </div>
-    );
-  });
-
-  return memberItem;
+    </div>
+  );
 };
 
 export default InfoMemberItem;

@@ -11,8 +11,11 @@ import Login from "pages/Authentication/Login/Login";
 import Home from "pages/Home/Home";
 import PostDetail from "pages/Post/PostDetail/PostDetail";
 import PostListSign from "pages/Post/PostListSigning/PostListSigning";
-import SearchFound from "components/Searching/SearchFound";
 import GroupCreation from "pages/Group/GroupCreation/GroupCreation";
+import RoomChat from "pages/Room/Room";
+import Filter from "components/Filter/Filter";
+import MyProfile from "pages/User/MyProfile/MyProfile";
+import ManagementPost from "pages/User/ManagementPost/ManagementPost";
 
 export const routeConfig = [
   {
@@ -47,9 +50,15 @@ export const routeConfig = [
   },
   {
     path: "/post-details/:slug.:id",
-    isPrivate: false,
+    isPrivate: true,
     exact: true,
     component: PostDetail
+  },
+  {
+    path: "/post-details/create-groups/:slug.:id",
+    isPrivate: true,
+    exact: true,
+    component: GroupCreation
   },
   {
     path: "/post-list-sign",
@@ -64,16 +73,28 @@ export const routeConfig = [
     component: Home
   },
   {
-    path: "/home-search",
-    isPrivate: false,
+    path: "/room-chat/:id",
+    isPrivate: true,
     exact: true,
-    component: SearchFound
+    component: RoomChat
   },
   {
-    path: "/group-creation",
+    path: "/personal-info-user/:id",
+    isPrivate: true,
+    exact: true,
+    component: ManagementPost
+  },
+  {
+    path: "/user-my-profile",
+    isPrivate: true,
+    exact: true,
+    component: MyProfile
+  },
+  {
+    path: "/filter",
     isPrivate: false,
     exact: true,
-    component: GroupCreation
+    component: Filter
   },
   { path: "*", component: Error }
 ];

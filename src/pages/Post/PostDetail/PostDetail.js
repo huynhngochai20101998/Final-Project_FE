@@ -5,29 +5,31 @@ import IconVote from "../../../assets/icons/vote-star.svg";
 
 import "./PostDetail.scss";
 import Schedule from "../../../components/Post/Schedule/Schedule";
+import { createCompletionPost, forwardPostDetail } from "store/post";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useParams } from "react-router";
 import http from "core/services/httpService";
 import Commenting from "components/Post/Commenting/Commenting";
 import Loading from "components/Loading/Loading";
-import { createPost } from "store/post";
 
 const PostDetail = () => {
   const [report, setReport] = useState(false);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-
-  const userInfo = JSON.parse(localStorage.getItem("user"));
-
+  const myInfor = JSON.parse(localStorage.getItem("user"));
   const [postCurrent, setPostCurrent] = useState({});
   const path = useParams();
+  const userIdPost = postCurrent.user_id;
+  const userId = JSON.parse(localStorage.getItem("user"))?.id;
+
   useEffect(() => {
-    http.get(`/api/posts/${path.slug}`).then((res) => {
+    http.get(`/api/posts/${path.id}`).then((res) => {
       setPostCurrent(res.data);
       setIsLoading(!isLoading);
     });
   }, []);
+
   return (
     <HomeLayout>
       <div className="post-detail-container">
@@ -40,11 +42,16 @@ const PostDetail = () => {
                 <div className="post-detail__header-start">
                   <a href="#" className="user d-flex flex-row">
                     <div className="user-avatar">
-                      <img src={userInfo?.userAvatar} alt="" className="img" />
+                      <img
+                        src={myInfor.profile_image_url}
+                        alt=""
+                        className="img"
+                      />
                     </div>
                     <div className="user-name">
                       <p className="text m-0 p-0">
-                        {userInfo?.userName || "Unknown"}
+                        {`${myInfor?.first_name} ${myInfor.last_name}` ||
+                          "Unknown"}
                       </p>
                       <p className="text-white tr">
                         {moment(postCurrent.created_at).format("DD/MM/YYYY")}
@@ -89,14 +96,28 @@ const PostDetail = () => {
                     <p>{postCurrent.content}</p>
                   </div>
                 </div>
-                <div className="schedule d-flex justify-content-center">
-                  <Schedule />
+                <div className="schedule d-flex justify-content-center align-items-center">
+                  <Schedule userIdPost={userIdPost} />
+                  {userIdPost == userId && (
+                    <span
+                      className="next-step"
+                      onClick={() => {
+                        const slug = path.slug;
+
+                        const id = postCurrent.id;
+
+                        dispatch(forwardPostDetail({ slug, id }));
+                      }}
+                    >
+                      <i className="fas fa-arrow-right fs-3 text-info icon-next"></i>
+                    </span>
+                  )}
                 </div>
               </div>
               <button
-                className="float-end post-detail__finish"
+                className="float-end post-detail__finish btn-info"
                 onClick={() => {
-                  dispatch(createPost());
+                  dispatch(createCompletionPost());
                 }}
               >
                 Hoàn Tất

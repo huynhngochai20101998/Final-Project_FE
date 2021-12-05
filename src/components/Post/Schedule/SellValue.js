@@ -8,10 +8,8 @@ const SellValue = (props) => {
   const dispatch = useDispatch();
   const [valueSchedule, setValueSchedule] = useState(true);
 
-  const postCurrent = JSON.parse(localStorage.getItem("postCurrent"));
-
   const valueSell = {
-    post_id: postCurrent?.id,
+    post_id: JSON.parse(localStorage.getItem("postCreationId")),
     day_id: parseInt(props.dayID),
     time_id: parseInt(props.timeID),
     value: valueSchedule
@@ -28,7 +26,7 @@ const SellValue = (props) => {
       <input
         type="checkbox"
         id="scheduleCheckbox"
-        // disabled={props.disabled}
+        disabled={props.disabled}
         // checked={props.checked}
         onClick={clickCheckBox}
       />

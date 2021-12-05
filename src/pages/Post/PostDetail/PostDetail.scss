@@ -140,6 +140,23 @@
 
       .schedule {
         padding: 15px 0px;
+
+        .next-step {
+          margin-left: 5px;
+          width: 50px;
+
+          &:hover {
+            cursor: pointer;
+            .icon-next {
+              animation: none;
+              margin-left: 10px;
+            }
+          }
+
+          .icon-next {
+            animation: nextToStepcreateGroup 1s infinite;
+          }
+        }
       }
     }
     &__finish {
@@ -153,5 +170,14 @@
       font-weight: 500;
       border: none;
     }
+  }
+}
+
+@keyframes nextToStepcreateGroup {
+  from {
+    margin-left: 0px;
+  }
+  to {
+    margin-left: 25px;
   }
 }

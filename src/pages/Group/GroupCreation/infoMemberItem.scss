@@ -8,7 +8,7 @@
     justify-content: space-around;
 
     display: grid;
-    grid-template-columns: 139.78px 87.9px 360px 176px 84px;
+    grid-template-columns: 189.06px 112.63px 483.73px 109.6px;
 
     &-column {
         margin: 0;
@@ -31,17 +31,35 @@
         color: $color_white;
 
         .btn-delete {
-            background-color: $color_error;
+            background-color: $color_active;
             height: 27px;
             width: 27px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
+            transition: 0.1s;
+
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0px 0px 7px $bg_login_title;
+                background-color: $color_error;
+                transition: 0.3s;
+            }
         }
     }
 
     .item-name {
+        .link-user {
+            text-decoration: none;
+            color: $color_post_topic;
+            font-weight: 600;
+
+            &:hover {
+                text-shadow: 0px 0px 1px $color_post_topic;
+                opacity: 1;
+            }
+        }
     }
 
     .item-age {
@@ -49,9 +67,6 @@
 
     .item-intro {
         word-wrap: break-word;
-    }
-
-    .item-schedule {
     }
 
     .item-delete {
