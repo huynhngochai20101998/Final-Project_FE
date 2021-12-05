@@ -213,6 +213,7 @@ const PostCreation = () => {
                               Quay lại
                             </Button> */}
                             <Button
+                              className="bg-info btn text-white"
                               onClick={() => {
                                 dispatch(createCompletionPost());
                               }}

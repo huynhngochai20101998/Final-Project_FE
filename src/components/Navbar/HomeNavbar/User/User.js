@@ -1,13 +1,14 @@
 import React from "react";
-import avatar from "../../../../assets/images/user-avatar.png";
 import { useDispatch } from "react-redux";
 import { logout } from "store/user";
 import { useHistory } from "react-router-dom";
 import "./User.scss";
 
-const User = () => {
+const User = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const userInfo = props.userInfo;
 
   const handleToPersonalUser = () => {
     const localUserID = JSON.parse(localStorage.getItem("user")).id;
@@ -26,10 +27,10 @@ const User = () => {
     <div className="home-user">
       <div className="home-user__content">
         <div className="user-img">
-          <img src={avatar} alt="" className="img" />
+          <img src={userInfo?.profile_image_url} alt="" className="img" />
         </div>
         <div className="name">
-          <p>Dung</p>
+          <p>{`${userInfo?.last_name}`}</p>
         </div>
       </div>
       <ul className="control">

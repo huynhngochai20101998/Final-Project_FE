@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import User from "../HomeNavbar/User/User";
 
 const AuthNavbar = () => {
-  const userInfo = localStorage.getItem("user");
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="auth-navbar">
@@ -18,7 +18,7 @@ const AuthNavbar = () => {
         </div>
         <div className="auth-navbar-content__btn-authen">
           <MultiLang />
-          {userInfo ? <User /> : <ButtonAuth />}
+          {userInfo ? <User userInfo={userInfo} /> : <ButtonAuth />}
         </div>
       </div>
     </div>

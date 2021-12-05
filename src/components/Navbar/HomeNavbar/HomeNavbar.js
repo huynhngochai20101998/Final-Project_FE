@@ -8,7 +8,7 @@ import Searching from "components/Searching/Searching";
 import User from "./User/User";
 
 const HomeNabar = () => {
-  const userInfo = localStorage.getItem("user");
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="home-navbar">
@@ -23,7 +23,7 @@ const HomeNabar = () => {
           <div className="">
             <img className="img" src={IconLang} alt="" />
           </div>
-          {userInfo ? <User /> : <ButtonAuth />}
+          {userInfo ? <User userInfo={userInfo} /> : <ButtonAuth />}
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@ const HomeNabar = () => {
 
 export const LogoIMG = () => {
   return (
-    <Link to="#" className="navbar-logo">
+    <Link to="/" className="navbar-logo">
       <img src={Logo} alt="" className="img" />
       <img src={LogoName} alt="" className="brand" />
     </Link>

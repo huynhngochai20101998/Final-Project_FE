@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "reactstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 
 function PostList(props) {
@@ -21,6 +21,7 @@ function PostList(props) {
   const handleToPersonalPage = () => {
     history.push(`/personal-info-user/${user_id}`);
   };
+
   return (
     <div className="PostList__form">
       <div className="PostList__form__info-user">
@@ -36,18 +37,18 @@ function PostList(props) {
         <p>{content}</p>
       </div>
       <div className="PostList__form__see-more">
-        <Link to={`/post-details/${slug}.${id}`}>
-          <Button
-            onClick={() => {
-              localStorage.setItem(
-                "postCreationId",
-                JSON.stringify(props.post.id)
-              );
-            }}
-          >
-            Xem thêm
-          </Button>
-        </Link>
+        <Button
+          onClick={() => {
+            localStorage.setItem(
+              "postCreationId",
+              JSON.stringify(props.post.id)
+            );
+
+            window.location.href = `/post-details/${slug}.${id}`;
+          }}
+        >
+          Xem thêm
+        </Button>
       </div>
     </div>
   );
