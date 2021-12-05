@@ -20,26 +20,6 @@ export default slice.reducer;
 
 export const { setLoading } = slice.actions;
 
-export const addSchedule = (value) => async (dispatch) => {
-  try {
-    dispatch(setLoading({ loading: true }));
-
-    const res = await http.post("/api/schedules", value);
-
-    dispatch(setLoading({ loading: false }));
-
-    if (res.success) {
-      pushToast("success", res.message);
-    } else {
-      pushToast("error", "Trùng thời gian!");
-    }
-  } catch (e) {
-    dispatch(setLoading({ loading: false }));
-
-    pushToast("error", e.message);
-  }
-};
-
 export const postDetail = (post) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: true }));

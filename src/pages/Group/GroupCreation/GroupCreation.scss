@@ -70,9 +70,12 @@
                 width: 93.5%;
 
                 .btn-create-group {
-                    width: 110px;
-                    height: 45px;
+                    width: 100px;
+                    height: 40px;
                     float: right;
+                    border-radius: 10px;
+                    font-size: 14px;
+                    font-weight: 600;
 
                     display: flex;
                     justify-content: center;

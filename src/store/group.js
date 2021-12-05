@@ -24,19 +24,16 @@ const { setLoading } = slice.actions;
 export const createGroup = (values) => async (dispatch) => {
   try {
     const { postId, nameGroup } = values;
-    console.log("adfajnfakn", postId);
     dispatch(setLoading({ loading: true }));
     const res = await http.post(`/api/post/${postId}/create-group`, {
       name: nameGroup
     });
 
-    console.log("okokoko", res);
-
     dispatch(setLoading({ loading: false }));
 
     if (res.success) {
       pushToast("success", res.message);
-      // window.location.href = "/home";
+      window.location.href = `/room-chat/${res.data.id}`;
     } else {
       pushToast("error", res.message);
       // window.location.href = "/home";
