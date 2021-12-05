@@ -8,6 +8,7 @@ import http from "core/services/httpService";
 import { Form, Formik } from "formik";
 import { FormGroup, Input } from "reactstrap";
 export default function RoomChat() {
+  const [room, setroom] = useState(null);
   const path = useParams();
   const [groupData, setGroupData] = useState({});
   const [messageList, setMessageList] = useState([]);
@@ -36,6 +37,25 @@ export default function RoomChat() {
     }
     getMessageData();
   }, [isLoading]);
+  useEffect(() => {
+    return () => {
+      if (room) {
+        handleLogout(room);
+      }
+    };
+  });
+
+  const getroom = (data) => {
+    setroom(data);
+  };
+
+  const handleLogout = (roomdata) => {
+    roomdata.localParticipant.tracks.forEach((publication) => {
+      publication.track.stop();
+    });
+    roomdata.disconnect();
+  };
+  console.log(groupData?.owner?.username);
   return (
     <HomeLayout>
       <div className="container-fluid">
@@ -43,8 +63,14 @@ export default function RoomChat() {
           <div className="col-sm-8 col-md-8 col-lg-8">
             <div className="white-board">
               <div className="white-board__host">
-                <h6>JavaScript</h6>
-                <h6>Nguyễn Dũng</h6>
+                <h6
+                  style={{ textTransform: "uppercase", marginBottom: "none" }}
+                >
+                  {groupData.group_name}
+                </h6>
+                <h6 style={{ textTransform: "capitalize" }}>
+                  {groupData?.owner?.username}
+                </h6>
               </div>
               <WhiteBoard wb_id={groupData.wb_id} />
             </div>
@@ -119,7 +145,7 @@ export default function RoomChat() {
             </div>
           </div>
         </div>
-        <TableParticipants id={path.id}></TableParticipants>
+        <TableParticipants id={path.id} getroom={getroom}></TableParticipants>
       </div>
     </HomeLayout>
   );

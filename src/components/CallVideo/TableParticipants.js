@@ -6,7 +6,7 @@ import Participant from "./Participant";
 import "./TableParticipants.scss";
 import Loading from "components/Loading/Loading";
 
-function TableScreen({ id }) {
+function TableScreen({ id, getroom }) {
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useState("");
   const [roomName, setRoomName] = useState("");
@@ -22,7 +22,7 @@ function TableScreen({ id }) {
         const response = await http.get(`/api/groups/${id}`);
         setUserName(response.data.user_name);
         setRoomName(response.data.group_name);
-        handleConnectRoom(response.data.token);
+        getMedia(response.data.token);
       } catch (err) {
         // history.push("/login");
         console.log(err);
@@ -50,8 +50,13 @@ function TableScreen({ id }) {
       });
   };
 
+  const getRoom = (room) => {
+    getroom(room);
+  };
+
   useEffect(() => {
     if (room) {
+      getRoom(room);
       const participantConnected = (participant) => {
         setParticipants((prevParticipants) => [
           ...prevParticipants,
@@ -74,6 +79,21 @@ function TableScreen({ id }) {
       };
     }
   }, [room]);
+
+  async function getMedia(data) {
+    try {
+      await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      });
+      handleConnectRoom(data);
+    } catch (err) {
+      setIsLoading(true);
+      alert(
+        "room yêu cầu quyền truy cập vào máy ảnh và micrô của bạn. Hãy nhấp vào biểu tượng máy ảnh bị chặn trong thanh địa chỉ của trình duyệt"
+      );
+    }
+  }
 
   const remoteParticipants = participants.map((participant) => (
     <li key={participant.sid}>
@@ -112,8 +132,8 @@ function TableScreen({ id }) {
   const handleLogout = () => {
     setRoom((prevRoom) => {
       if (prevRoom) {
-        prevRoom.localParticipant.tracks.forEach((trackPub) => {
-          trackPub.track.stop();
+        prevRoom.localParticipant.tracks.forEach((publication) => {
+          publication.track.stop();
         });
         prevRoom.disconnect();
         history.push("/home");
