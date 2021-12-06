@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import "./ResetPassword.scss";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword } from "store/user";
+import { resetPassword, changePassword } from "store/user";
 import Loading from "components/Loading/Loading";
 import { Form } from "reactstrap";
 import { useLocation } from "react-router";
@@ -16,11 +16,14 @@ const ResetPassword = () => {
   const { search } = useLocation();
 
   const token = new URLSearchParams(search).get("token");
-  console.log(token);
+  const getUser = localStorage.getItem("user")
+    ? localStorage.getItem("user")
+    : "";
 
   const formik = useFormik({
     initialValues: {
       token: token,
+      oldPassword: "",
       password: "",
       confirmPassword: ""
     },
@@ -33,13 +36,18 @@ const ResetPassword = () => {
         .required("Xác nhận lại mật khẩu của bạn")
     }),
     onSubmit: (values) => {
-      dispatch(resetPassword(values));
+      if (getUser) {
+        dispatch(changePassword(values));
+      } else {
+        dispatch(resetPassword(values));
+      }
     }
   });
 
   const touched = formik.touched;
   const error = formik.errors;
   const values = formik.values;
+  console.log(values);
 
   return (
     <AuthLayout>
@@ -49,6 +57,23 @@ const ResetPassword = () => {
           <h3>ĐỔI MẬT KHẨU</h3>
         </div>
         <div className="reset-content">
+          {getUser ? (
+            <div className="row">
+              <label className="name-input">Mật khẩu cũ</label>
+              <input
+                name="oldPassword"
+                type="password"
+                className="form-group"
+                value={values.oldPassword}
+                onChange={formik.handleChange}
+              />
+              {error.password && touched.password && (
+                <p className="errors">{error.password}</p>
+              )}
+            </div>
+          ) : (
+            ""
+          )}
           <div className="row">
             <label className="name-input">Mật khẩu mới</label>
             <input

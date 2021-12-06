@@ -182,3 +182,27 @@ export const resetPassword = (values) => async (dispatch) => {
     pushToast("error", e?.response?.data.message);
   }
 };
+
+export const changePassword = (values) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: false }));
+
+    console.log(values);
+
+    const res = await http.post("/api/profile/change-password", {
+      old_password: values.oldPassword,
+      password: values.password,
+      password_confirmation: values.confirmPassword
+    });
+
+    dispatch(setLoading({ loading: false }));
+    if (res.success) {
+      pushToast("success", "đổi mật khẩu thành công");
+    } else {
+      pushToast("error", res.message);
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
+    pushToast("error", e?.response?.data.message);
+  }
+};
