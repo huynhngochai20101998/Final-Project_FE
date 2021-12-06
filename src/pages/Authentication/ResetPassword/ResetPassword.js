@@ -28,6 +28,11 @@ const ResetPassword = () => {
       confirmPassword: ""
     },
     validationSchema: Yup.object({
+      oldPassword: getUser
+        ? Yup.string()
+            .min(8, "Mật khẩu ít nhất 8 ký tự")
+            .required("Nhập vào mật khẩu")
+        : "",
       password: Yup.string()
         .min(8, "Mật khẩu ít nhất 8 ký tự")
         .required("Nhập vào mật khẩu"),

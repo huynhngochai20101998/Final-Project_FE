@@ -195,7 +195,7 @@ export const changePassword = (values) => async (dispatch) => {
 
     dispatch(setLoading({ loading: false }));
     if (res.success) {
-      pushToast("success", "đổi mật khẩu thành công");
+      window.location.href = "/home";
     } else {
       pushToast("error", res.message);
     }
