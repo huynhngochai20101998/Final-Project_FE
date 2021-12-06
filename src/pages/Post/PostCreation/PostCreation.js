@@ -103,7 +103,7 @@ const PostCreation = () => {
                   })
                   .catch((e) => {
                     console.log(e);
-                    pushToast("error", "Đăng bài không thành công");
+                    pushToast("error", "Đã trùng tiêu đề");
                   });
               }}
             >
