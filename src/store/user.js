@@ -100,10 +100,7 @@ export const login = (values) => async (dispatch) => {
 
       dispatch(sendEmailConfirmAcc(res.data.access_token));
 
-      pushToast(
-        "warn",
-        "Your email address is not verified, Verification link sent email"
-      );
+      pushToast("warn", "Bạn cần phải xác thực tài khoản, kiểm tra email");
     } else if (res?.data?.user?.role[0] === USER_ROLE.ADMIN) {
       pushToast("error", ERRORS.ACCOUNT_PERMISSION);
     } else {
@@ -113,9 +110,9 @@ export const login = (values) => async (dispatch) => {
     dispatch(setLoading({ loading: false }));
 
     console.log(e);
-    pushToast("error", e.message);
+    pushToast("error", "Thất bại");
 
-    // return console.error(e.message);
+    // return console.error("Thất bại");
   }
 };
 
@@ -126,10 +123,11 @@ export const logout = () => async (dispatch) => {
     if (res.success) {
       dispatch(logoutSuccess());
     } else {
-      pushToast("error", res.message);
+      pushToast("error", "Thất bại");
     }
   } catch (e) {
-    pushToast("error", e?.response?.data.message);
+    dispatch(logoutSuccess());
+    pushToast("error", "Thất bại");
     // return console.error(e.message);
   }
 };
@@ -150,7 +148,7 @@ export const forgotPass = (values) => async (dispatch) => {
     }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
-    pushToast("error", e?.response?.data.message);
+    pushToast("error", "Thất bại");
 
     // return console.error(e?.response?.data.message);
   }
@@ -175,11 +173,11 @@ export const resetPassword = (values) => async (dispatch) => {
 
       window.location.href = "/login";
     } else {
-      pushToast("error", res.message);
+      pushToast("error", "Thất bại");
     }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
-    pushToast("error", e?.response?.data.message);
+    pushToast("error", "Thất bại");
   }
 };
 

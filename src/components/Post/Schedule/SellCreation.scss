@@ -12,9 +12,4 @@
     justify-content: center;
     align-items: center;
     justify-content: center;
-
-    &-checkbox:checked {
-        outline: 2px solid $color_blue;
-        box-shadow: 0px 0px 5px $color_blue;
-    }
 }
