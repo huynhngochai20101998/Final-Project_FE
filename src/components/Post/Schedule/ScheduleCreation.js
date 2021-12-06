@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { setLoading } from "store/post";
 import "./Schedule.scss";
 import SellTimeName from "./SellTimeName";
-import SellValue from "./SellValue";
+import SellValueCreation from "./SellValueCreation";
 
 const styleSell = (bgColor, textColor) => {
   let style = {
@@ -16,7 +16,7 @@ const styleSell = (bgColor, textColor) => {
   return style;
 };
 
-const Schedule = (props) => {
+const ScheduleCreation = (props) => {
   const path = useParams();
   const dispatch = useDispatch();
   const [mySchedulePost, setMySchedulePost] = useState();
@@ -83,7 +83,7 @@ const Schedule = (props) => {
             values="Thứ 2"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="1"
             timeID="1"
@@ -93,7 +93,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="1"
             timeID="2"
@@ -103,7 +103,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="1"
             timeID="3"
@@ -113,7 +113,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="1"
             timeID="4"
@@ -123,7 +123,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="1"
             timeID="5"
@@ -139,7 +139,7 @@ const Schedule = (props) => {
             values="Thứ 3"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="2"
             timeID="1"
@@ -149,7 +149,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="2"
             timeID="2"
@@ -159,7 +159,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="2"
             timeID="3"
@@ -169,7 +169,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="2"
             timeID="4"
@@ -179,7 +179,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="2"
             timeID="5"
@@ -195,7 +195,7 @@ const Schedule = (props) => {
             values="Thứ 4"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="3"
             timeID="1"
@@ -205,7 +205,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="3"
             timeID="2"
@@ -215,7 +215,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="3"
             timeID="3"
@@ -225,7 +225,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="3"
             timeID="4"
@@ -235,7 +235,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="3"
             timeID="5"
@@ -251,7 +251,7 @@ const Schedule = (props) => {
             values="Thứ 5"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="4"
             timeID="1"
@@ -261,7 +261,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="4"
             timeID="2"
@@ -271,7 +271,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="4"
             timeID="3"
@@ -281,7 +281,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="4"
             timeID="4"
@@ -291,7 +291,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="4"
             timeID="5"
@@ -307,7 +307,7 @@ const Schedule = (props) => {
             values="Thứ 6"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="5"
             timeID="1"
@@ -317,7 +317,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="5"
             timeID="2"
@@ -327,7 +327,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="5"
             timeID="3"
@@ -337,7 +337,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="5"
             timeID="4"
@@ -347,7 +347,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="5"
             timeID="5"
@@ -363,7 +363,7 @@ const Schedule = (props) => {
             values="Thứ 7"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="6"
             timeID="1"
@@ -373,7 +373,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="6"
             timeID="2"
@@ -383,7 +383,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="6"
             timeID="3"
@@ -393,7 +393,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="6"
             timeID="4"
@@ -403,7 +403,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="6"
             timeID="5"
@@ -419,7 +419,7 @@ const Schedule = (props) => {
             values="Chủ Nhât"
             style={styleSell("#71C6DD", "#000000")}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="7"
             timeID="1"
@@ -429,7 +429,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="7"
             timeID="2"
@@ -439,7 +439,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="7"
             timeID="3"
@@ -449,7 +449,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#696D97", "#ffffff")}
             dayID="7"
             timeID="4"
@@ -459,7 +459,7 @@ const Schedule = (props) => {
             myPost={myPost}
             postCreation={postCreation}
           />
-          <SellValue
+          <SellValueCreation
             style={styleSell("#51546E", "#ffffff")}
             dayID="7"
             timeID="5"
@@ -475,4 +475,4 @@ const Schedule = (props) => {
   );
 };
 
-export default Schedule;
+export default ScheduleCreation;

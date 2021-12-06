@@ -35,11 +35,11 @@ export const postDetail = (post) => async (dispatch) => {
 
       window.location.href = "/post-details";
     } else {
-      pushToast("error", res.message);
+      pushToast("error", "Thất bại");
     }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
-    pushToast("error", e.message);
+    pushToast("error", "Thất bại");
   }
 };
 

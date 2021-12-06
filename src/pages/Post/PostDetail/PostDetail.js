@@ -32,7 +32,6 @@ const PostDetail = () => {
       if (res.success) {
         http.get(`/api/profile/user/${res?.data?.user_id}`).then((resB) => {
           setUserPost(resB?.data);
-          console.log("object", resB.data);
         });
 
         http.get(`/api/topics/${res.data.topic_id}`).then((resC) => {
@@ -44,6 +43,8 @@ const PostDetail = () => {
       setIsLoading(!isLoading);
     });
   }, []);
+  let myPost = false;
+  userIdPost == userId ? (myPost = true) : (myPost = false);
 
   return (
     <HomeLayout>
@@ -112,7 +113,7 @@ const PostDetail = () => {
                   </div>
                 </div>
                 <div className="schedule d-flex justify-content-center align-items-center">
-                  <Schedule userIdPost={userIdPost} />
+                  <Schedule userIdPost={postCurrent.user_id} myPost={myPost} />
                   {userIdPost == userId && (
                     <span
                       className="next-step"

@@ -13,16 +13,17 @@ import { Formik, Form, FastField, ErrorMessage } from "formik";
 import "./PostCreation.scss";
 import InputField from "../custom-field/inputField";
 import http from "core/services/httpService";
-import Schedule from "../../../components/Post/Schedule/Schedule";
 import { useDispatch } from "react-redux";
 import { cancelCreatePost, createCompletionPost } from "store/post";
 import { pushToast } from "components/Toast";
+import ScheduleCreation from "components/Post/Schedule/ScheduleCreation";
 // import { pushToast } from "components/Toast";
 
 const PostCreation = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [topicList, setTopicList] = useState([]);
   const dispatch = useDispatch();
+  const postCreation = true;
 
   useEffect(() => {
     async function getDataList() {
@@ -85,7 +86,6 @@ const PostCreation = () => {
                       "postCreationId",
                       JSON.stringify(res.data.id)
                     );
-                    console.log("log: ", res.data.id);
 
                     actions.setSubmitting(false);
                     actions.resetForm({
@@ -203,7 +203,7 @@ const PostCreation = () => {
                         <div className="PostCreate__form__content">
                           <Label for="exampleSelect">Thời gian rảnh</Label>
                           <div className="PostCreate__form__content-chedule">
-                            <Schedule />
+                            <ScheduleCreation postCreation={postCreation} />
                           </div>
                           <div className="PostCreate__form__button">
                             {/* <Button
