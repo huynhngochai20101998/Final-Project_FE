@@ -15,14 +15,12 @@ import { createGroup } from "store/group";
 const GroupCreation = () => {
   const dispatch = useDispatch();
   const [myPostDetail, setMyPostDetail] = useState();
-  const [mySchedule, setMySchedule] = useState([]);
   const [registerMember, setRegisterMember] = useState([]);
   const [nameGroup, setNameGroup] = useState();
 
   const myInfor = JSON.parse(localStorage.getItem("user"));
 
   const path = useParams();
-
   useEffect(() => {
     async function getPostDetail() {
       try {
@@ -32,12 +30,12 @@ const GroupCreation = () => {
         dispatch(setLoading({ loading: false }));
 
         setMyPostDetail(res.data);
-        setMySchedule(res.data.schedules);
+
         setRegisterMember(res.data.registered_members);
 
         setNameGroup(res.data.title);
       } catch (err) {
-        console.log("error: ", err);
+        return null;
       }
     }
 
@@ -49,7 +47,7 @@ const GroupCreation = () => {
     dispatch(createGroup({ postId, nameGroup }));
   };
 
-  const listMember = registerMember.map((item, index) => {
+  const listMember = registerMember?.map((item, index) => {
     if (JSON.parse(localStorage.getItem("user")).id == item.user_id) {
       return null;
     }
@@ -130,7 +128,7 @@ const GroupCreation = () => {
               {listMember}
             </div>
             <div className="schedule">
-              <Schedule onDisable={true} mySchedule={mySchedule} />
+              <Schedule onDisable={true} />
             </div>
             <div className="box-btn">
               <div

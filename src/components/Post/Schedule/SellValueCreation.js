@@ -4,34 +4,15 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setLoading } from "store/post";
 
-import "./Sell.scss";
+import "./SellCreation.scss";
 
-const styleCheckbox = {
-  outline: "2px solid #0066cc"
-};
-
-const SellValue = (props) => {
+const SellValueCreation = (props) => {
   const dispatch = useDispatch();
   const [valueSchedule, setValueSchedule] = useState(true);
   const [checkSuccess, setCheckSuccess] = useState(false);
   const [idSchedule, setIdSchedule] = useState();
-  const myPost = props?.myPost;
-  // const postCreation = props.postCreation;
-
-  let checkCreator = false;
-
-  const dayID = props.dayID;
-  const timeID = props.timeID;
-
-  const checkedCreator = props?.mySchedule;
   // const userPostID = props.userId;
   // const myInfoId = JSON.parse(localStorage.getItem("user")).id;
-
-  checkedCreator?.map((item) => {
-    if (item?.day_id == dayID && item?.time_id == timeID) {
-      checkCreator = true;
-    }
-  });
 
   const valueSell = {
     post_id: JSON.parse(localStorage.getItem("postCreationId")),
@@ -87,16 +68,14 @@ const SellValue = (props) => {
   return (
     <div className="sell" style={props.style}>
       <input
-        style={checkCreator ? styleCheckbox : {}}
         className="sell-checkbox"
         type="checkbox"
         id="scheduleCheckbox"
-        disabled={myPost && props.disabled}
-        checked={checkCreator ? checkSuccess : false}
+        checked={checkSuccess ? true : false}
         onClick={checkSuccess ? deleteCheck : clickCheckBox}
       />
     </div>
   );
 };
 
-export default SellValue;
+export default SellValueCreation;

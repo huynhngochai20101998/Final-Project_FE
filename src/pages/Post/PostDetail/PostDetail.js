@@ -17,18 +17,34 @@ const PostDetail = () => {
   const [report, setReport] = useState(false);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const myInfor = JSON.parse(localStorage.getItem("user"));
+  const [userPost, setUserPost] = useState({});
+  const [topic, setTopic] = useState();
+  // const myInfor = JSON.parse(localStorage.getItem("user"));
   const [postCurrent, setPostCurrent] = useState({});
   const path = useParams();
   const userIdPost = postCurrent.user_id;
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
 
-  useEffect(() => {
-    http.get(`/api/posts/${path.id}`).then((res) => {
+  useEffect(async () => {
+    await http.get(`/api/posts/${path.id}`).then((res) => {
       setPostCurrent(res.data);
+
+      if (res.success) {
+        http.get(`/api/profile/user/${res?.data?.user_id}`).then((resB) => {
+          setUserPost(resB?.data);
+        });
+
+        http.get(`/api/topics/${res.data.topic_id}`).then((resC) => {
+          if (resC.success) {
+            setTopic(resC.data);
+          }
+        });
+      }
       setIsLoading(!isLoading);
     });
   }, []);
+  let myPost = false;
+  userIdPost == userId ? (myPost = true) : (myPost = false);
 
   return (
     <HomeLayout>
@@ -43,14 +59,14 @@ const PostDetail = () => {
                   <a href="#" className="user d-flex flex-row">
                     <div className="user-avatar">
                       <img
-                        src={myInfor.profile_image_url}
+                        src={userPost.profile_image_url}
                         alt=""
                         className="img"
                       />
                     </div>
                     <div className="user-name">
                       <p className="text m-0 p-0">
-                        {`${myInfor?.first_name} ${myInfor.last_name}` ||
+                        {`${userPost?.first_name} ${userPost.last_name}` ||
                           "Unknown"}
                       </p>
                       <p className="text-white tr">
@@ -86,7 +102,7 @@ const PostDetail = () => {
                   <h4 className="content__title no-gutters">
                     <p>{postCurrent.title}</p>
                   </h4>
-                  <p className="content__topic">{`#${postCurrent.topic_id}`}</p>
+                  <p className="content__topic">{`#${topic?.name}`}</p>
                   <span className="content__require-member">
                     <p className="content__require-member-label">
                       {`Yêu cầu thành viên :  ${postCurrent.members} Nguời`}
@@ -97,7 +113,7 @@ const PostDetail = () => {
                   </div>
                 </div>
                 <div className="schedule d-flex justify-content-center align-items-center">
-                  <Schedule userIdPost={userIdPost} />
+                  <Schedule userIdPost={postCurrent.user_id} myPost={myPost} />
                   {userIdPost == userId && (
                     <span
                       className="next-step"

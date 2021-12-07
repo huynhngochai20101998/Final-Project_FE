@@ -7,13 +7,13 @@ import * as Yup from "yup";
 import RequiredCheck from "./RequiredCheck";
 // import axios from "axios";
 import http from "core/services/httpService";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { pushToast } from "components/Toast";
 import Loading from "components/Loading/Loading";
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
+
   const validate = Yup.object({
     first_name: Yup.string().required("Tên bạn là gì?"),
     last_name: Yup.string().required("Tên bạn là gì?"),
@@ -33,14 +33,14 @@ const SignUp = () => {
     console.log(termsAndConditions);
     http
       .post("/api/register", dataUser)
-      .then((response) => {
-        console.log(response);
-        history.push("/login");
+      .then(() => {
+        setIsLoading(false);
+        pushToast("info", "kiểm tra email của bạn");
       })
       .catch((error) => {
         setIsLoading(false);
-        let errorEmail = Object.values(error.response.data.data)[0][0];
-        pushToast("error", errorEmail);
+        error;
+        pushToast("error", "Email này đã tồn tại");
       });
   }
 
