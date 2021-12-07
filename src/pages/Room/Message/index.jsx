@@ -3,12 +3,18 @@ import { Form, Formik } from "formik";
 import { FormGroup, Input } from "reactstrap";
 import { useParams } from "react-router";
 import http from "core/services/httpService";
+import io from "socket.io-client";
 export default function Message(props) {
   const { groupData } = props;
   const path = useParams();
   const [messageList, setMessageList] = useState([]);
   const [isLoadingMess, setIsLoadingMess] = useState(true);
+  let socket = null;
   useEffect(() => {
+    socket = io("http://localhost:5000");
+    socket.on("server-send-rooms", (rooms) => {
+      console.log(rooms);
+    });
     async function getMessageData() {
       try {
         const response = await http.get(`/api/messages?group_id=${path.id}`);
@@ -19,6 +25,7 @@ export default function Message(props) {
     }
     getMessageData();
   }, [isLoadingMess]);
+
   return (
     <div className="Message">
       <div className="Message__title">

@@ -7,7 +7,11 @@ const io = require("socket.io")(httpServer, {
 });
 
 io.on("connection", function (socket) {
-  console.log("co nguoi ket noi" + socket.id);
+  console.log("someone join " + socket.id);
+  console.log(socket.adapter.rooms);
+  socket.on("disconnect", () => {
+    console.log(socket.id + " has left");
+  });
 });
+console.log("listen on port 5000");
 httpServer.listen(5000);
-console.log("listening on http://localhost:5000");
