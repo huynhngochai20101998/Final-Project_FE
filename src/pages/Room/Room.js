@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import http from "core/services/httpService";
 import { Form, Formik } from "formik";
 import { FormGroup, Input } from "reactstrap";
+import { io } from "socket.io-client";
 export default function RoomChat() {
   const [room, setroom] = useState(null);
   const path = useParams();
