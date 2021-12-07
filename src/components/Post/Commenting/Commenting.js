@@ -27,7 +27,9 @@ const Commenting = () => {
   const validationSchema = Yup.object().shape({
     content: Yup.string().required("Bạn phải nhập nội dung comment")
   });
-
+  const getImgUser = commentList.map((comment) => {
+    return comment.user.profile_image_url;
+  });
   return (
     <div className="Commenting">
       <Formik
@@ -55,7 +57,7 @@ const Commenting = () => {
             <Form>
               <div className="Commenting__input">
                 <div className="Commenting__img-user">
-                  <img src="https://scontent.fdad3-2.fna.fbcdn.net/v/t1.6435-9/158684626_1925441784290011_8047498647222352148_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=174925&_nc_ohc=NVM_LzWUEMcAX85q2j2&_nc_ht=scontent.fdad3-2.fna&oh=5eb7af8490c4231cc7a7a11afc385691&oe=61BFDC91" />
+                  <img src={getImgUser} />
                 </div>
                 <FormGroup>
                   <Input

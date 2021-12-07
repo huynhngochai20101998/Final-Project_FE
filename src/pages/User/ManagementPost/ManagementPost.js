@@ -2,10 +2,11 @@ import { React, useState, useEffect } from "react";
 import http from "core/services/httpService";
 // import Home from "../Home/Home";
 import { useParams } from "react-router";
-import deFaultAvatar from "../../assets/images/default-avatar.jpg";
-import PostList from "../../pages/Home/PostList";
+import deFaultAvatar from "../../../assets/images/default-avatar.jpg";
+import PostList from "../../../pages/Home/PostList";
 import "./ManagementPost.scss";
 import Loading from "components/Loading/Loading";
+import HomeLayout from "layout/HomeLayout/HomeLayout";
 import {
   Nav,
   NavItem,
@@ -31,16 +32,17 @@ function ManagementInfo() {
     schedules: [],
     fullName: function () {
       let fullName = this.first_name + " " + this.last_name;
-      return fullName;
-      // let convertToArray = fullName.toLowerCase().split(" ");
-      // var result = convertToArray.map(function (val) {
-      //   return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
-      // });
-      // return result.join(" ");
+      let convertToArray = fullName.toLowerCase().split(" ");
+      var result = convertToArray.map(function (val) {
+        return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
+      });
+      return result.join(" ");
     }
   });
   const path = useParams();
-  const localUserID = JSON.parse(localStorage.getItem("user")).id;
+  const localUserID = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).id
+    : "";
 
   useEffect(() => {
     async function getUserInfo() {
@@ -99,8 +101,6 @@ function ManagementInfo() {
     });
   }
 
-  console.log(userInfo.fullName());
-
   const posts = userInfo.posts.map((post) => {
     return (
       <div className="test" key={post.id}>
@@ -121,12 +121,10 @@ function ManagementInfo() {
     );
   });
 
-  console.log(postsRegisters);
-
   return (
-    <div className="container-account-user">
+    <HomeLayout>
       <Loading visible={isLoading} />
-      <div className="container">
+      <div className="container container-account-user">
         <div className="row info-user">
           <div className="col col-md-3">
             <div className="user-avatar">
@@ -197,7 +195,7 @@ function ManagementInfo() {
           </TabContent>
         </div>
       </div>
-    </div>
+    </HomeLayout>
   );
 }
 

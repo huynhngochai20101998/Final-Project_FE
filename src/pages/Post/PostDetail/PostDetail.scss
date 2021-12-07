@@ -1,14 +1,21 @@
 @import "../../../assets/scss/app.scss";
 
 .post-detail-container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+
+  width: max-content;
+  max-width: 100%;
   height: max-content;
-  padding: 100px 250px;
-  padding-top: 0px;
+
+  background-color: $bg_login_form;
+  border-radius: 10px;
+  padding: 15px 35px 20px 40px;
+  box-sizing: border-box;
 
   .post-detail {
-    background-color: $bg_login_form;
-    border-radius: 10px;
-    padding: 35px 55px 70px 70px;
+    box-sizing: border-box;
 
     &__header {
       &-start {
@@ -133,6 +140,23 @@
 
       .schedule {
         padding: 15px 0px;
+
+        .next-step {
+          margin-left: 5px;
+          width: 50px;
+
+          &:hover {
+            cursor: pointer;
+            .icon-next {
+              animation: none;
+              margin-left: 10px;
+            }
+          }
+
+          .icon-next {
+            animation: nextToStepcreateGroup 1s infinite;
+          }
+        }
       }
     }
     &__finish {
@@ -146,5 +170,14 @@
       font-weight: 500;
       border: none;
     }
+  }
+}
+
+@keyframes nextToStepcreateGroup {
+  from {
+    margin-left: 0px;
+  }
+  to {
+    margin-left: 25px;
   }
 }

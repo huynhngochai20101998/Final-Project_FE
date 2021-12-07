@@ -1,0 +1,49 @@
+@import "../../assets/scss/app.scss";
+
+.search-filter-component{
+    position: fixed;
+    .container{
+
+        h2{
+            text-transform: uppercase;
+            color: $bg_login_title;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        ul{
+            padding-left: 0;
+
+            li{
+                margin-bottom: 30px;
+                display: block;
+                a{
+                    text-decoration: none;
+                    color: $color_gray;
+                    font-size: 16px;
+                    font-weight: 500;
+                    display: inline-block;
+                    &:hover{
+                        color: $color_text_blue;
+                    }
+                }
+
+                .number-post{
+                    margin-left: 120px;
+                    float: right;
+                    background-color: $bg_login_form;
+                    color: $color_text_blue;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+
+                .active{
+                    color: $color_text_blue;
+                }
+            }
+        }
+    }
+}

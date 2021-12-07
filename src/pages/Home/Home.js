@@ -7,33 +7,44 @@ import Loading from "components/Loading/Loading";
 import InfinitScroll from "react-infinite-scroll-component";
 import NoResult from "../../components/Searching/NoResult";
 import PostList from "./PostList";
+import Filter from "../../components/Filter/Filter";
 // import { useSelector } from "react-redux";
 const Home = (props) => {
   const [postList, setPostList] = useState([]);
+  const [groupList, setGroupList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [noMore, setNoMore] = useState(true);
   const [page, setPage] = useState(2);
-  const [noResult, setNoResult] = useState(false);
   let getParameter = props.location.search;
 
   useEffect(() => {
     async function getDataList() {
       try {
         const response = await http.get(
-          `/api/post/search${getParameter ? getParameter : "?q="}&page=1`
+          `/api/post/search${getParameter ? getParameter : "?"}&page=1`
         );
         setPostList(response.data.data);
         setIsLoading(false);
-        setNoResult(false);
       } catch (err) {
         if (getParameter) {
-          setNoResult(true);
           setIsLoading(false);
         }
       }
     }
     getDataList();
-  }, [getParameter, noResult]);
+  }, [getParameter]);
+
+  useEffect(() => {
+    async function getGroupList() {
+      try {
+        const response = await http.get(`/api/groups`);
+        setGroupList(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getGroupList();
+  }, []);
 
   const fetchPosts = async () => {
     const res = await http.get(
@@ -41,7 +52,6 @@ const Home = (props) => {
     );
     return res.data.data;
   };
-
   const fetchData = async () => {
     const postServer = await fetchPosts();
     setPostList([...postList, ...postServer]);
@@ -52,13 +62,18 @@ const Home = (props) => {
   };
 
   const posts = postList.map((post) => {
-    return <PostList key={post.id} post={post}></PostList>;
+    if (post.active === true) {
+      return <PostList key={post.id} post={post}></PostList>;
+    }
   });
   return (
     <HomeLayout>
       <div className="container">
         <div className="row">
-          <div className="col-sm-8 col-md-8 col-lg-8">
+          <div className="col-sm-3 col-md-3 col-lg-3 ">
+            <Filter />
+          </div>
+          <div className="col-sm-6 col-md-6 col-lg-6">
             <div className="PostList">
               <div className="PostList__add">
                 <Link to="/post-creation">
@@ -99,12 +114,28 @@ const Home = (props) => {
                   }
                   endMessage=""
                 >
-                  {noResult ? <NoResult /> : posts}
+                  {postList.length === 0 ? <NoResult /> : posts}
                 </InfinitScroll>
               )}
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4 "></div>
+          <div className="col-sm-3 col-md-3 col-lg-3 ">
+            <div className="GroupList">
+              <div className="GroupList__title">Danh sách nhóm</div>
+              <div className="GroupList__list">
+                {groupList.map((group) => {
+                  return (
+                    <Link to={`/room-chat/` + group.id} key={group.id}>
+                      <div className="GroupList__list__team">
+                        <img src="https://img.timviec.com.vn/2020/04/team-la-gi-2.jpg" />
+                        <span>{group.name}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </HomeLayout>

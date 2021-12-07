@@ -37,6 +37,7 @@
           width: 40px;
           height: 40px;
           border-radius: 50%;
+          cursor: pointer;
         }
         span {
           color: $color_text_blue;
@@ -86,6 +87,65 @@
           box-shadow: none !important;
           color: $color_black;
         }
+      }
+    }
+  }
+}
+.GroupList {
+  height: 75vh;
+  position: fixed;
+  width: inherit;
+  padding: 0 57px 0 0;
+  &__title {
+    background: #696d97;
+    color: white;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+  &__list {
+    background-color: $bg_login_form;
+    height: 100%;
+    padding: 10px 0 10px 5px;
+    overflow-y: scroll;
+    a {
+      text-decoration: none;
+    }
+    &__team {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      color: $color_white;
+      margin: 10px 0;
+      padding: 0 10px;
+      height: 60px;
+      width: 100%;
+      border-radius: 5px;
+      transition: 0.3s all ease;
+      &:hover {
+        background: #696d97;
+        box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+        transition: 0.3s all ease;
+        cursor: pointer;
+      }
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      span {
+        color: $color_text_blue;
+        margin: 0 10px;
+        font-weight: 500;
+        word-break: break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
       }
     }
   }

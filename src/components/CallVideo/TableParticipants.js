@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useCallback } from "react";
+import { React, useState, useEffect } from "react";
 import http from "core/services/httpService";
 import Video from "twilio-video";
 import { useHistory } from "react-router-dom";
@@ -6,7 +6,7 @@ import Participant from "./Participant";
 import "./TableParticipants.scss";
 import Loading from "components/Loading/Loading";
 
-function TableScreen() {
+function TableScreen({ id, getroom }) {
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useState("");
   const [roomName, setRoomName] = useState("");
@@ -19,12 +19,13 @@ function TableScreen() {
   useEffect(() => {
     async function getDataList() {
       try {
-        const response = await http.get("/api/access_token/1");
+        const response = await http.get(`/api/groups/${id}`);
         setUserName(response.data.user_name);
-        setRoomName(response.data.room_name);
-        handleConnectRoom(response.data.token);
+        setRoomName(response.data.group_name);
+        getMedia(response.data.token);
       } catch (err) {
-        history.push("/login");
+        // history.push("/login");
+        console.log(err);
       }
     }
     getDataList();
@@ -44,12 +45,18 @@ function TableScreen() {
         setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.error(err);
       });
   };
 
+  const getRoom = (room) => {
+    getroom(room);
+  };
+
   useEffect(() => {
     if (room) {
+      getRoom(room);
       const participantConnected = (participant) => {
         setParticipants((prevParticipants) => [
           ...prevParticipants,
@@ -73,8 +80,23 @@ function TableScreen() {
     }
   }, [room]);
 
+  async function getMedia(data) {
+    try {
+      await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      });
+      handleConnectRoom(data);
+    } catch (err) {
+      setIsLoading(true);
+      alert(
+        "room yêu cầu quyền truy cập vào máy ảnh và micrô của bạn. Hãy nhấp vào biểu tượng máy ảnh bị chặn trong thanh địa chỉ của trình duyệt"
+      );
+    }
+  }
+
   const remoteParticipants = participants.map((participant) => (
-    <li key={participant.sid} className="remote-participants ">
+    <li key={participant.sid}>
       <Participant participant={participant} userName={userName} />
     </li>
   ));
@@ -107,44 +129,24 @@ function TableScreen() {
     }
   };
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     setRoom((prevRoom) => {
       if (prevRoom) {
-        prevRoom.localParticipant.tracks.forEach((trackPub) => {
-          trackPub.track.stop();
+        prevRoom.localParticipant.tracks.forEach((publication) => {
+          publication.track.stop();
         });
         prevRoom.disconnect();
         history.push("/home");
       }
       return null;
     });
-  }, []);
-
-  useEffect(() => {
-    if (room) {
-      const tidyUp = (event) => {
-        if (event.persisted) {
-          return;
-        }
-        if (room) {
-          handleLogout();
-        }
-      };
-      window.addEventListener("pagehide", tidyUp);
-      window.addEventListener("beforeunload", tidyUp);
-      return () => {
-        window.removeEventListener("pagehide", tidyUp);
-        window.removeEventListener("beforeunload", tidyUp);
-      };
-    }
-  }, [room, handleLogout]);
+  };
 
   return (
     <div className="container-screen">
       {room ? (
         <ul className="local-participant">
           <li>
-            <h4>Màn hình của Bạn</h4>
             <Participant
               key={room.localParticipant.sid}
               participant={room.localParticipant}
@@ -172,8 +174,8 @@ function TableScreen() {
                 onClick={handleLogout}
               ></i>
             </div>
-            {remoteParticipants}
           </li>
+          {remoteParticipants}
         </ul>
       ) : (
         <Loading visible={isLoading} />
