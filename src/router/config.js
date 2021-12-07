@@ -6,10 +6,13 @@ import SignUp from "pages/Authentication/SignUp/SignUp";
 import ForgotPassword from "pages/Authentication/ForgotPassword/ForgotPassword";
 import ResetPassword from "pages/Authentication/ResetPassword/ResetPassword";
 import Error from "pages/Error/Error";
-import PostCreatrion from "pages/Post/PostCreatrion/PostCreatrion";
+import PostCreation from "pages/Post/PostCreation/PostCreation";
 import Login from "pages/Authentication/Login/Login";
-import PostList from "pages/Post/PostList/PostList";
-import { HomeUser } from "pages/Home/Home";
+import Home from "pages/Home/Home";
+import PostDetail from "pages/Post/PostDetail/PostDetail";
+import PostListSign from "pages/Post/PostListSigning/PostListSigning";
+import SearchFound from "components/Searching/SearchFound";
+import RoomChat from "pages/Room/Room";
 
 export const routeConfig = [
   {
@@ -37,22 +40,40 @@ export const routeConfig = [
     component: ResetPassword
   },
   {
-    path: "/post-list",
-    isPrivate: false,
+    path: "/post-creation",
+    isPrivate: true,
     exact: true,
-    component: PostList
+    component: PostCreation
   },
   {
-    path: "/post-create",
+    path: "/post-details/:slug.:id",
     isPrivate: false,
     exact: true,
-    component: PostCreatrion
+    component: PostDetail
+  },
+  {
+    path: "/post-list-sign",
+    isPrivate: false,
+    exact: true,
+    component: PostListSign
   },
   {
     path: "/home",
     isPrivate: false,
     exact: true,
-    component: HomeUser
+    component: Home
+  },
+  {
+    path: "/home-search",
+    isPrivate: false,
+    exact: true,
+    component: SearchFound
+  },
+  {
+    path: "/room-chat",
+    isPrivate: false,
+    exact: true,
+    component: RoomChat
   },
   { path: "*", component: Error }
 ];

@@ -1,0 +1,16 @@
+#noResult{
+    position: relative;
+    width: 500px;
+    height: 500px;
+    top: 30%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    .noResult{
+        color: #ffff;
+        position: absolute;
+        left: 16%;
+        margin-top: -10px;
+        margin-left: -50px;
+    }
+}

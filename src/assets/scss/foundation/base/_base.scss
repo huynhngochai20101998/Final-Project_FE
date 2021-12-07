@@ -4,13 +4,13 @@
 // }
 
 body {
-  position: relative;
   width: 100%;
   color: $color_black;
   font-size: $global-font-size;
   line-height: 1.875; // 30px
   font-family: "Roboto", sans-serif;
   -webkit-text-size-adjust: 100%;
+  overflow: auto;
 }
 
 a {

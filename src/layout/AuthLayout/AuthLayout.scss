@@ -1,19 +1,15 @@
 @import "../../assets/scss/app.scss";
 
 .auth-layout {
-	overflow: hidden;
-
-	.auth-navbar {
-	}
-
-	.auth-main {
-		height: 100vh;
+	&__main {
+		min-height: 100vh;
 		padding-top: 80px;
 		background-color: $bg_main;
-
+		height: max-content;
 		&-content {
 			display: flex;
 			justify-content: center;
+			height: max-content;
 		}
 	}
 }
@@ -23,10 +19,7 @@
 
 @media only screen and (max-width: $mobile-width) {
 	.auth-layout {
-		.auth-navbar {
-		}
-
-		.auth-main {
+		&__main {
 			&-content {
 				padding: 20px;
 			}

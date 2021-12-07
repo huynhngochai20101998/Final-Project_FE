@@ -32,7 +32,7 @@ export const MultiLang = () => {
 
 export const LogoIMG = () => {
   return (
-    <Link to="#" className="navbar-logo">
+    <Link to="/home" className="navbar-logo">
       <img src={Logo} alt="" className="img" />
       <img src={LogoName} alt="" className="brand" />
     </Link>

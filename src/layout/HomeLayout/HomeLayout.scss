@@ -1,0 +1,30 @@
+@import "../../assets/scss/app.scss";
+
+.home-layout {
+    background-color: $bg_main;
+    &__main {
+        min-height: 100vh;
+        margin-top: 80px;
+        height: max-content;
+
+        &-content {
+            width: 100%;
+            padding: 90px;
+            background-color: red;
+        }
+    }
+}
+
+@media only screen and (max-width: $tablet-width) {
+}
+
+@media only screen and (max-width: $mobile-width) {
+    .home-layout {
+        &__main {
+            &-content {
+                padding: 20px;
+                height: max-content;
+            }
+        }
+    }
+}

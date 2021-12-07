@@ -1,18 +1,18 @@
 @import "../../../assets/scss/foundation/variable/variable";
 
-.register-form{
+.register-form {
     border-radius: 5px;
     width: 480px !important;
     background-color: $bg_login_form;
     padding: 0 !important;
     margin-bottom: 80px;
 
-    .register-header{
+    .register-header {
         background-color: $bg_login_title;
         border-radius: 5px 5px 0 0;
         height: 55px;
 
-        h3{
+        h3 {
             color: $color_white;
             text-align: center;
             line-height: 66px;
@@ -20,13 +20,13 @@
         }
     }
 
-    .register-content{
+    .register-content {
         padding-left: 24px;
         padding-right: 24px;
         color: $color_white;
         font-size: 1rem;
-        
-        .row{
+
+        .row {
             flex-wrap: nowrap;
 
             & > * {
@@ -34,121 +34,117 @@
             }
         }
 
-        .form-group{
+        .form-group {
             position: relative;
             margin-top: 20px;
             height: 70px;
 
-            label{
+            label {
                 font-size: 1rem;
-            }   
-    
-            input{
+            }
+
+            input {
                 border-radius: 0.625rem;
                 background-color: $bg_login_form;
-                border:$bg_login_title solid 1px;
+                border: $bg_login_title solid 1px;
                 color: $color_white;
                 display: inline-block;
             }
-    
-            .show-password{
+
+            .show-password {
                 position: absolute;
                 display: inline-block;
                 width: 20px;
                 right: 10px;
                 bottom: 16px;
             }
-    
-            input:focus{
+
+            input:focus {
                 border: 1px solid $color_text_blue;
                 box-shadow: none;
             }
-    
-            input[type=password]::-ms-reveal,
-            input[type=password]::-ms-clear
-            {
-               display: none;
+
+            input[type="password"]::-ms-reveal,
+            input[type="password"]::-ms-clear {
+                display: none;
             }
-    
-            button{
+
+            button {
                 background-color: $color_text_blue;
                 color: $color_black;
-                font-size: 1.25rem; 
-                width: 240px;         
-                border-radius: 10px;  
+                font-size: 1.25rem;
+                width: 240px;
+                border-radius: 10px;
                 font-weight: bold;
             }
-    
-            button{
-    
-                &:hover{
+
+            button {
+                &:hover {
                     background-color: $sencond_color_hover;
                 }
-        
-                &:active{
+
+                &:active {
                     background-color: $sencond_color_active;
                 }
-        
-                &:focus{
+
+                &:focus {
                     outline: none;
                     box-shadow: none;
                 }
             }
-    
-            .form-check{
+
+            .form-check {
                 display: flex;
-                input{
+                input {
                     width: 12px;
                     height: 12px;
                     margin-right: 10px;
                 }
 
-                label{
-                color: $color_text_blue;
-                margin: 0;
+                label {
+                    color: $color_text_blue;
+                    margin: 0;
                 }
             }
-    
-            .active-failure{
+
+            .active-failure {
                 color: $color_failure;
                 font-size: 0.6rem;
                 font-weight: bold;
             }
         }
 
-        .password{
+        .password {
             padding-right: 36px;
         }
 
-        .text-center{
+        .text-center {
             margin: 0;
         }
 
-        .check-term{
-            margin-top:10px;
+        .check-term {
+            margin-top: 10px;
             height: 60px;
 
-            .form-check{
-
-                label{
+            .form-check {
+                label {
                     font-size: 12px;
-                } 
+                }
             }
         }
-        
     }
 
-    .register-bottom{
+    .register-bottom {
         padding: 10px 0;
         display: flex;
         justify-content: center;
-        
-        span{
+
+        span {
             padding-right: 5px;
             font-size: 0.8rem;
         }
 
-        a{
+        a {
             color: $color_text_blue;
             font-size: 0.8rem;
             text-decoration: none;

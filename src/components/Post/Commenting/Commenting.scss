@@ -1,0 +1,76 @@
+@import "../../../assets/scss/app.scss";
+.Commenting {
+    &__img-user {
+        width: 60px;
+        img {
+            width: 97%;
+            height: 46px;
+            border-radius: 50%;
+        }
+    }
+    &__input {
+        display: flex;
+        margin: 100px 0 50px;
+        .form-group {
+            width: 100%;
+            margin: 0px 18px;
+            input {
+                background: $search_bar;
+                border: none;
+                box-sizing: border-box;
+                border-radius: 10px;
+                padding: 0px 20px;
+                height: 46px;
+                color: $color_white;
+                &:focus {
+                    background: $search_bar;
+                    outline: none;
+                    box-shadow: none !important;
+                    color: $color_white;
+                }
+            }
+        }
+        button {
+            background: $color_text_blue;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 16px;
+            color: $color_black;
+            width: 100px;
+            height: 46px;
+            font-weight: 500;
+            border: none;
+            &:active,
+            &:hover {
+                transform: scale(0.9);
+                transition: 0.4s all ease;
+            }
+        }
+    }
+    &__list {
+        display: flex;
+        margin: 25px 0;
+        &__frame {
+            background-color: $search_bar;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 100px 0 20px;
+            width: 100%;
+            span {
+                color: $color_text_blue;
+                font-weight: 500;
+                line-height: 20px;
+                margin-bottom: 10px;
+            }
+            p {
+                color: $color_white;
+                width: 100%;
+                word-break: break-all;
+                display: -webkit-box;
+                line-height: 25px;
+                -webkit-box-orient: vertical;
+                margin-top: 10px;
+            }
+        }
+    }
+}

@@ -1,37 +1,20 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 
-import {
-  VisitorNavbar,
-  UserNabar
-} from "../../components/Navbar/HomeNavbar/HomeNavbar";
+import HomeNavbar from "../../components/Navbar/HomeNavbar/HomeNavbar";
 
-export const HomeVisitorLayout = (props) => {
+import "./HomeLayout.scss";
+
+const HomeLayout = (props) => {
   return (
-    <div className="">
-      <Row>
-        <Col>
-          <VisitorNavbar />
-        </Col>
-      </Row>
-      <Row>
-        <Col>{props.children}</Col>
-      </Row>
+    <div className="home-layout overflow-auto">
+      <div>
+        <HomeNavbar />
+      </div>
+      <div className="home-layout__main ">
+        <div className=" auth-layout__main-content">{props.children}</div>
+      </div>
     </div>
   );
 };
 
-export const HomeUserLayout = (props) => {
-  return (
-    <div className="">
-      <Row>
-        <Col>
-          <UserNabar />
-        </Col>
-      </Row>
-      <Row>
-        <Col>{props.children}</Col>
-      </Row>
-    </div>
-  );
-};
+export default HomeLayout;
