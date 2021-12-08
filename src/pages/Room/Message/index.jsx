@@ -9,29 +9,47 @@ export default function Message(props) {
   const path = useParams();
   const [messageList, setMessageList] = useState([]);
   const [isLoadingMess, setIsLoadingMess] = useState(true);
-  let socket = null;
+  const socket = io("http://localhost:5000");
   useEffect(() => {
-    socket = io("http://localhost:5000");
-    socket.on("server-send-rooms", (rooms) => {
+    socket.on("room-list", (rooms) => {
       console.log(rooms);
     });
-    async function getMessageData() {
-      try {
-        const response = await http.get(`/api/messages?group_id=${path.id}`);
-        setMessageList(response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
+    socket.on("server-send-message", (data) => {
+      console.log(data);
+      getMessageData();
+    });
+  });
+  useEffect(() => {
     getMessageData();
   }, [isLoadingMess]);
-
+  const getMessageData = async () => {
+    try {
+      const response = await http.get(`/api/messages?group_id=${path.id}`);
+      setMessageList(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const joinRoom = () => {
+    socket.emit("join-room", groupData.group_id);
+  };
+  const sendMessageToServer = (message) => {
+    const authUser = JSON.parse(localStorage.getItem("user"));
+    const messageObj = {
+      group_id: groupData.group_id,
+      content: message,
+      user_id: authUser.id
+    };
+    socket.emit("user-send-message", messageObj);
+  };
   return (
     <div className="Message">
       <div className="Message__title">
         <h4>Tin nhắn</h4>
+        <button onClick={joinRoom}>join room</button>
+        <button onClick={sendMessageToServer}>send messages test</button>
         <div>
-          <i className="far fa-user-circle"></i>
+          <i className="far fa-user-circle" />
           <span>{groupData.count_members}</span>
         </div>
       </div>
@@ -67,6 +85,7 @@ export default function Message(props) {
                   content: ""
                 }
               });
+              sendMessageToServer(values);
               setIsLoadingMess(!isLoadingMess);
             });
           }}
@@ -82,10 +101,10 @@ export default function Message(props) {
                     value={values.content}
                     onChange={handleChange}
                     placeholder="Typing here"
-                  ></Input>
+                  />
                 </FormGroup>
                 <button type="submit">
-                  <i className="far fa-paper-plane"></i>
+                  <i className="far fa-paper-plane" />
                 </button>
               </Form>
             );
