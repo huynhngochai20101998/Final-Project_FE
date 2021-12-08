@@ -9,10 +9,12 @@ export default function Message(props) {
   const path = useParams();
   const [messageList, setMessageList] = useState([]);
   const [isLoadingMess, setIsLoadingMess] = useState(true);
+  const [isJoined, setIsJoined] = useState(false);
   const socket = io("http://localhost:5000");
+
   useEffect(() => {
-    socket.on("room-list", (rooms) => {
-      console.log(rooms);
+    socket.on("room-list", () => {
+      console.log("test ok");
     });
     socket.on("server-send-message", (data) => {
       console.log(data);
@@ -22,16 +24,21 @@ export default function Message(props) {
   useEffect(() => {
     getMessageData();
   }, [isLoadingMess]);
+  useEffect(() => {
+    joinRoom();
+  }, [isJoined]);
   const getMessageData = async () => {
     try {
       const response = await http.get(`/api/messages?group_id=${path.id}`);
       setMessageList(response.data);
+      setIsJoined(true);
     } catch (e) {
       console.log(e);
     }
   };
   const joinRoom = () => {
     socket.emit("join-room", groupData.group_id);
+    console.log("has joined");
   };
   const sendMessageToServer = (message) => {
     const authUser = JSON.parse(localStorage.getItem("user"));
@@ -46,8 +53,6 @@ export default function Message(props) {
     <div className="Message">
       <div className="Message__title">
         <h4>Tin nhắn</h4>
-        <button onClick={joinRoom}>join room</button>
-        <button onClick={sendMessageToServer}>send messages test</button>
         <div>
           <i className="far fa-user-circle" />
           <span>{groupData.count_members}</span>
