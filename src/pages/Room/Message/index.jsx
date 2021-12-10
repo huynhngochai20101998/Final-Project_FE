@@ -14,7 +14,7 @@ export default function Message(props) {
         const response = await http.get(`/api/messages?group_id=${path.id}`);
         setMessageList(response.data);
       } catch (e) {
-        console.log(e);
+        console.warn(e.message);
       }
     }
     getMessageData();

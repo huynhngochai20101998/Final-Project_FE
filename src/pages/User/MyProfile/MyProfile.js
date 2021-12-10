@@ -8,12 +8,14 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { FormGroup, Input, Label } from "reactstrap";
 import { updateProfile } from "store/user";
+import { useHistory } from "react-router-dom";
 
 import * as Yup from "yup";
 
 import "./MyProfile.scss";
 
 const MyProfile = () => {
+  const history = useHistory();
   const path = useParams();
   const dispatch = useDispatch();
   // const [isLoading, setIsLoading] = useState(true);
@@ -50,22 +52,23 @@ const MyProfile = () => {
             interests: res.data.interests,
             gender: res.data.gender,
             school: res.data.school,
-            avatar: res.data.profile_image_url
+            avatar: res.data.profile_image_url,
+            profile_image_url: res.data.profile_image_url
           });
-          setGenders(res.data.gender || true);
+          setGenders(res.data.gender);
           // setCheck(true);
         }
       }
     } catch (e) {
-      console.log(e);
+      console.warn(e.message);
     }
   }, []);
 
   const validationSchema = Yup.object().shape({
-    first_name: Yup.string().required("Bạn phải nhập họ"),
-    last_name: Yup.string().required("Bạn phải nhập tên"),
+    first_name: Yup.string().required("Bạn phải nhập lại họ"),
+    last_name: Yup.string().required("Bạn phải nhập lại tên"),
     // birthday: Yup.string().required("Bạn phải nhập sinh nhật"),
-    school: Yup.string().required("Bạn phải nhập tên trường")
+    school: Yup.string().required("Bạn phải nhập lại tên trường")
   });
 
   return (
@@ -87,15 +90,31 @@ const MyProfile = () => {
                 gender: genders,
                 interests: profile?.interests || "",
                 description: profile?.description || "",
-                avatar: ""
+                avatar: "",
+                profile_image_url: ""
               }}
               validationSchema={validationSchema}
               onSubmit={async (values) => {
                 const formatValue = {
                   ...values
                 };
+                if (avatar) {
+                  formatValue.avatar = avatar;
+                } else {
+                  formatValue.profile_image_url = profile.profile_image_url;
+                }
+                formatValue.first_name =
+                  formatValue.first_name || profile.first_name;
+                formatValue.last_name =
+                  formatValue.last_name || profile.last_name;
+                formatValue.birthday = formatValue.birthday || profile.birthday;
+                formatValue.school = formatValue.school || profile.school;
+                formatValue.gender = formatValue.gender || genders;
+                formatValue.interests =
+                  formatValue.interests || profile?.interests;
+                formatValue.description =
+                  formatValue.description || profile?.description;
 
-                formatValue.avatar = avatar;
                 dispatch(updateProfile(formatValue));
               }}
             >
@@ -306,7 +325,12 @@ const MyProfile = () => {
                     </FormGroup>
                   </div>
                   <div className="btn-box float-end my-4">
-                    <div className="btn btn-secondary mx-4 btn-radius px-4">
+                    <div
+                      className="btn btn-secondary mx-4 btn-radius px-4"
+                      onClick={() => {
+                        history.push(`/personal-info-user/${path.id}`);
+                      }}
+                    >
                       Thoát
                     </div>
                     <button

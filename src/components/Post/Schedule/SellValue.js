@@ -45,7 +45,6 @@ const SellValue = (props) => {
 
     try {
       dispatch(setLoading({ loading: true }));
-      console.log(valueSell);
 
       const res = await http.post("/api/schedules", valueSell);
       dispatch(setLoading({ loading: false }));

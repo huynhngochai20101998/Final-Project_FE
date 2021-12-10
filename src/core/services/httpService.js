@@ -31,8 +31,7 @@ http.interceptors.response.use(
   },
   (error) => {
     // Handle errors
-    console.log("error: ", error);
-    error.message = "Something wrong, please try again";
+    error.message = "thất bại";
     throw error;
   }
 );

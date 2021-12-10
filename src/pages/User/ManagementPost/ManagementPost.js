@@ -71,7 +71,7 @@ function ManagementInfo() {
         testImage(newUserInfo.profile_image_url);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getUserInfo();
