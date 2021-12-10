@@ -47,8 +47,8 @@
             width: 200px;
             border-radius: 50%;
             margin-bottom: 25px;
-
-            background-color: saddlebrown;
+            box-sizing: border-box;
+            overflow: hidden;
           }
 
           &-upload {
@@ -57,10 +57,12 @@
 
             height: 50px;
 
-            .btn {
+            .btn-upload {
               display: inline-flex;
               justify-content: center;
               align-items: center;
+              width: 80px;
+              height: max-content;
             }
           }
         }
@@ -82,6 +84,13 @@
               margin-right: 30px;
               margin-bottom: 20px;
 
+              .error {
+                color: $color_error;
+                width: 140px;
+                font-size: 14px;
+                height: 20px;
+              }
+
               &-lable {
                 margin-bottom: 10px;
                 font-weight: 500;
@@ -94,12 +103,17 @@
                 box-shadow: none;
                 border-radius: 10px;
                 height: 42px;
+                box-sizing: border-box;
               }
             }
 
-            .input-univer {
+            .input-school {
               width: 67%;
               margin: 0px;
+
+              .error {
+                width: 200px;
+              }
             }
 
             .input-full {
@@ -139,6 +153,17 @@
           }
         }
       }
+    }
+  }
+
+  .btn-box {
+    .btn-radius {
+      border-radius: 10px;
+    }
+
+    .btn-submit {
+      background-color: $color_text_blue;
+      color: $color_black;
     }
   }
 }
