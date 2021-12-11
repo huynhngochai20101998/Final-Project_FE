@@ -20,6 +20,10 @@ const ResetPassword = () => {
     ? localStorage.getItem("user")
     : "";
 
+  const getUser = localStorage.getItem("user")
+    ? localStorage.getItem("user")
+    : "";
+
   const formik = useFormik({
     initialValues: {
       token: token,
