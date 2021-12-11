@@ -142,6 +142,14 @@ function TableScreen({ id, getroom }) {
     });
   };
 
+  useEffect(() => {
+    return () => {
+      window.addEventListener("beforeunload", (e) => {
+        e.preventDefault();
+        return handleLogout();
+      });
+    };
+  });
   return (
     <div className="container-screen">
       {room ? (

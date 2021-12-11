@@ -42,7 +42,7 @@ export default function RoomChat() {
     });
     roomdata.disconnect();
   };
-  console.log(groupData?.owner?.username);
+
   return (
     <HomeLayout>
       <div className="container-fluid">
