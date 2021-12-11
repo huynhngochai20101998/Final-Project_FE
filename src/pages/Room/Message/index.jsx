@@ -1,13 +1,24 @@
+// disable-eslint
 import React, { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import { FormGroup, Input } from "reactstrap";
 import { useParams } from "react-router";
 import http from "core/services/httpService";
+import io from "socket.io-client";
 export default function Message(props) {
   const { groupData } = props;
   const path = useParams();
   const [messageList, setMessageList] = useState([]);
   const [isLoadingMess, setIsLoadingMess] = useState(true);
+  // const [isJoined, setIsJoined] = useState(false);
+  const socket = io("http://localhost:5000");
+
+  useEffect(() => {
+    socket.on("room-list", () => {});
+    socket.on("server-send-message", () => {
+      getMessageData();
+    });
+  });
   useEffect(() => {
     async function getMessageData() {
       try {
@@ -19,12 +30,38 @@ export default function Message(props) {
     }
     getMessageData();
   }, [isLoadingMess]);
+  useEffect(() => {
+    if (groupData) {
+      joinRoom();
+    }
+  }, [groupData]);
+  const getMessageData = async () => {
+    try {
+      const response = await http.get(`/api/messages?group_id=${path.id}`);
+      setMessageList(response.data);
+      // setIsJoined(true);
+    } catch (e) {
+      console.warn(e.message);
+    }
+  };
+  const joinRoom = () => {
+    socket.emit("join-room", groupData.group_id);
+  };
+  const sendMessageToServer = (message) => {
+    const authUser = JSON.parse(localStorage.getItem("user"));
+    const messageObj = {
+      group_id: groupData.group_id,
+      content: message,
+      user_id: authUser.id
+    };
+    socket.emit("user-send-message", messageObj);
+  };
   return (
     <div className="Message">
       <div className="Message__title">
         <h4>Tin nhắn</h4>
         <div>
-          <i className="far fa-user-circle"></i>
+          <i className="far fa-user-circle" />
           <span>{groupData.count_members}</span>
         </div>
       </div>
@@ -60,6 +97,7 @@ export default function Message(props) {
                   content: ""
                 }
               });
+              sendMessageToServer(values);
               setIsLoadingMess(!isLoadingMess);
             });
           }}
@@ -75,10 +113,10 @@ export default function Message(props) {
                     value={values.content}
                     onChange={handleChange}
                     placeholder="Typing here"
-                  ></Input>
+                  />
                 </FormGroup>
                 <button type="submit">
-                  <i className="far fa-paper-plane"></i>
+                  <i className="far fa-paper-plane" />
                 </button>
               </Form>
             );
