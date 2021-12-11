@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "reactstrap";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 
 function PostList(props) {
@@ -16,7 +16,6 @@ function PostList(props) {
     topic_name,
     profile_image_url,
     user_id
-    // active
   } = props.post;
   const history = useHistory();
   const fullName = first_name + " " + last_name;
@@ -40,18 +39,9 @@ function PostList(props) {
       </div>
       <div className="PostList__form__see-more">
         <p className="topic">{topic_name}</p>
-        <Button
-          onClick={() => {
-            localStorage.setItem(
-              "postCreationId",
-              JSON.stringify(props.post.id)
-            );
-
-            window.location.href = `/post-details/${slug}.${id}`;
-          }}
-        >
-          Xem thêm
-        </Button>
+        <Link to={`/post-details/${slug}.${id}`}>
+          <Button>Xem thêm</Button>
+        </Link>
       </div>
     </div>
   );
