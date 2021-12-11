@@ -43,8 +43,7 @@
                 p {
                     color: $color_white;
                     font-weight: 300;
-                    flex-wrap: wrap;
-                    font-size: 1.1rem;
+                    // text-rendering: optimizeLegibility;
                 }
 
                 .text-cap {
@@ -52,14 +51,20 @@
                 }
 
                 .btn-edit-profile {
-                    background-color: transparent;
+                    background-color: $color_text_blue;
+                    padding: 5px 10px;
+                    border-radius: 10px;
                     cursor: pointer;
                     font-size: 16px;
                     margin-left: 10px;
                     // margin-top: 25px;
 
+                    &:hover{
+                        background-color: $sencond_color_hover;
+                    }
+
                     &-icon {
-                        color: $color_white;
+                        color: $color_black;
                     }
                     span {
                         display: inline-block;

@@ -13,7 +13,7 @@ function PostList(props) {
     content,
     first_name,
     last_name,
-    // topic_name,
+    topic_name,
     profile_image_url,
     user_id
     // active
@@ -39,7 +39,7 @@ function PostList(props) {
         <p>{content}</p>
       </div>
       <div className="PostList__form__see-more">
-        <p className="topic">Javascript</p>
+        <p className="topic">{topic_name}</p>
         <Button
           onClick={() => {
             localStorage.setItem(
