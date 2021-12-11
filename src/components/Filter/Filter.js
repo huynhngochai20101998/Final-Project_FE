@@ -12,7 +12,7 @@ const Filter = () => {
         let newListTopic = response.data.data;
         setListTopic(newListTopic);
       } catch (error) {
-        console.log(error);
+        console.warn(error.message);
       }
     }
     getTopic();

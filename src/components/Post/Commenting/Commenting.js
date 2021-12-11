@@ -11,14 +11,14 @@ const Commenting = () => {
   const path = useParams();
   const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const getImgUser = JSON.parse(localStorage.getItem("user")).profile_image_url;
   useEffect(() => {
     async function getCommentList() {
       try {
         const response = await http.get(`/api/comments/post/${path.id}`);
         setCommentList(response.data.data);
       } catch (err) {
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getCommentList();
@@ -27,9 +27,7 @@ const Commenting = () => {
   const validationSchema = Yup.object().shape({
     content: Yup.string().required("Bạn phải nhập nội dung comment")
   });
-  const getImgUser = commentList.map((comment) => {
-    return comment.user.profile_image_url;
-  });
+
   return (
     <div className="Commenting">
       <Formik

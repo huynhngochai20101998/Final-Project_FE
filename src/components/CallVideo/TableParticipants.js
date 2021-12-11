@@ -25,7 +25,7 @@ function TableScreen({ id, getroom }) {
         getMedia(response.data.token);
       } catch (err) {
         // history.push("/login");
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getDataList();

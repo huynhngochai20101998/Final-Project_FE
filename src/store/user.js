@@ -3,6 +3,7 @@ import { setUserLocal, removeUserLocal } from "core/localStore";
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import { ERRORS, USER_ROLE } from "core/constants";
+import moment from "moment";
 // Slice
 
 const initialUser = localStorage.getItem("user")
@@ -77,8 +78,6 @@ export const login = (values) => async (dispatch) => {
       password: values.password
     });
 
-    console.log(res);
-
     let user = {
       ...res.data.user
     };
@@ -109,7 +108,7 @@ export const login = (values) => async (dispatch) => {
   } catch (e) {
     dispatch(setLoading({ loading: false }));
 
-    console.log(e);
+    console.warn(e.message);
     pushToast("error", "Thất bại");
 
     // return console.error("Thất bại");
@@ -158,8 +157,6 @@ export const resetPassword = (values) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: false }));
 
-    console.log(values);
-
     const res = await http.put("/api/reset-password", {
       token: values.token,
       email: localStorage.getItem("email"),
@@ -202,5 +199,44 @@ export const changePassword = (values) => async (dispatch) => {
   } catch (e) {
     dispatch(setLoading({ loading: false }));
     pushToast("error", e?.response?.data.message);
+  }
+};
+
+export const updateProfile = (values) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: false }));
+
+    var bodyFromData = new FormData();
+    if (values.avatar) {
+      bodyFromData.append("avatar", values.avatar);
+    } else {
+      bodyFromData.append("profile_image_url", values.profile_image_url);
+    }
+
+    values.first_name && bodyFromData.append("first_name", values.first_name);
+    values.last_name && bodyFromData.append("last_name", values.last_name);
+    values.birthday &&
+      bodyFromData.append(
+        "birthday",
+        moment(values.birthday).format("YYYY/MM/DD")
+      );
+    values.description &&
+      bodyFromData.append("description", values.description);
+    values.interests && bodyFromData.append("interests", values.interests);
+    values.school && bodyFromData.append("school", values.school);
+    values.gender && bodyFromData.append("gender", values.gender);
+
+    const res = await http.post("/api/profile/update-profile", bodyFromData);
+
+    dispatch(setLoading({ loading: false }));
+
+    if (res.success) {
+      pushToast("success", "Thành công");
+    } else {
+      pushToast("error", "Thất bại");
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
+    pushToast("error", "Thất bại");
   }
 };
