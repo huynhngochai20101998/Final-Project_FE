@@ -20,10 +20,6 @@ const ResetPassword = () => {
     ? localStorage.getItem("user")
     : "";
 
-  const getUser = localStorage.getItem("user")
-    ? localStorage.getItem("user")
-    : "";
-
   const formik = useFormik({
     initialValues: {
       token: token,
@@ -56,7 +52,6 @@ const ResetPassword = () => {
   const touched = formik.touched;
   const error = formik.errors;
   const values = formik.values;
-  console.log(values);
 
   return (
     <AuthLayout>

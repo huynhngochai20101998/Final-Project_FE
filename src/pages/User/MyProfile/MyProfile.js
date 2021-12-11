@@ -98,6 +98,7 @@ const MyProfile = () => {
                 const formatValue = {
                   ...values
                 };
+                formatValue.id = path.id;
                 if (avatar) {
                   formatValue.avatar = avatar;
                 } else {

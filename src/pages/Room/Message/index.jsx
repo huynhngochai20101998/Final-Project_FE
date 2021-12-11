@@ -1,3 +1,4 @@
+// disable-eslint
 import React, { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import { FormGroup, Input } from "reactstrap";
@@ -13,11 +14,8 @@ export default function Message(props) {
   const socket = io("http://localhost:5000");
 
   useEffect(() => {
-    socket.on("room-list", () => {
-      console.log("test ok");
-    });
-    socket.on("server-send-message", (data) => {
-      console.log(data);
+    socket.on("room-list", () => {});
+    socket.on("server-send-message", () => {
       getMessageData();
     });
   });
@@ -30,11 +28,9 @@ export default function Message(props) {
         console.warn(e.message);
       }
     }
-    console.log(groupData);
     getMessageData();
   }, [isLoadingMess]);
   useEffect(() => {
-    console.log(groupData);
     if (groupData) {
       joinRoom();
     }
@@ -45,12 +41,11 @@ export default function Message(props) {
       setMessageList(response.data);
       // setIsJoined(true);
     } catch (e) {
-      console.log(e);
+      console.warn(e.message);
     }
   };
   const joinRoom = () => {
     socket.emit("join-room", groupData.group_id);
-    console.log("has joined");
   };
   const sendMessageToServer = (message) => {
     const authUser = JSON.parse(localStorage.getItem("user"));

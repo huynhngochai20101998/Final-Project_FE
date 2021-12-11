@@ -182,8 +182,6 @@ export const changePassword = (values) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: false }));
 
-    console.log(values);
-
     const res = await http.post("/api/profile/change-password", {
       old_password: values.oldPassword,
       password: values.password,
@@ -232,6 +230,7 @@ export const updateProfile = (values) => async (dispatch) => {
 
     if (res.success) {
       pushToast("success", "Thành công");
+      window.location.href = `/personal-info-user/${values.id}`;
     } else {
       pushToast("error", "Thất bại");
     }
