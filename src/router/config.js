@@ -85,7 +85,7 @@ export const routeConfig = [
     component: ManagementPost
   },
   {
-    path: "/user-my-profile",
+    path: "/personal-info-user/:id/profile",
     isPrivate: true,
     exact: true,
     component: MyProfile

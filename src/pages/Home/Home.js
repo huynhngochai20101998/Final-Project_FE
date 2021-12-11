@@ -40,7 +40,7 @@ const Home = (props) => {
         const response = await http.get(`/api/groups`);
         setGroupList(response.data);
       } catch (err) {
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getGroupList();

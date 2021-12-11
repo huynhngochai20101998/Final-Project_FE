@@ -26,7 +26,6 @@ const SellValueCreation = (props) => {
 
     try {
       dispatch(setLoading({ loading: true }));
-      console.log(valueSell);
 
       const res = await http.post("/api/schedules", valueSell);
       dispatch(setLoading({ loading: false }));
@@ -41,7 +40,7 @@ const SellValueCreation = (props) => {
       }
     } catch (e) {
       setCheckSuccess(false);
-      pushToast("error", "Trùng thời gian!");
+      pushToast("error", "Thất bại!");
     }
 
     // dispatch(addSchedule(valueSell));
@@ -68,7 +67,7 @@ const SellValueCreation = (props) => {
   return (
     <div className="sell" style={props.style}>
       <input
-        className="sell-checkbox"
+        className="sell-creation-checkbox"
         type="checkbox"
         id="scheduleCheckbox"
         checked={checkSuccess ? true : false}

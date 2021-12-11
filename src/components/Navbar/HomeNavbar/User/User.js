@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "store/user";
 import { useHistory } from "react-router-dom";
 import "./User.scss";
+import { setLoading } from "store/post";
+import http from "core/services/httpService";
 
 const User = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [userInfo, setUserInfo] = useState(props.userInfo);
 
-  const userInfo = props.userInfo;
+  useEffect(async () => {
+    try {
+      dispatch(setLoading({ loading: true }));
+
+      const res = await http.get(`/api/profile/user/${props.userInfo.id}`);
+
+      dispatch(setLoading({ loading: false }));
+
+      if (res) {
+        setUserInfo(res.data);
+      }
+    } catch (e) {
+      console.warn(e.message);
+    }
+  }, []);
 
   const handleToPersonalUser = () => {
     const localUserID = JSON.parse(localStorage.getItem("user")).id;
@@ -41,7 +58,7 @@ const User = (props) => {
           Đổi mật khẩu
         </li>
         <li className="control-item" onClick={handelLogout}>
-          logout
+          Đăng xuất
         </li>
       </ul>
     </div>

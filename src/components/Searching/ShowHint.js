@@ -25,7 +25,7 @@ function ShowHint(props) {
             });
             setListTitle(newlistTitle);
           } catch (err) {
-            console.log(err);
+            console.warn(err.message);
             setListTitle([]);
             setLogMessage("không tìm thấy");
           }
