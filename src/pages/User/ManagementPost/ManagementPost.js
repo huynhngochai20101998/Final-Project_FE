@@ -7,6 +7,7 @@ import PostList from "../../../pages/Home/PostList";
 import "./ManagementPost.scss";
 import Loading from "components/Loading/Loading";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
+import NoResults from "../../../components/Searching/NoResult";
 import {
   Nav,
   NavItem,
@@ -26,7 +27,7 @@ function ManagementInfo() {
     first_name: "",
     last_name: "",
     email: "",
-    interest: "",
+    interests: "",
     school: "",
     description: "",
     posts: [],
@@ -60,7 +61,7 @@ function ManagementInfo() {
             first_name: newUserInfo.first_name,
             last_name: newUserInfo.last_name,
             email: newUserInfo.email,
-            interest: newUserInfo.interest,
+            interests: newUserInfo.interests,
             school: newUserInfo.school,
             description: newUserInfo.description,
             posts: newUserInfo.posts,
@@ -122,7 +123,7 @@ function ManagementInfo() {
       </div>
     );
   });
-
+  console.log(userInfo.posts.length);
   return (
     <HomeLayout>
       <Loading visible={isLoading} />
@@ -138,34 +139,34 @@ function ManagementInfo() {
           </div>
           <div className="col col-md-9">
             <div className="detail-user detail-header">
-              <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex align-items-center">
                 <h2 style={{ display: "inline-block" }}>
                   {userInfo.fullName()}
                 </h2>
                 <div
-                  className="btn btn-success btn-edit-profile mx-5 mb-4 float-end"
+                  className="btn-edit-profile"
                   onClick={() => {
                     history.push(`/personal-info-user/${path.id}/profile`);
                   }}
                 >
                   <i className="fas fa-pencil-alt btn-edit-profile-icon" />
-                  <span>Edit profile</span>
+                  {/* <span>Edit profile</span> */}
                 </div>
               </div>
-              <br />
               <span>{userInfo.email}</span>
             </div>
             <div className="detail-user detail-body row">
               <div className="country col-md-2">
                 <h5>{userInfo.school ? "Trường Học" : ""}</h5>
-                <p>{userInfo.school}</p>
+                <p className="text-cap">{userInfo.school}</p>
               </div>
               <div className="interest col-md-2">
-                <h5>{userInfo.interest ? "Sở Thích" : ""}</h5>
-                <p>{userInfo.interest}</p>
+                <h5>{userInfo.interests ? "Sở Thích" : ""}</h5>
+                <p className="text-cap">{userInfo.interests}</p>
               </div>
             </div>
             <div className="detail-user detail-footer">
+              <h5>{userInfo.description ? "Mô tả" : ""}</h5>
               <p>{userInfo.description}</p>
             </div>
           </div>
@@ -200,7 +201,9 @@ function ManagementInfo() {
           <TabContent activeTab={toggleIndex} className="tab-content">
             <TabPane tabId="1" id="TabPane-1">
               <Row>
-                <Col sm="12">{posts}</Col>
+                <Col sm="12">
+                  {userInfo.posts.length > 0 ? posts : <NoResults />}
+                </Col>
               </Row>
             </TabPane>
             <TabPane tabId="2" id="TabPane-2">
