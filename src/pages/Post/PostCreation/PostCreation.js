@@ -103,7 +103,7 @@ const PostCreation = () => {
                   })
                   .catch((e) => {
                     console.warn(e.message);
-                    pushToast("error", "Đã trùng tiêu đề");
+                    pushToast("error", "Thất bại");
                   });
               }}
             >
