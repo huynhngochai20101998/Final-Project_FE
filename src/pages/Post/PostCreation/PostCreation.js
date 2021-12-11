@@ -31,7 +31,7 @@ const PostCreation = () => {
         const response = await http.get("/api/topics");
         setTopicList(response.data.data);
       } catch (err) {
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getDataList();
@@ -102,7 +102,7 @@ const PostCreation = () => {
                     setIsLoading(!isLoading);
                   })
                   .catch((e) => {
-                    console.log(e);
+                    console.warn(e.message);
                     pushToast("error", "Đã trùng tiêu đề");
                   });
               }}

@@ -18,7 +18,7 @@ const Commenting = () => {
         const response = await http.get(`/api/comments/post/${path.id}`);
         setCommentList(response.data.data);
       } catch (err) {
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getCommentList();

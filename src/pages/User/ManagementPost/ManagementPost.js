@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import http from "core/services/httpService";
 // import Home from "../Home/Home";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import deFaultAvatar from "../../../assets/images/default-avatar.jpg";
 import PostList from "../../../pages/Home/PostList";
 import "./ManagementPost.scss";
@@ -19,6 +19,8 @@ import {
 
 function ManagementInfo() {
   const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
+
   const [userInfo, setUserInfo] = useState({
     profile_image_url: "",
     first_name: "",
@@ -69,7 +71,7 @@ function ManagementInfo() {
         testImage(newUserInfo.profile_image_url);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getUserInfo();
@@ -136,7 +138,21 @@ function ManagementInfo() {
           </div>
           <div className="col col-md-9">
             <div className="detail-user detail-header">
-              <h2>{userInfo.fullName()}</h2>
+              <div className="d-flex align-items-center justify-content-between">
+                <h2 style={{ display: "inline-block" }}>
+                  {userInfo.fullName()}
+                </h2>
+                <div
+                  className="btn btn-success btn-edit-profile mx-5 mb-4 float-end"
+                  onClick={() => {
+                    history.push(`/personal-info-user/${path.id}/profile`);
+                  }}
+                >
+                  <i className="fas fa-pencil-alt btn-edit-profile-icon" />
+                  <span>Edit profile</span>
+                </div>
+              </div>
+              <br />
               <span>{userInfo.email}</span>
             </div>
             <div className="detail-user detail-body row">

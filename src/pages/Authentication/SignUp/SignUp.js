@@ -29,8 +29,8 @@ const SignUp = () => {
 
   function handleSubmit(values) {
     setIsLoading(true);
-    const { termsAndConditions, ...dataUser } = values;
-    console.log(termsAndConditions);
+    const { ...dataUser } = values;
+
     http
       .post("/api/register", dataUser)
       .then(() => {

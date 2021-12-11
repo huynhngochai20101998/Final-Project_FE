@@ -18,7 +18,7 @@ export default function RoomChat() {
         const response = await http.get(`/api/groups/${path.id}`);
         setGroupData(response.data);
       } catch (e) {
-        console.log(e);
+        console.warn(e.message);
       }
     }
     getGroupData();
@@ -42,7 +42,7 @@ export default function RoomChat() {
     });
     roomdata.disconnect();
   };
-  console.log(groupData?.owner?.username);
+
   return (
     <HomeLayout>
       <div className="container-fluid">

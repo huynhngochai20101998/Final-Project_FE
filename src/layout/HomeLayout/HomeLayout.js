@@ -11,7 +11,9 @@ const HomeLayout = (props) => {
         <HomeNavbar />
       </div>
       <div className="home-layout__main">
-        <div className=" home-layout__main-content">{props.children}</div>
+        <div className=" home-layout__main-content d-flex justify-content-center">
+          {props.children}
+        </div>
       </div>
     </div>
   );

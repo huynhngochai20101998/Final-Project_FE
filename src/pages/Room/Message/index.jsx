@@ -22,6 +22,15 @@ export default function Message(props) {
     });
   });
   useEffect(() => {
+    async function getMessageData() {
+      try {
+        const response = await http.get(`/api/messages?group_id=${path.id}`);
+        setMessageList(response.data);
+      } catch (e) {
+        console.warn(e.message);
+      }
+    }
+
     getMessageData();
   }, [isLoadingMess]);
   useEffect(() => {

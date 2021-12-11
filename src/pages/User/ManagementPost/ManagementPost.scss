@@ -2,92 +2,107 @@
 
 .container-account-user {
     background-color: $bg_main;
-        .info-user {
-            border-bottom: 1px solid $color_gray;
+    .info-user {
+        border-bottom: 1px solid $color_gray;
+        margin-bottom: 20px;
+
+        .col {
+            margin-top: 20px;
             margin-bottom: 20px;
+        }
 
-            .col {
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
-
-            .col-md-3 {
-                .user-avatar {
-                    img {
-                        width: 200px;
-                        height: 200px;
-                        border-radius: 50%;
-                    }
+        .col-md-3 {
+            .user-avatar {
+                img {
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 50%;
                 }
             }
-            .col-md-9 {
-                .detail-user {
-                    margin-bottom: 10px;
+        }
+        .col-md-9 {
+            .detail-user {
+                margin-bottom: 10px;
 
-                    h2,
-                    h5 {
+                h2,
+                h5 {
+                    color: $color_white;
+                    font-weight: bold;
+                }
+
+                span {
+                    color: $color_gray;
+                    font-weight: 300;
+                }
+
+                p {
+                    color: $color_white;
+                    font-weight: 300;
+                }
+
+                .btn-edit-profile {
+                    background-color: $color_text_blue;
+                    font-size: 16px;
+                    margin-top: 25px;
+
+                    &-icon {
                         color: $color_white;
-                        font-weight: bold;
                     }
-
                     span {
-                        color: $color_gray;
-                        font-weight: 300;
-                    }
-
-                    p {
+                        display: inline-block;
                         color: $color_white;
-                        font-weight: 300;
+                        padding-left: 10px;
                     }
                 }
             }
         }
+    }
 
-        .user-post-follow {
-            .container-tabs {
-                display: flex;
-                justify-content: center;
-                border: none;
+    .user-post-follow {
+        .container-tabs {
+            display: flex;
+            justify-content: center;
+            border: none;
 
-                .tabs-item {
-                    margin-left: 10px;
+            .tabs-item {
+                margin-left: 10px;
+                border-radius: 10px;
+                cursor: pointer;
+
+                .active {
+                    background-color: transparent;
+                    border: none;
+                    color: $color_white !important;
                     border-radius: 10px;
-                    cursor: pointer;
 
-                    .active {
-                        background-color: transparent;
+                    &:hover {
                         border: none;
-                        color: $color_white !important;
-                        border-radius: 10px;
+                    }
+                }
 
-                        &:hover {
-                            border: none;
-                        }
+                .tabs-link {
+                    color: $color_gray;
+                    border-radius: 0 0 5px 5px;
+                    border: none;
+
+                    &:hover {
+                        border: none;
                     }
 
-                    .tabs-link {
-                        color: $color_gray;
-                        border-radius: 0 0 5px 5px;
-                        border: none;
+                    .fas {
+                        font-size: 20px;
 
-                        &:hover {
-                            border: none;
-                        }
-
-                        .fas {
-                            font-size: 20px;
-
-                            span {
-                                padding: 10px;
-                            }
+                        span {
+                            padding: 10px;
                         }
                     }
                 }
             }
-
-            .tab-content{
-                width: 50%;
-                margin: 0 auto;
-            }
         }
+
+        .tab-content {
+            width: 50%;
+            margin: 0 auto;
+        }
+    }
 }
