@@ -178,6 +178,30 @@ export const resetPassword = (values) => async (dispatch) => {
   }
 };
 
+export const changePassword = (values) => async (dispatch) => {
+  try {
+    dispatch(setLoading({ loading: false }));
+
+    console.log(values);
+
+    const res = await http.post("/api/profile/change-password", {
+      old_password: values.oldPassword,
+      password: values.password,
+      password_confirmation: values.confirmPassword
+    });
+
+    dispatch(setLoading({ loading: false }));
+    if (res.success) {
+      window.location.href = "/home";
+    } else {
+      pushToast("error", res.message);
+    }
+  } catch (e) {
+    dispatch(setLoading({ loading: false }));
+    pushToast("error", e?.response?.data.message);
+  }
+};
+
 export const updateProfile = (values) => async (dispatch) => {
   try {
     dispatch(setLoading({ loading: false }));
