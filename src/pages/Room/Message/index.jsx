@@ -9,7 +9,7 @@ export default function Message(props) {
   const path = useParams();
   const [messageList, setMessageList] = useState([]);
   const [isLoadingMess, setIsLoadingMess] = useState(true);
-  const [isJoined, setIsJoined] = useState(false);
+  // const [isJoined, setIsJoined] = useState(false);
   const socket = io("http://localhost:5000");
 
   useEffect(() => {
@@ -30,17 +30,20 @@ export default function Message(props) {
         console.warn(e.message);
       }
     }
-
+    console.log(groupData);
     getMessageData();
   }, [isLoadingMess]);
   useEffect(() => {
-    joinRoom();
-  }, [isJoined]);
+    console.log(groupData);
+    if (groupData) {
+      joinRoom();
+    }
+  }, [groupData]);
   const getMessageData = async () => {
     try {
       const response = await http.get(`/api/messages?group_id=${path.id}`);
       setMessageList(response.data);
-      setIsJoined(true);
+      // setIsJoined(true);
     } catch (e) {
       console.log(e);
     }
