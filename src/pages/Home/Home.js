@@ -1,37 +1,79 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "reactstrap";
 import http from "core/services/httpService";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 import "./Home.scss";
 import { Link } from "react-router-dom";
 import Loading from "components/Loading/Loading";
-import { useDispatch } from "react-redux";
-import { postDetail } from "store/post";
-
-const Home = () => {
+import InfinitScroll from "react-infinite-scroll-component";
+import NoResult from "../../components/Searching/NoResult";
+import PostList from "./PostList";
+import Filter from "../../components/Filter/Filter";
+// import { useSelector } from "react-redux";
+const Home = (props) => {
   const [postList, setPostList] = useState([]);
+  const [groupList, setGroupList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
+  const [noMore, setNoMore] = useState(true);
+  const [page, setPage] = useState(2);
+  let getParameter = props.location.search;
 
   useEffect(() => {
     async function getDataList() {
       try {
-        const response = await http.get("/api/posts");
-
+        const response = await http.get(
+          `/api/post/search${getParameter ? getParameter : "?"}&page=1`
+        );
         setPostList(response.data.data);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        if (getParameter) {
+          setIsLoading(false);
+        }
       }
     }
     getDataList();
+  }, [getParameter]);
+
+  useEffect(() => {
+    async function getGroupList() {
+      try {
+        const response = await http.get(`/api/groups`);
+        setGroupList(response.data);
+      } catch (err) {
+        console.warn(err.message);
+      }
+    }
+    getGroupList();
   }, []);
 
+  const fetchPosts = async () => {
+    const res = await http.get(
+      `/api/post/search${getParameter ? getParameter : "?q="}&page=${page}`
+    );
+    return res.data.data;
+  };
+  const fetchData = async () => {
+    const postServer = await fetchPosts();
+    setPostList([...postList, ...postServer]);
+    if (postServer.length === 0 || postServer.length < 5) {
+      setNoMore(false);
+    }
+    setPage(page + 1);
+  };
+
+  const posts = postList.map((post) => {
+    if (post.active === true) {
+      return <PostList key={post.id} post={post}></PostList>;
+    }
+  });
   return (
     <HomeLayout>
       <div className="container">
         <div className="row">
-          <div className="col-sm-8 col-md-8 col-lg-8">
+          <div className="col-sm-3 col-md-3 col-lg-3 ">
+            <Filter />
+          </div>
+          <div className="col-sm-6 col-md-6 col-lg-6">
             <div className="PostList">
               <div className="PostList__add">
                 <Link to="/post-creation">
@@ -44,38 +86,56 @@ const Home = () => {
               {isLoading ? (
                 <Loading visible={isLoading} />
               ) : (
-                postList.map((post) => {
-                  const formatDate = post.created_at.slice(0, 10).split("-");
-                  const datePost = `${formatDate[2]}-${formatDate[1]}-${formatDate[0]}`;
-
-                  const showPostDetail = () => {
-                    dispatch(postDetail(post));
-                  };
-
-                  return (
-                    <div className="PostList__form" key={post.id}>
-                      <div className="PostList__form__info-user">
-                        <div>
-                          <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
-                          <span>Nguyễn Dũng</span>
-                        </div>
-                        <div>{datePost}</div>
+                <InfinitScroll
+                  dataLength={postList.length}
+                  next={fetchData}
+                  hasMore={noMore}
+                  loader={
+                    <div className="text-center">
+                      <div
+                        className="spinner-grow text-light m-3 "
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
                       </div>
-                      <div className="PostList__form__info-post">
-                        <h5>{post.title}</h5>
-                        <p>Số lượng thành viên {post.members} người</p>
-                        <p>{post.content}</p>
+                      <div
+                        className="spinner-grow text-light m-3"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
                       </div>
-                      <div className="PostList__form__see-more">
-                        <Button onClick={showPostDetail}>Xem thêm</Button>
+                      <div
+                        className="spinner-grow text-light m-3"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
                       </div>
                     </div>
-                  );
-                })
+                  }
+                  endMessage=""
+                >
+                  {postList.length === 0 ? <NoResult /> : posts}
+                </InfinitScroll>
               )}
             </div>
           </div>
-          <div className="col-sm-4 col-md-4 col-lg-4 "></div>
+          <div className="col-sm-3 col-md-3 col-lg-3 ">
+            <div className="GroupList">
+              <div className="GroupList__title">Danh sách nhóm</div>
+              <div className="GroupList__list">
+                {groupList.map((group) => {
+                  return (
+                    <Link to={`/room-chat/` + group.id} key={group.id}>
+                      <div className="GroupList__list__team">
+                        <img src="https://img.timviec.com.vn/2020/04/team-la-gi-2.jpg" />
+                        <span>{group.name}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </HomeLayout>

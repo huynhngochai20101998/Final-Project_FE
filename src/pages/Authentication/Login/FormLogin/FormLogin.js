@@ -58,7 +58,7 @@ function FormLogin() {
           <label>Email</label>
           <input
             type="email"
-            className="form-control"
+            className="form-control text-white"
             placeholder="user@email.com"
             name="email"
             value={values.email}
@@ -71,7 +71,7 @@ function FormLogin() {
         <div className="login-form-group ">
           <label>Mật Khẩu</label>
           <input
-            className="input-password form-control"
+            className="input-password form-control text-white"
             type={isShowPassword ? "text" : "password"}
             name="password"
             id="password"

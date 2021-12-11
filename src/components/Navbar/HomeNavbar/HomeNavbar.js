@@ -1,23 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./HomeNavbar.scss";
-
 import Logo from "../../../assets/images/logo.svg";
 import LogoName from "../../../assets/images/name-lodo.svg";
 import IconLang from "../../../assets/icons/icon-lang.svg";
-import avatar from "../../../assets/images/user-avatar.png";
-import { useDispatch } from "react-redux";
-import { logout } from "store/user";
 import Searching from "components/Searching/Searching";
+import User from "./User/User";
 
 const HomeNabar = () => {
-  const userInfo = localStorage.getItem("user");
-  const dispatch = useDispatch();
-
-  const handelLogout = () => {
-    console.log("alo");
-    dispatch(logout());
-  };
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="home-navbar">
@@ -32,25 +23,7 @@ const HomeNabar = () => {
           <div className="">
             <img className="img" src={IconLang} alt="" />
           </div>
-          {userInfo ? (
-            <div className="home-user">
-              <div className="home-user__content">
-                <div className="user-img">
-                  <img src={avatar} alt="" className="img" />
-                </div>
-                <div className="name">
-                  <p>Dung</p>
-                </div>
-              </div>
-              <ul className="control">
-                <li className="control-item" onClick={handelLogout}>
-                  logout
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <ButtonAuth />
-          )}
+          {userInfo ? <User userInfo={userInfo} /> : <ButtonAuth />}
         </div>
       </div>
     </div>
@@ -59,7 +32,7 @@ const HomeNabar = () => {
 
 export const LogoIMG = () => {
   return (
-    <Link to="#" className="navbar-logo">
+    <Link to="/" className="navbar-logo">
       <img src={Logo} alt="" className="img" />
       <img src={LogoName} alt="" className="brand" />
     </Link>

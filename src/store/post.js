@@ -18,22 +18,7 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-const { setLoading } = slice.actions;
-
-export const addSchedule = (value) => async (dispatch) => {
-  try {
-    dispatch(setLoading({ loading: true }));
-
-    await http.post("/api/schedules", value);
-
-    dispatch(setLoading({ loading: false }));
-  } catch (e) {
-    dispatch(setLoading({ loading: false }));
-
-    pushToast("error", e.message);
-    console.log("error:", e);
-  }
-};
+export const { setLoading } = slice.actions;
 
 export const postDetail = (post) => async (dispatch) => {
   try {
@@ -50,24 +35,32 @@ export const postDetail = (post) => async (dispatch) => {
 
       window.location.href = "/post-details";
     } else {
-      pushToast("error", res.message);
+      pushToast("error", "Thất bại");
     }
   } catch (e) {
     dispatch(setLoading({ loading: false }));
-    pushToast("error", e.message);
-
-    return console.log("error", e.message);
+    pushToast("error", "Thất bại");
   }
 };
 
-export const createPost = () => (dispatch) => {
-  pushToast("success", "Hoàn tất tạo bài tìm người lập nhóm");
+export const createCompletionPost = () => (dispatch) => {
+  pushToast("success", "Hoàn tất");
 
   dispatch(setLoading({ loading: true }));
   setTimeout(() => {
-    localStorage.removeItem("postCreateId");
+    localStorage.removeItem("postCreationId");
 
     dispatch(setLoading({ loading: false }));
     window.location.href = "/home";
-  }, 3000);
+  }, 1500);
+};
+
+export const cancelCreatePost = () => () => {
+  window.location.href = "/home";
+};
+
+export const forwardPostDetail = (value) => () => {
+  const { slug, id } = value;
+
+  window.location.href = `/post-details/create-groups/${slug}.${id}`;
 };

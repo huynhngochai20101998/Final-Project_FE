@@ -19,13 +19,13 @@ function ShowHint(props) {
       typingTimeOutRef.current = setTimeout(() => {
         async function getTitle() {
           try {
-            const response = await http.get(`/api/search/${value}`);
-            const newlistTitle = response.data.map((item) => {
+            const response = await http.get(`/api/post/search?q=${value}`);
+            const newlistTitle = response.data.data.map((item) => {
               return item;
             });
             setListTitle(newlistTitle);
           } catch (err) {
-            console.log(err);
+            console.warn(err.message);
             setListTitle([]);
             setLogMessage("không tìm thấy");
           }
@@ -42,8 +42,9 @@ function ShowHint(props) {
 
         return () => {
           setListTitle([]);
+          setLogMessage("");
         };
-      }, 100);
+      }, 400);
     }
   }, [props.inputvalues.value]); //khi input thay đổi hàm effect thực thi
 

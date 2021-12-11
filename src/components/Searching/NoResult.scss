@@ -1,16 +1,21 @@
+@import "../../assets/scss/app.scss";
+
 #noResult{
     position: relative;
     width: 500px;
     height: 500px;
     top: 30%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
+    left: 6%;
+    margin-top: 40px;
+    margin-left: 0px;
     .noResult{
-        color: #ffff;
+        color: $color_white;
         position: absolute;
         left: 16%;
         margin-top: -10px;
         margin-left: -50px;
+        h2{
+            text-align: center;
+        }
     }
 }

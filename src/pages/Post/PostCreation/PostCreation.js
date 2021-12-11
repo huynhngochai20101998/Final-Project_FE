@@ -8,33 +8,36 @@ import {
   Label,
   Spinner
 } from "reactstrap";
-import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, FastField, ErrorMessage } from "formik";
 import "./PostCreation.scss";
 import InputField from "../custom-field/inputField";
 import http from "core/services/httpService";
-import Schedule from "../../../components/Post/Schedule/Schedule";
 import { useDispatch } from "react-redux";
-import { createPost } from "store/post";
+import { cancelCreatePost, createCompletionPost } from "store/post";
+import { pushToast } from "components/Toast";
+import ScheduleCreation from "components/Post/Schedule/ScheduleCreation";
 // import { pushToast } from "components/Toast";
+
 const PostCreation = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [topicList, setTopicList] = useState([]);
   const dispatch = useDispatch();
-  let history = useHistory();
+  const postCreation = true;
 
   useEffect(() => {
     async function getDataList() {
       try {
         const response = await http.get("/api/topics");
-        setTopicList(response.data);
+        setTopicList(response.data.data);
       } catch (err) {
-        console.log(err);
+        console.warn(err.message);
       }
     }
     getDataList();
   }, []);
+
+  // const postInfo = JSON.parse(localStorage.getItem("postInfo")) || {};
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bạn phải nhập tiêu đề bài viết"),
@@ -76,24 +79,32 @@ const PostCreation = () => {
                   ...values,
                   topic_id: Number(values.topic_id)
                 };
-                http.post("/api/posts", formatValue).then((res) => {
-                  localStorage.setItem("postCreateId", res.data.id);
+                http
+                  .post("/api/posts", formatValue)
+                  .then((res) => {
+                    localStorage.setItem(
+                      "postCreationId",
+                      JSON.stringify(res.data.id)
+                    );
 
-                  // pushToast("success", "Bạn đã đăng thành công");
-                  actions.setSubmitting(false);
-                  actions.resetForm({
-                    values: {
-                      title: "",
-                      topic_id: "",
-                      number_of_lessons: 1,
-                      members: 3,
-                      number_of_weeks: 1,
-                      content: ""
-                    }
+                    actions.setSubmitting(false);
+                    actions.resetForm({
+                      values: {
+                        title: formatValue.title,
+                        topic_id: formatValue.topic_id,
+                        number_of_lessons: formatValue.number_of_lessons,
+                        members: formatValue.members,
+                        number_of_weeks: formatValue.number_of_weeks,
+                        content: formatValue.content
+                      }
+                    });
+
+                    setIsLoading(!isLoading);
+                  })
+                  .catch((e) => {
+                    console.warn(e.message);
+                    pushToast("error", "Đã trùng tiêu đề");
                   });
-
-                  setIsLoading(!isLoading);
-                });
               }}
             >
               {(formikProps) => {
@@ -140,7 +151,6 @@ const PostCreation = () => {
                                   );
                                 })}
                               </Input>
-                              ;
                               <ErrorMessage
                                 name={"topic_id"}
                                 component={FormFeedback}
@@ -181,11 +191,11 @@ const PostCreation = () => {
                         <div className="PostCreate__form__button">
                           <Button
                             type="reset"
-                            onClick={() => history.push("/")}
+                            onClick={() => dispatch(cancelCreatePost())}
                           >
                             Hủy
                           </Button>
-                          <Button type="submit">Tiếp tục</Button>
+                          <Button type="submit">Đăng Bài</Button>
                         </div>
                       </>
                     ) : (
@@ -193,18 +203,19 @@ const PostCreation = () => {
                         <div className="PostCreate__form__content">
                           <Label for="exampleSelect">Thời gian rảnh</Label>
                           <div className="PostCreate__form__content-chedule">
-                            <Schedule />
+                            <ScheduleCreation postCreation={postCreation} />
                           </div>
                           <div className="PostCreate__form__button">
-                            <Button
+                            {/* <Button
                               type="reset"
                               onClick={() => setIsLoading(!isLoading)}
                             >
                               Quay lại
-                            </Button>
+                            </Button> */}
                             <Button
+                              className="bg-info btn text-white"
                               onClick={() => {
-                                dispatch(createPost());
+                                dispatch(createCompletionPost());
                               }}
                             >
                               {isSubmitting && (
