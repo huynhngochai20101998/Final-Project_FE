@@ -5,6 +5,7 @@
     .info-user {
         border-bottom: 1px solid $color_gray;
         margin-bottom: 20px;
+        padding: 20px;
 
         .col {
             margin-top: 20px;
@@ -13,16 +14,20 @@
 
         .col-md-3 {
             .user-avatar {
+                display: flex;
+                justify-content: center;
                 img {
                     width: 200px;
                     height: 200px;
                     border-radius: 50%;
+                    align-items: center;
+                    transform: translateY(30px);
                 }
             }
         }
         .col-md-9 {
             .detail-user {
-                margin-bottom: 10px;
+                // margin-bottom: 10px;
 
                 h2,
                 h5 {
@@ -38,15 +43,28 @@
                 p {
                     color: $color_white;
                     font-weight: 300;
+                    // text-rendering: optimizeLegibility;
+                }
+
+                .text-cap {
+                    text-transform: capitalize;
                 }
 
                 .btn-edit-profile {
                     background-color: $color_text_blue;
+                    padding: 5px 10px;
+                    border-radius: 10px;
+                    cursor: pointer;
                     font-size: 16px;
-                    margin-top: 25px;
+                    margin-left: 10px;
+                    // margin-top: 25px;
+
+                    &:hover{
+                        background-color: $sencond_color_hover;
+                    }
 
                     &-icon {
-                        color: $color_white;
+                        color: $color_black;
                     }
                     span {
                         display: inline-block;
@@ -54,6 +72,14 @@
                         padding-left: 10px;
                     }
                 }
+            }
+
+            .detail-header{
+                margin-bottom: 20px;
+            }
+
+            .detail-footer {
+                max-width: 650px;
             }
         }
     }
