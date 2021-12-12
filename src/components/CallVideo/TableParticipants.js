@@ -22,7 +22,7 @@ function TableScreen({ id, getroom }) {
         const response = await http.get(`/api/groups/${id}`);
         setUserName(response.data.user_name);
         setRoomName(response.data.group_name);
-        getMedia(response.data.token);
+        handleConnectRoom(response.data.token);
       } catch (err) {
         // history.push("/login");
         console.warn(err.message);
@@ -80,20 +80,20 @@ function TableScreen({ id, getroom }) {
     }
   }, [room]);
 
-  async function getMedia(data) {
-    try {
-      await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      });
-      handleConnectRoom(data);
-    } catch (err) {
-      setIsLoading(true);
-      alert(
-        "room yêu cầu quyền truy cập vào máy ảnh và micrô của bạn. Hãy nhấp vào biểu tượng máy ảnh bị chặn trong thanh địa chỉ của trình duyệt"
-      );
-    }
-  }
+  // async function getMedia(data) {x
+  //   try {
+  //     await navigator.mediaDevices.getUserMedia({
+  //       video: true,
+  //       audio: true
+  //     });
+  //   } catch (err) {
+  //     // setIsLoading(true);
+  //     // alert(
+  //     //   "room yêu cầu quyền truy cập vào máy ảnh và micrô của bạn. Hãy nhấp vào biểu tượng máy ảnh bị chặn trong thanh địa chỉ của trình duyệt"
+  //     // );
+  //     console.warn(err?.message);
+  //   }
+  // }
 
   const remoteParticipants = participants.map((participant) => (
     <li key={participant.sid}>

@@ -11,7 +11,8 @@ export default function Message(props) {
   const [messageList, setMessageList] = useState([]);
   const [isLoadingMess, setIsLoadingMess] = useState(true);
   // const [isJoined, setIsJoined] = useState(false);
-  const socket = io("http://localhost:5000");
+  // eslint-disable-next-line no-undef
+  const socket = io(process.env.CHAT_SOCKET_URL);
 
   useEffect(() => {
     socket.on("room-list", () => {});
