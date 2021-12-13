@@ -1,12 +1,15 @@
 import { React, useState, useEffect } from "react";
 import http from "core/services/httpService";
-import Video from "twilio-video";
+import { connect } from "twilio-video";
 import { useHistory } from "react-router-dom";
 import Participant from "./Participant";
 import "./TableParticipants.scss";
 import Loading from "components/Loading/Loading";
 
 function TableScreen({ id, getroom }) {
+  const [video, setVideo] = useState(true);
+  const [audio, setAudio] = useState(true);
+  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useState("");
   const [roomName, setRoomName] = useState("");
@@ -22,7 +25,9 @@ function TableScreen({ id, getroom }) {
         const response = await http.get(`/api/groups/${id}`);
         setUserName(response.data.user_name);
         setRoomName(response.data.group_name);
-        handleConnectRoom(response.data.token);
+        setToken(response.data.token);
+        getVideoMedia();
+        getAudioMedia();
       } catch (err) {
         // history.push("/login");
         console.warn(err.message);
@@ -36,9 +41,11 @@ function TableScreen({ id, getroom }) {
     };
   }, []);
 
-  const handleConnectRoom = (token) => {
-    Video.connect(token, {
-      name: roomName
+  const handleConnectRoom = (isTurnVideo, isTurnAudio) => {
+    connect(token, {
+      audio: isTurnAudio,
+      name: roomName,
+      video: isTurnVideo
     })
       .then((room) => {
         setRoom(room);
@@ -47,6 +54,7 @@ function TableScreen({ id, getroom }) {
       .catch((err) => {
         setIsLoading(false);
         console.error(err);
+        console.log("");
       });
   };
 
@@ -80,6 +88,37 @@ function TableScreen({ id, getroom }) {
     }
   }, [room]);
 
+  async function getVideoMedia() {
+    try {
+      await navigator.mediaDevices.getUserMedia({
+        video: true
+      });
+      const turnOnVideo = true;
+      setVideo(turnOnVideo);
+    } catch (err) {
+      const turnOffVideo = false;
+      setVideo(turnOffVideo);
+      alert(
+        "Máy ảnh của bạn đã bị tắt hãy bật máy ảnh để hiển thị video của bạn."
+      );
+    }
+  }
+
+  async function getAudioMedia() {
+    try {
+      await navigator.mediaDevices.getUserMedia({
+        audio: true
+      });
+      const turnOnAudio = true;
+      setAudio(turnOnAudio);
+    } catch (err) {
+      const turnOffAudio = false;
+      setAudio(turnOffAudio);
+      alert(
+        "Micro của bạn đã bị tắt hãy bật micro để ghi âm âm thanh của bạn."
+      );
+    }
+  }
   // async function getMedia(data) {x
   //   try {
   //     await navigator.mediaDevices.getUserMedia({
@@ -94,6 +133,10 @@ function TableScreen({ id, getroom }) {
   //     console.warn(err?.message);
   //   }
   // }
+
+  useEffect(() => {
+    handleConnectRoom(video, audio);
+  }, [video, audio, roomName, token]);
 
   const remoteParticipants = participants.map((participant) => (
     <li key={participant.sid}>
