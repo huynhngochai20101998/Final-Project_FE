@@ -2,6 +2,7 @@ import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { setLoading } from "store/post";
 
 import "./Sell.scss";
@@ -11,6 +12,7 @@ const styleCheckbox = {
 };
 
 const SellValue = (props) => {
+  const path = useParams();
   const dispatch = useDispatch();
   const [valueSchedule, setValueSchedule] = useState(true);
   const [checkSuccess, setCheckSuccess] = useState(false);
@@ -34,7 +36,7 @@ const SellValue = (props) => {
   });
 
   const valueSell = {
-    post_id: JSON.parse(localStorage.getItem("postCreationId")),
+    post_id: path.id,
     day_id: props.dayID,
     time_id: props.timeID,
     value: valueSchedule
@@ -59,7 +61,7 @@ const SellValue = (props) => {
       }
     } catch (e) {
       setCheckSuccess(false);
-      pushToast("error", "Trùng thời gian!");
+      pushToast("error", "Thất bại!");
     }
 
     // dispatch(addSchedule(valueSell));

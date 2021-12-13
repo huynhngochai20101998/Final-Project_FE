@@ -41,8 +41,8 @@ function TableScreen({ id, getroom }) {
     };
   }, []);
 
-  const handleConnectRoom = async (isTurnVideo, isTurnAudio) => {
-    await connect(token, {
+  const handleConnectRoom = (isTurnVideo, isTurnAudio) => {
+    connect(token, {
       audio: isTurnAudio,
       name: roomName,
       video: isTurnVideo
@@ -119,10 +119,24 @@ function TableScreen({ id, getroom }) {
       );
     }
   }
+  // async function getMedia(data) {x
+  //   try {
+  //     await navigator.mediaDevices.getUserMedia({
+  //       video: true,
+  //       audio: true
+  //     });
+  //   } catch (err) {
+  //     // setIsLoading(true);
+  //     // alert(
+  //     //   "room yêu cầu quyền truy cập vào máy ảnh và micrô của bạn. Hãy nhấp vào biểu tượng máy ảnh bị chặn trong thanh địa chỉ của trình duyệt"
+  //     // );
+  //     console.warn(err?.message);
+  //   }
+  // }
 
   useEffect(() => {
     handleConnectRoom(video, audio);
-  }, [video, audio]);
+  }, [video, audio, roomName, token]);
 
   const remoteParticipants = participants.map((participant) => (
     <li key={participant.sid}>
