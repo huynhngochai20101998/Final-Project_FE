@@ -104,6 +104,57 @@
           margin-top: 4px;
           width: 20px;
         }
+
+        .dots{
+          cursor: pointer;
+          height: 40px;
+          width: 40px;
+          padding: 5px;
+          border-radius: 50%;
+          transition: 0.5s;
+          position: relative;
+
+          .dots-icon {
+            font-size: 20px;
+            margin-top: 4px;
+            width: 20px;
+            color: $color_white;
+          }
+
+          .option-manager{
+            background-color: #51546e;
+            position: absolute;
+            top: 32px;
+            border-radius: 10px;
+            min-width: 100px;
+            padding: 0;
+            box-shadow: 0px 0px 20px #51546e;
+
+            li{
+              text-align: center;
+              padding: 5px 10px;
+
+              &:hover{
+                background-color: $color_blue;
+                border-radius: 10px;
+              }
+
+              a{
+                color: $color_white;
+                text-decoration: none;
+              }
+
+              span{
+                color: $color_white;
+              }
+            }
+          }
+
+          &:hover {
+            background-color: $bg_login_title;
+            transition: 0.5s;
+          }
+        }
       }
     }
 
