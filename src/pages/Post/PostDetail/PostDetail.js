@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 
 import IconVote from "../../../assets/icons/vote-star.svg";
-
+import { useHistory } from "react-router-dom";
 import "./PostDetail.scss";
 import Schedule from "../../../components/Post/Schedule/Schedule";
 import { createCompletionPost, forwardPostDetail } from "store/post";
@@ -12,7 +12,6 @@ import { useParams } from "react-router";
 import http from "core/services/httpService";
 import Commenting from "components/Post/Commenting/Commenting";
 import Loading from "components/Loading/Loading";
-
 const PostDetail = () => {
   const [report, setReport] = useState(false);
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ const PostDetail = () => {
   const path = useParams();
   const userIdPost = postCurrent.user_id;
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
-
+  const history = useHistory();
   useEffect(async () => {
     await http.get(`/api/posts/${path.id}`).then((res) => {
       setPostCurrent(res.data);
@@ -45,6 +44,17 @@ const PostDetail = () => {
   }, []);
   let myPost = false;
   userIdPost == userId ? (myPost = true) : (myPost = false);
+
+  const handleDelete = () => {
+    http
+      .delete(`api/posts/${path.id}`)
+      .then(() => {
+        history.goBack();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <HomeLayout>
@@ -95,6 +105,18 @@ const PostDetail = () => {
                       {/* {postCurrent.rating} */}3
                     </div>
                   </div>
+                  {userId === userIdPost ? (
+                    <div className="dots d-flex flex-row justify-content-center align-items-center">
+                      <div className="dots-icon d-flex flex-row justify-content-center align-items-center">
+                        <i
+                          className="fas fa-trash-alt icon mx-2"
+                          onClick={handleDelete}
+                        ></i>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="post-detail__body d-flex flex-column justify-content-center ">

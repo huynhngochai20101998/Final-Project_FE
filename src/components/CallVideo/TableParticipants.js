@@ -54,7 +54,6 @@ function TableScreen({ id, getroom }) {
       .catch((err) => {
         setIsLoading(false);
         console.error(err);
-        console.log("");
       });
   };
 
@@ -145,30 +144,42 @@ function TableScreen({ id, getroom }) {
   ));
 
   const toggleAudio = () => {
-    if (isEnableAudio) {
-      room.localParticipant.audioTracks.forEach((publication) => {
-        publication.track.disable();
-      });
-      setIsEnableAudio(false);
+    if (audio) {
+      if (isEnableAudio) {
+        room.localParticipant.audioTracks.forEach((publication) => {
+          publication.track.disable();
+        });
+        setIsEnableAudio(false);
+      } else {
+        room.localParticipant.audioTracks.forEach((publication) => {
+          publication.track.enable();
+        });
+        setIsEnableAudio(true);
+      }
     } else {
-      room.localParticipant.audioTracks.forEach((publication) => {
-        publication.track.enable();
-      });
-      setIsEnableAudio(true);
+      alert(
+        "Micro của bạn đã bị tắt hãy bật micro để ghi âm âm thanh của bạn."
+      );
     }
   };
 
   const toggleVideo = () => {
-    if (isEnableVideo) {
-      room.localParticipant.videoTracks.forEach((publication) => {
-        publication.track.disable();
-      });
-      setIsEnableVideo(false);
+    if (video) {
+      if (isEnableVideo) {
+        room.localParticipant.videoTracks.forEach((publication) => {
+          publication.track.disable();
+        });
+        setIsEnableVideo(false);
+      } else {
+        room.localParticipant.videoTracks.forEach((publication) => {
+          publication.track.enable();
+        });
+        setIsEnableVideo(true);
+      }
     } else {
-      room.localParticipant.videoTracks.forEach((publication) => {
-        publication.track.enable();
-      });
-      setIsEnableVideo(true);
+      alert(
+        "Máy ảnh của bạn đã bị tắt hãy bật máy ảnh để hiển thị video của bạn."
+      );
     }
   };
 

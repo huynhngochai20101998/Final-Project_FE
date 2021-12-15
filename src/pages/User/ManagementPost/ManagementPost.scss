@@ -13,15 +13,21 @@
         }
 
         .col-md-3 {
+            position: relative;
+
             .user-avatar {
+                width: 100%;
                 display: flex;
                 justify-content: center;
+                margin: 0;
+                position: absolute;
+                top: 0;
+
                 img {
                     width: 200px;
                     height: 200px;
                     border-radius: 50%;
                     align-items: center;
-                    transform: translateY(30px);
                 }
             }
         }
