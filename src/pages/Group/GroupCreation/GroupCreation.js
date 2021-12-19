@@ -31,6 +31,7 @@ const GroupCreation = () => {
         dispatch(setLoading({ loading: false }));
 
         setMyPostDetail(res.data);
+        console.log(res.data);
 
         setRegisterMember(res.data.registered_members);
 
@@ -66,7 +67,7 @@ const GroupCreation = () => {
                   <img src={myInfor.profile_image_url} alt="" className="img" />
                 </div>
                 <div className="user-name">
-                  <p className="text m-0 p-0">{`Tamaumi KIS` || ""}</p>
+                  <p className="text m-0 p-0">{`${myPostDetail?.first_name} ${myPostDetail?.last_name}`}</p>
                   <p className="text-white tr">
                     {moment(myPostDetail?.created_at || "").format(
                       "DD/MM/YYYY"
