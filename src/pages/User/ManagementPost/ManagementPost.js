@@ -123,7 +123,7 @@ function ManagementInfo() {
       </div>
     );
   });
-  console.log(userInfo.posts.length);
+
   return (
     <HomeLayout>
       <Loading visible={isLoading} />

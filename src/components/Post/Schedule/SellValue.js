@@ -55,7 +55,6 @@ export const RenderSellRoleUser = (props) => {
 
   const [valueSchedule, setValueSchedule] = useState(true);
   const [checkSuccess, setCheckSuccess] = useState(false);
-  const [idSchedule, setIdSchedule] = useState();
 
   // eslint-disable-next-line no-unused-vars
 
@@ -84,7 +83,6 @@ export const RenderSellRoleUser = (props) => {
 
   userSchedule?.map((item) => {
     if (item?.day_id == dayID && item?.time_id == timeID) {
-      console.log("item", item?.day_id, item?.time_id);
       userChecked = true;
     }
   });
@@ -96,11 +94,11 @@ export const RenderSellRoleUser = (props) => {
       dispatch(setLoading({ loading: true }));
 
       const res = await http.post("/api/schedules", valueSell);
+
       dispatch(setLoading({ loading: false }));
 
       if (res.success) {
         setCheckSuccess(true);
-        setIdSchedule(res.data.id);
         pushToast("success", "Thêm lịch thành công");
       } else {
         setCheckSuccess(false);
@@ -116,16 +114,26 @@ export const RenderSellRoleUser = (props) => {
 
   const deleteCheck = async () => {
     try {
-      if (checkSuccess) {
-        const res = await http.delete(`/api/schedules/${idSchedule}`);
+      if (checkSuccess || userChecked) {
+        dispatch(setLoading({ loading: true }));
+
+        const res = await http.post(`/api/schedule/delete`, {
+          post_id: path.id,
+          time_id: timeID,
+          day_id: dayID
+        });
+
+        dispatch(setLoading({ loading: false }));
+
         if (res.success) {
           setCheckSuccess(false);
+          userChecked = false;
           pushToast("success", "xoa lich thanh cong");
         }
       }
     } catch (e) {
       setCheckSuccess(checkSuccess);
-      pushToast("warn", "thất bại");
+      pushToast("error", "thất bại");
     }
   };
 
@@ -141,7 +149,7 @@ export const RenderSellRoleUser = (props) => {
         id="scheduleCheckbox"
         disabled={disable}
         checked={userChecked || checkSuccess ? true : false}
-        onClick={checkSuccess ? deleteCheck : clickCheckBox}
+        onClick={checkSuccess || userChecked ? deleteCheck : clickCheckBox}
         onChange={() => {}}
       />
     </div>
@@ -154,7 +162,6 @@ export const RenderSellRoleCreator = (props) => {
 
   const [valueSchedule, setValueSchedule] = useState(true);
   const [checkSuccess, setCheckSuccess] = useState(false);
-  const [idSchedule, setIdSchedule] = useState();
 
   const myPost = props.myPost;
   const style = props.style;
@@ -162,7 +169,7 @@ export const RenderSellRoleCreator = (props) => {
   const dayID = props.dayID;
   const timeID = props.timeID;
 
-  let checkCreator = false;
+  let [checkCreator, setCheckCreator] = useState(false);
 
   const valueSell = {
     post_id: path.id,
@@ -188,7 +195,6 @@ export const RenderSellRoleCreator = (props) => {
 
       if (res.success) {
         setCheckSuccess(true);
-        setIdSchedule(res.data.id);
         pushToast("success", "Thêm lịch thành công");
       } else {
         setCheckSuccess(false);
@@ -204,10 +210,16 @@ export const RenderSellRoleCreator = (props) => {
 
   const deleteCheck = async () => {
     try {
-      if (checkSuccess) {
-        const res = await http.delete(`/api/schedules/${idSchedule}`);
+      if (checkSuccess || checkSuccess) {
+        const res = await http.post(`/api/schedule/delete`, {
+          post_id: path.id,
+          time_id: timeID,
+          day_id: dayID
+        });
+
         if (res.success) {
           setCheckSuccess(false);
+          setCheckCreator(false);
           pushToast("success", "xoa lich thanh cong");
         }
       }

@@ -56,8 +56,10 @@ const PostDetail = () => {
       .then(() => {
         history.goBack();
       })
+
+      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
-        console.log(error);
+        return null;
       });
   };
 
