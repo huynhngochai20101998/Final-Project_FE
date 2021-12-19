@@ -31,7 +31,6 @@ const GroupCreation = () => {
         dispatch(setLoading({ loading: false }));
 
         setMyPostDetail(res.data);
-        console.log(res.data);
 
         setRegisterMember(res.data.registered_members);
 
