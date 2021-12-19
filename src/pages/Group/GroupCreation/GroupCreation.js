@@ -128,7 +128,7 @@ const GroupCreation = () => {
               {listMember}
             </div>
             <div className="schedule">
-              <Schedule onDisable={true} />
+              <Schedule myPost={true} onDisable={true} />
             </div>
             <div className="box-btn">
               <div
