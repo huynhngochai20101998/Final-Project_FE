@@ -93,6 +93,7 @@ const MyProfile = () => {
                 avatar: "",
                 profile_image_url: ""
               }}
+              enableReinitialize
               validationSchema={validationSchema}
               onSubmit={async (values) => {
                 const formatValue = {
