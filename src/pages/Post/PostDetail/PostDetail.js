@@ -3,7 +3,7 @@ import HomeLayout from "layout/HomeLayout/HomeLayout";
 import IconVote from "../../../assets/icons/vote-star.svg";
 import "./PostDetail.scss";
 import Schedule from "../../../components/Post/Schedule/Schedule";
-import { createCompletionPost, forwardPostDetail } from "store/post";
+import { createCompletionPost } from "store/post";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useParams } from "react-router";
@@ -12,15 +12,18 @@ import Commenting from "components/Post/Commenting/Commenting";
 import Loading from "components/Loading/Loading";
 import Modal from "./Modal.js";
 const PostDetail = () => {
-  const [report, setReport] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const dispatch = useDispatch();
+  const path = useParams();
+
   const [isLoading, setIsLoading] = useState(true);
   const [userPost, setUserPost] = useState({});
   const [topic, setTopic] = useState();
-  // const myInfor = JSON.parse(localStorage.getItem("user"));
+  const [report, setReport] = useState(false);
   const [postCurrent, setPostCurrent] = useState({});
-  const path = useParams();
+  const [myPost, setMyPost] = useState(false);
+  // const myInfor = JSON.parse(localStorage.getItem("user"));
+
   const userIdPost = postCurrent.user_id;
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
 
@@ -29,6 +32,10 @@ const PostDetail = () => {
       setPostCurrent(res.data);
 
       if (res.success) {
+        if (res.data?.user_id == userId) {
+          setMyPost(true);
+        }
+
         http.get(`/api/profile/user/${res?.data?.user_id}`).then((resB) => {
           setUserPost(resB?.data);
         });
@@ -42,8 +49,6 @@ const PostDetail = () => {
       setIsLoading(!isLoading);
     });
   }, []);
-  let myPost = false;
-  userIdPost == userId ? (myPost = true) : (myPost = false);
 
   const logConfirmDelete = () => {
     setIsDelete(true);
@@ -138,9 +143,9 @@ const PostDetail = () => {
                     <span
                       className="next-step"
                       onClick={() => {
-                        const slug = path.slug;
-                        const id = postCurrent.id;
-                        dispatch(forwardPostDetail({ slug, id }));
+                        history.push(
+                          `/post-details/create-groups/${path.slug}.${postCurrent.id}`
+                        );
                       }}
                     >
                       <i className="fas fa-arrow-right fs-3 text-info icon-next"></i>

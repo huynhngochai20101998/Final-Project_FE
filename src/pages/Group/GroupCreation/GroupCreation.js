@@ -14,13 +14,14 @@ import { createGroup } from "store/group";
 
 const GroupCreation = () => {
   const dispatch = useDispatch();
+  const path = useParams();
+
   const [myPostDetail, setMyPostDetail] = useState();
   const [registerMember, setRegisterMember] = useState([]);
   const [nameGroup, setNameGroup] = useState();
 
   const myInfor = JSON.parse(localStorage.getItem("user"));
 
-  const path = useParams();
   useEffect(() => {
     async function getPostDetail() {
       try {
@@ -128,7 +129,11 @@ const GroupCreation = () => {
               {listMember}
             </div>
             <div className="schedule">
-              <Schedule onDisable={true} />
+              <Schedule
+                myPost={true}
+                userIdPost={myPostDetail?.user_id}
+                onDisable={true}
+              />
             </div>
             <div className="box-btn">
               <div

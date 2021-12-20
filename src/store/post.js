@@ -58,9 +58,3 @@ export const createCompletionPost = () => (dispatch) => {
 export const cancelCreatePost = () => () => {
   window.location.href = "/home";
 };
-
-export const forwardPostDetail = (value) => () => {
-  const { slug, id } = value;
-
-  window.location.href = `/post-details/create-groups/${slug}.${id}`;
-};
