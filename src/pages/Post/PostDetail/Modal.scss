@@ -26,17 +26,17 @@
             background-color: $bg_login_title;
     
             .modal-header{
-                background-color: #3f4156;
+                background-color: $bg_login_form;
                 h5{
                     font-weight: bold;
                     font-size: 20px;
-                    color: #fff;
+                    color: $color_white;
                 }
             }
     
             .modal-body{
                 font-size: 18px;
-                color: #fff;
+                color: $color_white;
             }
     
             .modal-footer{
