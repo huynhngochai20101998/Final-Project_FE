@@ -1,0 +1,47 @@
+@import "../../../assets/scss/app.scss";
+
+.modal-container{
+    .active{
+        position: fixed; /* Sit on top of the page content */
+     /* Full width (cover the whole page) */
+     /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+        z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+        cursor: pointer; /* Add a pointer on hover */
+    }
+    
+    .modal-dialog{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0!important;
+        max-width: 400px;
+
+        .modal-content{
+            background-color: $bg_login_title;
+    
+            .modal-header{
+                background-color: $bg_login_form;
+                h5{
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: $color_white;
+                }
+            }
+    
+            .modal-body{
+                font-size: 18px;
+                color: $color_white;
+            }
+    
+            .modal-footer{
+                border-top: none;
+            }
+        }
+    }
+}

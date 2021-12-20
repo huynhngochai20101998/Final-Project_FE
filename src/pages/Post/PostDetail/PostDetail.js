@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HomeLayout from "layout/HomeLayout/HomeLayout";
 import IconVote from "../../../assets/icons/vote-star.svg";
-import { useHistory } from "react-router-dom";
 import "./PostDetail.scss";
 import Schedule from "../../../components/Post/Schedule/Schedule";
 import { createCompletionPost } from "store/post";
@@ -11,10 +10,11 @@ import { useParams } from "react-router";
 import http from "core/services/httpService";
 import Commenting from "components/Post/Commenting/Commenting";
 import Loading from "components/Loading/Loading";
+import Modal from "./Modal.js";
 const PostDetail = () => {
+  const [isDelete, setIsDelete] = useState(false);
   const dispatch = useDispatch();
   const path = useParams();
-  const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(true);
   const [userPost, setUserPost] = useState({});
@@ -50,22 +50,18 @@ const PostDetail = () => {
     });
   }, []);
 
-  const handleDelete = () => {
-    http
-      .delete(`api/posts/${path.id}`)
-      .then(() => {
-        history.goBack();
-      })
+  const logConfirmDelete = () => {
+    setIsDelete(true);
+  };
 
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        return null;
-      });
+  const isConfirm = () => {
+    setIsDelete(false);
   };
 
   return (
     <HomeLayout>
       <div className="post-detail-container">
+        {isDelete ? <Modal pathId={path.id} isConfirm={isConfirm}></Modal> : ""}
         {isLoading ? (
           <Loading visible={isLoading} />
         ) : (
@@ -113,12 +109,12 @@ const PostDetail = () => {
                     </div>
                   </div>
                   {userId === userIdPost ? (
-                    <div className="dots d-flex flex-row justify-content-center align-items-center">
+                    <div
+                      className="dots d-flex flex-row justify-content-center align-items-center"
+                      onClick={logConfirmDelete}
+                    >
                       <div className="dots-icon d-flex flex-row justify-content-center align-items-center">
-                        <i
-                          className="fas fa-trash-alt icon mx-2"
-                          onClick={handleDelete}
-                        ></i>
+                        <i className="fas fa-trash-alt icon mx-2"></i>
                       </div>
                     </div>
                   ) : (
