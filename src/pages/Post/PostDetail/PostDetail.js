@@ -11,11 +11,14 @@ import http from "core/services/httpService";
 import Commenting from "components/Post/Commenting/Commenting";
 import Loading from "components/Loading/Loading";
 import Modal from "./Modal.js";
+import { useHistory } from "react-router-dom";
+
 const PostDetail = () => {
-  const [isDelete, setIsDelete] = useState(false);
+  const history = useHistory();
   const dispatch = useDispatch();
   const path = useParams();
 
+  const [isDelete, setIsDelete] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [userPost, setUserPost] = useState({});
   const [topic, setTopic] = useState();

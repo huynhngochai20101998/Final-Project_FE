@@ -12,7 +12,7 @@ export default function Message(props) {
   const [isLoadingMess, setIsLoadingMess] = useState(true);
   // const [isJoined, setIsJoined] = useState(false);
   // eslint-disable-next-line no-undef
-  const socket = io(process.env.CHAT_SOCKET_URL);
+  const socket = io("https://mysterious-earth-27243.herokuapp.com/");
 
   useEffect(() => {
     socket.on("room-list", () => {});
