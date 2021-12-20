@@ -64,12 +64,7 @@ const MyProfile = () => {
     }
   }, []);
 
-  const validationSchema = Yup.object().shape({
-    first_name: Yup.string().required("Bạn phải nhập lại họ"),
-    last_name: Yup.string().required("Bạn phải nhập lại tên"),
-    // birthday: Yup.string().required("Bạn phải nhập sinh nhật"),
-    school: Yup.string().required("Bạn phải nhập lại tên trường")
-  });
+  const validationSchema = Yup.object().shape({});
 
   return (
     <HomeLayout>
@@ -120,7 +115,7 @@ const MyProfile = () => {
                 dispatch(updateProfile(formatValue));
               }}
             >
-              {({ values, errors, touched, handleChange, handleBlur }) => (
+              {({ values, handleChange, handleBlur }) => (
                 <Form>
                   <div className="profile-body-top row g-0">
                     <div className="avatar col-sm-4 col-md-4 col-lg-4">
@@ -173,11 +168,6 @@ const MyProfile = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
-                          <div className="error">
-                            {errors.first_name && touched.first_name
-                              ? errors.first_name
-                              : ""}
-                          </div>
                         </FormGroup>
                         <FormGroup className="lastname">
                           <Label for="last_name" className="lastname-lable">
@@ -192,11 +182,6 @@ const MyProfile = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
-                          <div className="error">
-                            {errors.last_name && touched.last_name
-                              ? errors.last_name
-                              : ""}
-                          </div>
                         </FormGroup>
                         <div className="radio-button-gender">
                           <FormGroup check className="radio">
@@ -271,11 +256,6 @@ const MyProfile = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
-                          <div className="error">
-                            {errors.school && touched.school
-                              ? errors.school
-                              : ""}
-                          </div>
                         </FormGroup>
                         <FormGroup className="lastname input-full">
                           <Label for="email" className="lastname-lable">
