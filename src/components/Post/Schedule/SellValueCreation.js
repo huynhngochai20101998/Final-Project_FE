@@ -38,6 +38,7 @@ const SellValueCreation = (props) => {
         pushToast("error", "Vượt Quá Số khung giờ!");
       }
     } catch (e) {
+      dispatch(setLoading({ loading: false }));
       setCheckSuccess(false);
       pushToast("error", "Thất bại!");
     }
@@ -64,13 +65,10 @@ const SellValueCreation = (props) => {
         }
       }
     } catch (e) {
+      dispatch(setLoading({ loading: false }));
       pushToast("warn", "thất bại");
     }
   };
-
-  // const chonDetails = (input) => {
-  //   if()
-  // };
 
   return (
     <div className="sell" style={props.style}>

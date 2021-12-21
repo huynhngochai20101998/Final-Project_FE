@@ -207,7 +207,7 @@ function TableScreen({ id, getroom }) {
   return (
     <div className="container-screen">
       {room ? (
-        <ul className="local-participant">
+        <ul className="local-participant d-flex justify-content-center flex-wrap">
           <li>
             <Participant
               key={room.localParticipant.sid}

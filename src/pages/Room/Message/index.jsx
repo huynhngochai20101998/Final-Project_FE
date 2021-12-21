@@ -71,7 +71,7 @@ export default function Message(props) {
           return (
             <div className="Message__body__title" key={mess.message.id}>
               <div className="Message__body__title__user">
-                <img src="https://via.placeholder.com/256x186?fbclid=IwAR18p3QwgMQ0wYEmlIqxKZFbDBTFAhNZD8R4VyH6DxWdI6GULxDei-7L87M" />
+                <img src={mess.message.user.profile_image_url} />
                 <span>
                   {mess.message.user.last_name} {mess.message.user.first_name}
                 </span>
