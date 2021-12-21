@@ -57,7 +57,6 @@ export const RenderSellRoleUser = (props) => {
   const [checkSuccess, setCheckSuccess] = useState(false);
 
   // eslint-disable-next-line no-unused-vars
-
   const checkedCreator = props.checkedCreator;
   const dayID = props.dayID;
   const timeID = props.timeID;
@@ -99,6 +98,7 @@ export const RenderSellRoleUser = (props) => {
 
       if (res.success) {
         setCheckSuccess(true);
+
         pushToast("success", "Thêm lịch thành công");
       } else {
         setCheckSuccess(false);
@@ -128,6 +128,8 @@ export const RenderSellRoleUser = (props) => {
         if (res.success) {
           setCheckSuccess(false);
           userChecked = false;
+
+          console.log("delete", userChecked, checkSuccess);
           pushToast("success", "xoa lich thanh cong");
         }
       }
@@ -148,7 +150,7 @@ export const RenderSellRoleUser = (props) => {
         type="checkbox"
         id="scheduleCheckbox"
         disabled={disable}
-        checked={userChecked || checkSuccess ? true : false}
+        checked={checkSuccess || userChecked ? true : false}
         onClick={checkSuccess || userChecked ? deleteCheck : clickCheckBox}
         onChange={() => {}}
       />
